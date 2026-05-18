@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.tmp-*
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# Node（如果将来引入）
+node_modules/
+
+# 旧 AI 助手留下的 Chrome 调试缓存（巨大）
+dist/chrome-debug/
+
+# 旧 AI 助手解 PPT 的中间产物（已被客户真实截图取代，不再需要）
+website/assets/ppt/
+website/assets/showcase/
+website/assets/research/
+website_old/assets/ppt/
+website_old/assets/showcase/
+website_old/assets/research/
+
+# 但保留 dist 里其它文件
+!dist/.gitkeep
+
+# 部署 .env（含本地配置，可能不该入库 —— 但 .env.example 保留）
+deploy/.env
+
+# leads 表单数据（运行时生成，不入库）
+database/leads.xlsx
+database/leads.json
+
+# 临时构建产物（构建脚本本身保留，预览文件夹按需保留）
+# effect-preview/  ← 暂时保留可发客户，下阶段删

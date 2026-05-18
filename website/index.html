@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="智优康赛（AIconcepts）国内顶尖 GEO 战略服务商。依托自研技术底座与百人专家智库，为大型企业构建 AI 时代的算法信任资产。" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <title>智优康赛 AIconcepts - 国内顶尖 GEO 战略服务商</title>
+
+  <link rel="stylesheet" href="assets/css/tokens.css" />
+  <link rel="stylesheet" href="assets/css/index.css" />
+</head>
+<body>
+
+  <!-- ========== Header 顶栏 ========== -->
+  <header class="site-header" role="banner">
+    <div class="container">
+      <a href="index.html" class="brand" aria-label="智优康赛首页">
+        <img src="images/智优康赛logo.svg" alt="智优康赛 AIconcepts" />
+      </a>
+
+      <nav class="main-nav" aria-label="主导航">
+        <a href="services.html">GEO服务</a>
+        <a href="solutions.html">解决方案</a>
+        <a href="cases.html">客户评价</a>
+        <a href="ecosystem.html">生态与合作</a>
+        <a href="demo.html">系统演示</a>
+        <a href="about.html">关于我们</a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="contact.html" class="btn btn-ghost">联系我们</a>
+        <a href="contact.html" class="btn btn-header-cta">预约诊断</a>
+        <button class="hamburger" aria-label="打开菜单" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========== Hero 首屏（居中布局，对标 tryprofound） ========== -->
+  <section class="hero" aria-labelledby="hero-title">
+    <!-- 6 层背景特效，JS 根据 data-effect 决定显示哪个 -->
+    <div class="bg-effects" aria-hidden="true">
+      <div class="fx fx-aurora">
+        <span class="aurora-blob aurora-blob-1"></span>
+        <span class="aurora-blob aurora-blob-2"></span>
+        <span class="aurora-blob aurora-blob-3"></span>
+      </div>
+      <div class="fx fx-waves">
+        <span class="wave-ring"></span>
+        <span class="wave-ring"></span>
+        <span class="wave-ring"></span>
+        <span class="wave-ring"></span>
+      </div>
+      <div class="fx fx-spotlight"></div>
+      <div class="fx fx-grid">
+        <span class="grid-pulse grid-pulse-1"></span>
+        <span class="grid-pulse grid-pulse-2"></span>
+        <span class="grid-pulse grid-pulse-3"></span>
+      </div>
+      <canvas class="fx fx-neural" id="canvas-neural"></canvas>
+      <canvas class="fx fx-stars" id="canvas-stars"></canvas>
+    </div>
+
+    <div class="container hero-center">
+      <h1 class="hero-title" id="hero-title">
+        <span class="title-line title-line-main">
+          让您的品牌占领 AI <span class="title-highlight">第一</span>推荐位
+        </span>
+        <span class="title-line title-line-rotator">
+          <span class="platform-rotator" aria-live="polite">
+            <img class="platform-icon" src="images/Kimi.png" alt="" />
+            <span class="platform-name">Kimi</span>
+          </span>
+        </span>
+      </h1>
+
+      <p class="hero-subtitle">
+        中国 GEO 第一服务商，让每一个优秀的企业都能被世界看见。
+      </p>
+
+      <div class="hero-ctas">
+        <a href="contact.html" class="btn btn-primary btn-lg">预约诊断</a>
+        <a href="contact.html" class="btn btn-secondary btn-lg">
+          联系我们
+          <span class="arrow">→</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- AI 平台 Logo 跑马灯（Hero 底部全宽） -->
+    <div class="platform-marquee" aria-label="覆盖主流 AI 搜索平台">
+      <div class="marquee-viewport">
+        <div class="marquee-track">
+          <span class="platform-logo"><img src="images/DeepSeek.png" alt="DeepSeek" /> DeepSeek</span>
+          <span class="platform-logo"><img src="images/豆包.png" alt="豆包" /> 豆包</span>
+          <span class="platform-logo"><img src="images/Kimi.png" alt="Kimi" /> Kimi</span>
+          <span class="platform-logo"><img src="images/文心一言.png" alt="文心一言" /> 文心一言</span>
+          <span class="platform-logo"><img src="images/通义千问.png" alt="通义千问" /> 通义千问</span>
+          <span class="platform-logo"><img src="images/智谱清言.png" alt="智谱清言" /> 智谱清言</span>
+          <span class="platform-logo"><img src="images/腾讯元宝.png" alt="腾讯元宝" /> 元宝</span>
+          <!-- 重复一份做无缝滚动 -->
+          <span class="platform-logo"><img src="images/DeepSeek.png" alt="" /> DeepSeek</span>
+          <span class="platform-logo"><img src="images/豆包.png" alt="" /> 豆包</span>
+          <span class="platform-logo"><img src="images/Kimi.png" alt="" /> Kimi</span>
+          <span class="platform-logo"><img src="images/文心一言.png" alt="" /> 文心一言</span>
+          <span class="platform-logo"><img src="images/通义千问.png" alt="" /> 通义千问</span>
+          <span class="platform-logo"><img src="images/智谱清言.png" alt="" /> 智谱清言</span>
+          <span class="platform-logo"><img src="images/腾讯元宝.png" alt="" /> 元宝</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 系统演示 ========== -->
+  <section class="showcase-section" aria-labelledby="showcase-title">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-eyebrow">SYSTEM DEMO</span>
+        <h2 class="section-title" id="showcase-title">看见 AI 是如何谈论您的品牌</h2>
+        <p class="section-lead">智优康赛自研 GEO 系统 —— 全 AI 平台监测、引用源溯源、品牌声誉量化、智能优化建议。</p>
+      </div>
+
+      <div class="showcase-stage">
+        <div class="showcase-frame" aria-label="智优康赛 GEO 系统演示">
+          <div class="showcase-slide active">
+            <img src="assets/system/screen-01.jpg" alt="数据洞察大盘" />
+          </div>
+          <div class="showcase-slide">
+            <img src="assets/system/screen-02.jpg" alt="模型监控看板" />
+          </div>
+          <div class="showcase-slide">
+            <img src="assets/system/screen-03.jpg" alt="引用来源溯源" />
+          </div>
+          <div class="showcase-slide">
+            <img src="assets/system/screen-04.jpg" alt="竞品对比分析" />
+          </div>
+          <div class="showcase-slide">
+            <img src="assets/system/screen-05.jpg" alt="GEO 优化建议" />
+          </div>
+        </div>
+
+        <div class="showcase-dots" role="tablist" aria-label="切换系统演示截图">
+          <button class="showcase-dot active" aria-label="第 1 张"></button>
+          <button class="showcase-dot" aria-label="第 2 张"></button>
+          <button class="showcase-dot" aria-label="第 3 张"></button>
+          <button class="showcase-dot" aria-label="第 4 张"></button>
+          <button class="showcase-dot" aria-label="第 5 张"></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 后续段落待添加：痛点 / 七大能力 / 案例数据 / 客户评价 / Logo 墙 / 留资 / Footer -->
+
+  <!-- ============================================
+       Hero 背景特效切换器（QA 预览工具 · 上线前删除）
+       ============================================ -->
+  <aside class="fx-switcher" role="group" aria-label="背景特效切换">
+    <span class="fx-switcher-label">BG FX</span>
+    <div class="fx-switcher-buttons">
+      <button class="fx-btn" data-fx="none" title="无特效">
+        <span class="fx-btn-icon">∅</span>
+        <span class="fx-btn-name">无</span>
+      </button>
+      <button class="fx-btn" data-fx="aurora" title="流动渐变球（极光）">
+        <span class="fx-btn-icon">◐</span>
+        <span class="fx-btn-name">极光</span>
+      </button>
+      <button class="fx-btn" data-fx="neural" title="神经网络节点连线">
+        <span class="fx-btn-icon">◉</span>
+        <span class="fx-btn-name">神经网络</span>
+      </button>
+      <button class="fx-btn" data-fx="waves" title="信号波扩散">
+        <span class="fx-btn-icon">◎</span>
+        <span class="fx-btn-name">信号波</span>
+      </button>
+      <button class="fx-btn" data-fx="spotlight" title="鼠标跟随聚光灯">
+        <span class="fx-btn-icon">◯</span>
+        <span class="fx-btn-name">聚光灯</span>
+      </button>
+      <button class="fx-btn" data-fx="stars" title="星尘漂浮">
+        <span class="fx-btn-icon">✦</span>
+        <span class="fx-btn-name">星尘</span>
+      </button>
+      <button class="fx-btn" data-fx="grid" title="网格脉冲">
+        <span class="fx-btn-icon">▦</span>
+        <span class="fx-btn-name">网格</span>
+      </button>
+    </div>
+  </aside>
+
+  <script src="assets/js/index.js"></script>
+</body>
+</html>

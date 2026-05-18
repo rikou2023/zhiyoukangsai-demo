@@ -1,0 +1,272 @@
+/* 智优康赛设计令牌
+   单一来源 — 颜色 / 字体 / 间距 / 圆角 / 动效
+   依据 ui-ux-pro-max 数据 + frontend/ui_design.md 规范
+*/
+
+:root {
+  /* ===== 共享变量（与配色无关） ===== */
+  /* 状态色 */
+  --success:       #22C55E;
+  --warning:       #F59E0B;
+  --danger:        #EF4444;
+
+  /* ===== 字体 ===== */
+  --font-sans: "HarmonyOS Sans SC", "MiSans", "PingFang SC", "Microsoft YaHei", system-ui, -apple-system, sans-serif;
+  --font-serif: "Source Han Serif SC", "Noto Serif SC", "Songti SC", "STSong", serif;
+  --font-mono: "JetBrains Mono", "SF Mono", "Consolas", "Menlo", monospace;
+
+  /* 字号比例（4px 步长） */
+  --text-xs:    12px;
+  --text-sm:    14px;
+  --text-base:  16px;
+  --text-lg:    18px;
+  --text-xl:    20px;
+  --text-2xl:   24px;
+  --text-3xl:   32px;
+  --text-4xl:   40px;
+  --text-5xl:   56px;
+  --text-6xl:   72px;
+  --text-hero:  clamp(40px, 6vw, 88px);
+
+  /* 行高 */
+  --leading-tight: 1.2;
+  --leading-snug:  1.35;
+  --leading-base:  1.6;
+
+  /* 字重 */
+  --weight-regular: 400;
+  --weight-medium:  500;
+  --weight-semibold: 600;
+  --weight-bold:    700;
+
+  /* ===== 间距（8px 基数） ===== */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  24px;
+  --space-6:  32px;
+  --space-7:  48px;
+  --space-8:  64px;
+  --space-9:  96px;
+  --space-10: 128px;
+
+  /* ===== 圆角（最大 16px） ===== */
+  --radius-sm:  4px;
+  --radius:     8px;
+  --radius-md:  12px;
+  --radius-lg:  16px;
+  --radius-full: 999px;
+
+  /* ===== 动效（不超过 300ms） ===== */
+  --ease:       cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out:   cubic-bezier(0, 0, 0.2, 1);
+  --duration-fast:  150ms;
+  --duration:       200ms;
+  --duration-slow:  300ms;
+
+  /* ===== 布局 ===== */
+  --container: 1240px;
+  --header-height: 72px;
+
+  /* ===== 阴影（功能性，不装饰） ===== */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow:    0 4px 12px rgba(0, 0, 0, 0.32);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.4);
+
+  /* z-index 层级 */
+  --z-base:    1;
+  --z-sticky:  10;
+  --z-header:  20;
+  --z-overlay: 30;
+  --z-modal:   50;
+}
+
+/* ============================================
+   配色主题 — A B C D E 五套
+   切换：在 <html> 上设置 data-theme="A"
+   ============================================ */
+
+/* A · Logo 原生配色（直接取自智优康赛 Logo） — 客户"按 Logo 来"的最忠实方案 */
+:root,
+[data-theme="A"] {
+  --bg-base:       #050A14;    /* 极深版 Logo 蓝 */
+  --bg-surface:    #0B1525;
+  --bg-elevated:   #14223A;
+  --brand:         #036EB8;    /* Logo 主蓝（汉字色） */
+  --brand-hover:   #1E8AD0;
+  --accent:        #2EA7E0;    /* Logo 渐变浅蓝端 */
+  --accent-hover:  #5BBCEA;
+  --cta:           #C30D23;    /* Logo 朱砂红（两个点睛圆点的色） */
+  --cta-hover:     #DC2C42;
+  --cta-text:      #FFFFFF;
+  --text:          #F5F8FC;
+  --text-muted:    #94A8C2;
+  --text-dim:      #5B6F88;
+  --border:        #14223A;
+  --border-strong: #1F3454;
+  --grad-from:     #2EA7E0;    /* Logo 自带渐变：浅蓝 */
+  --grad-mid:      #036EB8;    /* Logo 主蓝 */
+  --grad-to:       #172A88;    /* Logo 自带渐变：深蓝 */
+}
+
+/* B · Linear / Vercel 工程师感 — 黑底 + 电光绿 + 白按钮 */
+[data-theme="B"] {
+  --bg-base:       #08090A;
+  --bg-surface:    #131316;
+  --bg-elevated:   #1A1A1F;
+  --brand:         #FAFAFA;
+  --brand-hover:   #FFFFFF;
+  --accent:        #4ADE80;
+  --accent-hover:  #86EFAC;
+  --cta:           #FAFAFA;
+  --cta-hover:     #E5E5E5;
+  --cta-text:      #08090A;
+  --text:          #F4F4F5;
+  --text-muted:    #A1A1AA;
+  --text-dim:      #71717A;
+  --border:        #27272A;
+  --border-strong: #3F3F46;
+  --grad-from:     #86EFAC;
+  --grad-mid:      #4ADE80;
+  --grad-to:       #22C55E;
+}
+
+/* C · Anthropic 暖橘 — 反 AI 套版的学院派 */
+[data-theme="C"] {
+  --bg-base:       #0D0D0D;
+  --bg-surface:    #1A1A1A;
+  --bg-elevated:   #262626;
+  --brand:         #D97757;
+  --brand-hover:   #E58869;
+  --accent:        #8B5CF6;
+  --accent-hover:  #A78BFA;
+  --cta:           #D97757;
+  --cta-hover:     #E58869;
+  --cta-text:      #0D0D0D;
+  --text:          #F5F3F0;
+  --text-muted:    #A1A1AA;
+  --text-dim:      #71717A;
+  --border:        #262626;
+  --border-strong: #3F3F46;
+  --grad-from:     #FBBF24;
+  --grad-mid:      #D97757;
+  --grad-to:       #C2410C;
+}
+
+/* D · Stripe Enterprise 深蓝紫 — 头部 KA 高大上感 */
+[data-theme="D"] {
+  --bg-base:       #0A2540;
+  --bg-surface:    #122B4F;
+  --bg-elevated:   #1A3760;
+  --brand:         #635BFF;
+  --brand-hover:   #7A73FF;
+  --accent:        #00D4FF;
+  --accent-hover:  #5EE9FF;
+  --cta:           #FFAC4B;
+  --cta-hover:     #FFC067;
+  --cta-text:      #0A2540;
+  --text:          #F5F7FF;
+  --text-muted:    #A7B5D1;
+  --text-dim:      #6C7A93;
+  --border:        #1A3760;
+  --border-strong: #2A4A78;
+  --grad-from:     #00D4FF;
+  --grad-mid:      #635BFF;
+  --grad-to:       #A78BFA;
+}
+
+/* E · 中国 AI 风（雾灰墨青 + 朱砂橙）— 国央企信任锚 */
+[data-theme="E"] {
+  --bg-base:       #0B1015;
+  --bg-surface:    #161E27;
+  --bg-elevated:   #1F2A36;
+  --brand:         #E8E6E1;
+  --brand-hover:   #F5F3EE;
+  --accent:        #00C7B7;
+  --accent-hover:  #2DD4BF;
+  --cta:           #FF7A45;
+  --cta-hover:     #FF9468;
+  --cta-text:      #0B1015;
+  --text:          #F1EFE9;
+  --text-muted:    #9CA3AF;
+  --text-dim:      #6B7280;
+  --border:        #1F2A36;
+  --border-strong: #374151;
+  --grad-from:     #00C7B7;
+  --grad-mid:      #2DD4BF;
+  --grad-to:       #FF7A45;
+}
+
+/* M · 干净电光蓝 — 深海军 + 单色电蓝（客户参考图同款，极简科技感） */
+[data-theme="M"] {
+  --bg-base:       #0A1428;
+  --bg-surface:    #142036;
+  --bg-elevated:   #1A2A47;
+  --brand:         #2F66FF;
+  --brand-hover:   #4F7FFF;
+  --accent:        #2F66FF;
+  --accent-hover:  #6B9BFF;
+  --cta:           #2F66FF;
+  --cta-hover:     #4F7FFF;
+  --cta-text:      #FFFFFF;
+  --text:          #FFFFFF;
+  --text-muted:    #8B96AD;
+  --text-dim:      #5C6680;
+  --border:        #1B2A47;
+  --border-strong: #2D3D62;
+  --grad-from:     #6B9BFF;
+  --grad-mid:      #2F66FF;
+  --grad-to:       #1E40E0;
+}
+
+/* 减少动效偏好 */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ===== 基础 reset + 全站默认 ===== */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg-base);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: var(--leading-base);
+  font-weight: var(--weight-regular);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+a { color: inherit; text-decoration: none; }
+button { font: inherit; cursor: pointer; }
+img, svg { display: block; max-width: 100%; }
+
+::selection {
+  background: var(--accent);
+  color: var(--bg-base);
+}
+
+/* 容器 */
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--space-5);
+}
+
+@media (min-width: 768px) {
+  .container { padding: 0 var(--space-6); }
+}

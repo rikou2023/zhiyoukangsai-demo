@@ -15,8 +15,8 @@ Thumbs.db
 # Node（如果将来引入）
 node_modules/
 
-# 旧 AI 助手留下的 Chrome 调试缓存（巨大）
-dist/chrome-debug/
+# 旧 AI 助手留下的整个 dist 目录（Chrome 调试缓存 + 旧打包产物）
+dist/
 
 # 旧 AI 助手解 PPT 的中间产物（已被客户真实截图取代，不再需要）
 website/assets/ppt/
@@ -25,9 +25,6 @@ website/assets/research/
 website_old/assets/ppt/
 website_old/assets/showcase/
 website_old/assets/research/
-
-# 但保留 dist 里其它文件
-!dist/.gitkeep
 
 # 部署 .env（含本地配置，可能不该入库 —— 但 .env.example 保留）
 deploy/.env

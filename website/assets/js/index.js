@@ -9,6 +9,57 @@
   document.documentElement.setAttribute('data-theme', 'M');
 
   /* ============================================
+     0b. 导航 Pill 滑动追随
+         - 默认停在 .is-active 链接下
+         - 鼠标 hover 任一链接 → 弹性追过去
+         - 鼠标离开整个导航 → 弹回 active
+     ============================================ */
+  (function setupNavPill() {
+    const nav = document.getElementById('mainNav');
+    if (!nav) return;
+    const pill = nav.querySelector('.nav-pill');
+    const links = Array.from(nav.querySelectorAll('.nav-link'));
+    if (!pill || !links.length) return;
+
+    let activeLink = links.find((l) => l.classList.contains('is-active')) || links[0];
+
+    const movePillTo = (link) => {
+      if (!link) return;
+      const navRect = nav.getBoundingClientRect();
+      const rect = link.getBoundingClientRect();
+      const x = rect.left - navRect.left;
+      pill.style.transform = `translate(${x}px, -50%)`;
+      pill.style.width = rect.width + 'px';
+      pill.style.height = rect.height + 'px';
+    };
+
+    // 初始位置（等字体加载完，rect 才稳定）
+    const init = () => {
+      movePillTo(activeLink);
+      pill.classList.add('is-ready');
+    };
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(init);
+    } else {
+      requestAnimationFrame(init);
+    }
+
+    // hover 追随
+    links.forEach((link) => {
+      link.addEventListener('mouseenter', () => movePillTo(link));
+      link.addEventListener('focus', () => movePillTo(link));
+    });
+    nav.addEventListener('mouseleave', () => movePillTo(activeLink));
+
+    // 窗口尺寸变化时同步
+    let resizeTimer = null;
+    window.addEventListener('resize', () => {
+      if (resizeTimer) clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => movePillTo(activeLink), 120);
+    });
+  })();
+
+  /* ============================================
      1. Header 滚动状态
      ============================================ */
   const header = document.querySelector('.site-header');
@@ -62,19 +113,22 @@
   }
 
   /* ============================================
-     3. 神经网络背景特效
-     - 70 个节点 + 邻近 150px 内连半透明线
-     - 鼠标 180px 范围内的节点被吸引靠拢（不是全部）
+     3. 神经网络背景特效（全页 fixed）
+     - 桌面 70 节点 / 移动端 35 节点（性能降级）
+     - 邻近 150px 内连半透明线
+     - 鼠标 180px 范围内的节点被吸引靠拢
      - 远处节点保持自然漂浮
+     - 只在页面可视/聚焦时跑 RAF
      ============================================ */
   function startNeural() {
     const canvas = document.getElementById('canvas-neural');
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     const accent = getCSSColor('--accent');
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
     let W, H, nodes;
-    const NODE_COUNT = 70;
-    const LINK_DIST = 150;
+    const NODE_COUNT = isMobile ? 35 : 70;
+    const LINK_DIST = isMobile ? 130 : 150;
     const ATTRACT_DIST = 180;
     const ATTRACT_FORCE = 0.05;
     const DAMPING = 0.985;
@@ -83,14 +137,16 @@
     let rafId = null;
 
     function resize() {
+      // canvas 现在是 fixed 视口大小（100vw × 100vh）
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      const rect = canvas.getBoundingClientRect();
-      canvas.width = rect.width * dpr;
-      canvas.height = rect.height * dpr;
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      canvas.style.width = rect.width + 'px';
-      canvas.style.height = rect.height + 'px';
-      W = rect.width; H = rect.height;
+      canvas.style.width = w + 'px';
+      canvas.style.height = h + 'px';
+      W = w; H = h;
     }
     function init() {
       nodes = Array.from({ length: NODE_COUNT }, () => ({
@@ -175,26 +231,24 @@
     resize(); init();
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseleave', onMouseLeave);
-    window.addEventListener('resize', () => { resize(); init(); });
+    window.addEventListener('resize', () => {
+      resize();
+      // resize 后重排节点位置防止跑到视口外
+      nodes.forEach((n) => {
+        if (n.x > W) n.x = W * Math.random();
+        if (n.y > H) n.y = H * Math.random();
+      });
+    });
 
-    // 只在 Hero 可视范围内跑动画（性能保护）
-    if ('IntersectionObserver' in window) {
-      const hero = canvas.closest('.hero');
-      if (hero) {
-        const io = new IntersectionObserver((entries) => {
-          entries.forEach((e) => {
-            if (e.isIntersecting && !rafId) step();
-            else if (!e.isIntersecting && rafId) {
-              cancelAnimationFrame(rafId);
-              rafId = null;
-            }
-          });
-        }, { threshold: 0 });
-        io.observe(hero);
-        return;
-      }
-    }
-    step();
+    // 性能保护：页面隐藏（切到别的 tab）/ 失焦时暂停 RAF
+    const start = () => { if (!rafId) rafId = requestAnimationFrame(step); };
+    const stop = () => { if (rafId) { cancelAnimationFrame(rafId); rafId = null; } };
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) stop(); else start();
+    });
+
+    start();
   }
 
   function getCSSColor(varName) {
@@ -202,8 +256,298 @@
     return s || '#2F66FF';
   }
 
+  // 跨浏览器兼容：圆角矩形 path（部分老浏览器没原生 roundRect）
+  function drawRoundRect(ctx, x, y, w, h, r) {
+    if (typeof ctx.roundRect === 'function') {
+      ctx.beginPath();
+      ctx.roundRect(x, y, w, h, r);
+      return;
+    }
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.lineTo(x + w - r, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+    ctx.lineTo(x + w, y + h - r);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+    ctx.lineTo(x + r, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+    ctx.lineTo(x, y + r);
+    ctx.quadraticCurveTo(x, y, x + r, y);
+    ctx.closePath();
+  }
+
   // 启动神经网络
   startNeural();
+
+  /* ============================================
+     3b. AI 平台监测可视化 canvas
+         - 7 个国内 AI 平台节点（带 Logo）
+         - 节点之间动态连线
+         - 鼠标 hover 节点 → popup 弹窗
+     ============================================ */
+  (function setupMonitorViz() {
+    const canvas = document.getElementById('canvas-monitor');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const popup = document.getElementById('monitorPopup');
+    const popupPlatformEl = popup?.querySelector('.monitor-popup-platform');
+    const popupMetaEl = popup?.querySelector('.monitor-popup-meta');
+    const container = canvas.parentElement;
+
+    // popup meta 统一用"已接入监测"避免假造演示数据；真实数据等接入后端再填
+    const PLATFORMS = [
+      { name: 'DeepSeek',  icon: 'images/DeepSeek.png',  meta: '已接入监测' },
+      { name: 'Kimi',      icon: 'images/Kimi.png',      meta: '已接入监测' },
+      { name: '豆包',      icon: 'images/豆包.png',       meta: '已接入监测' },
+      { name: '文心一言',  icon: 'images/文心一言.png',   meta: '已接入监测' },
+      { name: '通义千问',  icon: 'images/通义千问.png',   meta: '已接入监测' },
+      { name: '智谱清言',  icon: 'images/智谱清言.png',   meta: '已接入监测' },
+      { name: '元宝',      icon: 'images/腾讯元宝.png',   meta: '已接入监测' }
+    ];
+
+    let W = 0, H = 0;
+    let nodes = [];
+    let rafId = null;
+    let mouseX = -9999, mouseY = -9999;
+    let dpr = 1;
+    const ICON_CACHE = {};
+
+    // 预加载 logo
+    PLATFORMS.forEach((p) => {
+      const img = new Image();
+      img.src = p.icon;
+      ICON_CACHE[p.name] = img;
+    });
+    // 中心 logo（白色版）
+    const CENTER_LOGO = new Image();
+    CENTER_LOGO.src = 'images/智优康赛logo_白.svg';
+
+    const NODE_R = 28;       // 节点圆半径
+    const LINK_DIST = 280;   // 连线最大距离
+    const accent = getCSSColor('--accent');
+
+    function resize() {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = rect.width * dpr;
+      canvas.height = rect.height * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      W = rect.width; H = rect.height;
+    }
+
+    function initNodes() {
+      // 桌面卡片在左侧 overlay，节点中心偏右
+      const isDesktopOverlay = W >= 900;
+      const cx = isDesktopOverlay ? W * 0.62 : W / 2;
+      const cy = H / 2;
+      const baseR = Math.min(W * 0.32, H * 0.40);
+
+      // 错落分布：每个节点指定独立的角度偏移 + 半径比例，避免规则对称感
+      // 角度 0 = 正右方，顺时针；保留上方留白让 popup 不撞顶
+      const layout = [
+        { aDeg: -42,  rRatio: 0.95 },  // 右上
+        { aDeg: 12,   rRatio: 1.05 },  // 右
+        { aDeg: 62,   rRatio: 0.90 },  // 右下
+        { aDeg: 118,  rRatio: 1.02 },  // 下偏左
+        { aDeg: 178,  rRatio: 0.88 },  // 左
+        { aDeg: -130, rRatio: 1.00 },  // 左上
+        { aDeg: -78,  rRatio: 0.78 }   // 上偏右（靠近中心，避免撞顶）
+      ];
+
+      nodes = PLATFORMS.map((p, i) => {
+        const cfg = layout[i] || layout[0];
+        const angle = (cfg.aDeg * Math.PI) / 180;
+        const r = baseR * cfg.rRatio;
+        return {
+          name: p.name,
+          meta: p.meta,
+          baseX: cx + Math.cos(angle) * r,
+          baseY: cy + Math.sin(angle) * r,
+          x: cx + Math.cos(angle) * r,
+          y: cy + Math.sin(angle) * r,
+          phase: Math.random() * Math.PI * 2,
+          // 每个节点独立的漂浮幅度（错落）
+          driftX: 6 + Math.random() * 6,
+          driftY: 6 + Math.random() * 6
+        };
+      });
+    }
+
+    function step(now) {
+      ctx.clearRect(0, 0, W, H);
+
+      // 节点位置：基于 base 微浮动（每个节点漂浮幅度不一致 → 错落感）
+      const t = now * 0.0008;
+      nodes.forEach((n) => {
+        n.x = n.baseX + Math.cos(t + n.phase) * n.driftX;
+        n.y = n.baseY + Math.sin(t + n.phase * 1.3) * n.driftY;
+      });
+
+      // 连线
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+          const dx = nodes[i].x - nodes[j].x;
+          const dy = nodes[i].y - nodes[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < LINK_DIST) {
+            const a = (1 - dist / LINK_DIST) * 0.3;
+            ctx.strokeStyle = `${accent}${Math.floor(a * 255).toString(16).padStart(2, '0')}`;
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(nodes[i].x, nodes[i].y);
+            ctx.lineTo(nodes[j].x, nodes[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      // 中心数据流动（向各节点）
+      const isDesktopOverlay = W >= 900;
+      const cx = isDesktopOverlay ? W * 0.62 : W / 2;
+      const cy = H / 2;
+      nodes.forEach((n) => {
+        const a = 0.18;
+        ctx.strokeStyle = `${accent}${Math.floor(a * 255).toString(16).padStart(2, '0')}`;
+        ctx.lineWidth = 1;
+        ctx.setLineDash([2, 6]);
+        ctx.lineDashOffset = -(now * 0.025);
+        ctx.beginPath();
+        ctx.moveTo(cx, cy);
+        ctx.lineTo(n.x, n.y);
+        ctx.stroke();
+        ctx.setLineDash([]);
+      });
+
+      // 中心：纯 Logo + 柔光辉，无背景框
+      const pulse = (Math.sin(now * 0.003) + 1) / 2; // 0~1
+      // Logo 尺寸（放大，弥补去掉胶囊后的空旷感）
+      const logoH = 60;
+      const logoW = logoH * (468.4 / 167.48);  // 比例 ≈ 2.8 → 168×60
+
+      // 远层柔光（最外圈大范围辉）
+      const haloR = 160 + pulse * 16;
+      const halo1 = ctx.createRadialGradient(cx, cy, 0, cx, cy, haloR);
+      halo1.addColorStop(0, `${accent}33`);
+      halo1.addColorStop(0.5, `${accent}10`);
+      halo1.addColorStop(1, `${accent}00`);
+      ctx.fillStyle = halo1;
+      ctx.beginPath();
+      ctx.arc(cx, cy, haloR, 0, Math.PI * 2);
+      ctx.fill();
+
+      // 近层强光（让 Logo 后面有一层亮起来的氛围）
+      const halo2 = ctx.createRadialGradient(cx, cy, 0, cx, cy, 80);
+      halo2.addColorStop(0, `${accent}55`);
+      halo2.addColorStop(1, `${accent}00`);
+      ctx.fillStyle = halo2;
+      ctx.beginPath();
+      ctx.arc(cx, cy, 80, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Logo 居中（带白色发光阴影，让在深背景上更显眼）
+      if (CENTER_LOGO.complete && CENTER_LOGO.naturalWidth > 0) {
+        ctx.save();
+        ctx.shadowColor = `${accent}`;
+        ctx.shadowBlur = 14 + pulse * 8;
+        ctx.drawImage(CENTER_LOGO, cx - logoW / 2, cy - logoH / 2, logoW, logoH);
+        ctx.restore();
+      } else {
+        // Fallback：logo 还没加载完时显示文字
+        ctx.fillStyle = '#FFFFFF';
+        ctx.font = 'bold 18px "HarmonyOS Sans SC", "PingFang SC", sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('智优康赛', cx, cy);
+      }
+
+      // 节点外环 + Logo
+      let hoveredNode = null;
+      nodes.forEach((n) => {
+        const dxm = n.x - mouseX, dym = n.y - mouseY;
+        const distM = Math.sqrt(dxm * dxm + dym * dym);
+        const isHover = distM < NODE_R + 6;
+        if (isHover) hoveredNode = n;
+
+        // 外环
+        ctx.fillStyle = isHover ? `${accent}` : `${accent}40`;
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, NODE_R + (isHover ? 4 : 0), 0, Math.PI * 2);
+        ctx.fill();
+
+        // 内圆
+        ctx.fillStyle = '#0A1428';
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, NODE_R - 3, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Logo
+        const img = ICON_CACHE[n.name];
+        if (img && img.complete && img.naturalWidth > 0) {
+          ctx.save();
+          ctx.beginPath();
+          ctx.arc(n.x, n.y, NODE_R - 5, 0, Math.PI * 2);
+          ctx.clip();
+          const r = (NODE_R - 5) * 2;
+          ctx.drawImage(img, n.x - r / 2, n.y - r / 2, r, r);
+          ctx.restore();
+        } else {
+          // Fallback：显示首字
+          ctx.fillStyle = accent;
+          ctx.font = 'bold 16px sans-serif';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText(n.name[0], n.x, n.y);
+        }
+      });
+
+      // popup（智能定位：节点太靠顶部时翻到下方）
+      if (hoveredNode && popup) {
+        if (popupPlatformEl) popupPlatformEl.textContent = hoveredNode.name;
+        if (popupMetaEl) popupMetaEl.textContent = hoveredNode.meta;
+        const POPUP_THRESHOLD = 90;  // 节点 y < 90px 时 popup 翻到下方
+        const showBelow = hoveredNode.y < POPUP_THRESHOLD;
+        popup.classList.toggle('is-below', showBelow);
+        popup.style.left = hoveredNode.x + 'px';
+        popup.style.top = (showBelow
+          ? hoveredNode.y + NODE_R + 10
+          : hoveredNode.y - NODE_R - 10) + 'px';
+        popup.hidden = false;
+        canvas.style.cursor = 'pointer';
+      } else if (popup) {
+        popup.hidden = true;
+        canvas.style.cursor = '';
+      }
+
+      rafId = requestAnimationFrame(step);
+    }
+
+    function onMouseMove(e) {
+      const rect = canvas.getBoundingClientRect();
+      mouseX = e.clientX - rect.left;
+      mouseY = e.clientY - rect.top;
+    }
+    function onMouseLeave() {
+      mouseX = -9999; mouseY = -9999;
+    }
+
+    function start() { if (!rafId) rafId = requestAnimationFrame(step); }
+    function stop()  { if (rafId) { cancelAnimationFrame(rafId); rafId = null; } }
+
+    resize();
+    initNodes();
+    canvas.addEventListener('mousemove', onMouseMove);
+    canvas.addEventListener('mouseleave', onMouseLeave);
+    window.addEventListener('resize', () => { resize(); initNodes(); });
+
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => { if (e.isIntersecting) start(); else stop(); });
+      }, { threshold: 0.15 });
+      io.observe(container);
+    } else {
+      start();
+    }
+  })();
 
   /* ============================================
      4. 通用滚动入场：.reveal 元素进入视口时加 .is-visible
@@ -224,6 +568,26 @@
   } else {
     // 老浏览器降级：直接全部显示
     revealEls.forEach((el) => el.classList.add('is-visible'));
+  }
+
+  /* ============================================
+     4b. alanUp 斜线波浪入场（钛动同款 nth-child stagger）
+     用法：父容器加 .alan-parent，子元素加 .alan-up
+     进入视口时父加 .is-go，子元素按 nth-child 依次起飞
+     ============================================ */
+  const alanParents = document.querySelectorAll('.alan-parent');
+  if (alanParents.length && 'IntersectionObserver' in window) {
+    const alanIO = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-go');
+          alanIO.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2, rootMargin: '0px 0px -50px 0px' });
+    alanParents.forEach((el) => alanIO.observe(el));
+  } else {
+    alanParents.forEach((el) => el.classList.add('is-go'));
   }
 
   /* ============================================
@@ -267,6 +631,60 @@
 
     countEls.forEach((el) => countIO.observe(el));
   }
+
+  /* ============================================
+     5b. 系统演示截图轮播
+         - 3.5s 自动切换
+         - 横向滑动 + 缩放 + 淡入三重动效
+         - 缩略图选择器 + 当前标题同步
+         - hover 暂停 / 离开视口停 RAF
+     ============================================ */
+  (function setupShowcase() {
+    const frame = document.querySelector('.showcase-frame');
+    if (!frame) return;
+    const slides = Array.from(frame.querySelectorAll('.showcase-slide'));
+    const thumbs = Array.from(document.querySelectorAll('.showcase-thumb'));
+    if (!slides.length) return;
+    let active = 0;
+    let timer = null;
+    const INTERVAL = 3500;
+    const LEAVING_CLEANUP_MS = 800;
+
+    const goTo = (i) => {
+      const prev = active;
+      slides[prev].classList.remove('active');
+      slides[prev].classList.add('leaving');
+      thumbs[prev]?.classList.remove('active');
+
+      active = (i + slides.length) % slides.length;
+      slides[active].classList.remove('leaving');
+      requestAnimationFrame(() => {
+        slides[active].classList.add('active');
+        thumbs[active]?.classList.add('active');
+      });
+      setTimeout(() => {
+        slides[prev]?.classList.remove('leaving');
+      }, LEAVING_CLEANUP_MS);
+    };
+    const next = () => goTo(active + 1);
+    const start = () => { stop(); timer = setInterval(next, INTERVAL); };
+    const stop = () => { if (timer) { clearInterval(timer); timer = null; } };
+
+    thumbs.forEach((thumb, i) => {
+      thumb.addEventListener('click', () => { goTo(i); start(); });
+    });
+    frame.addEventListener('mouseenter', stop);
+    frame.addEventListener('mouseleave', start);
+
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => { if (e.isIntersecting) start(); else stop(); });
+      }, { threshold: 0.2 });
+      io.observe(frame);
+    } else {
+      start();
+    }
+  })();
 
   /* ============================================
      6. 客户评价聚光灯轮播（5s 切一条，悬停暂停）
@@ -333,36 +751,37 @@
       '20260517-105841.png','20260517-105849.png','20260517-105856.png','20260517-105902.png',
       '20260517-105912.png','20260517-105920.png','20260517-105929.png','20260517-105938.png',
       '20260517-105948.png','20260517-105956.png','20260517-110002.png','20260517-110009.png',
-      '20260517-110015.png'
+      '20260517-110015.png','客户合作 logo.png'
     ];
 
-    // 平分到两行
-    const half = Math.ceil(LOGOS.length / 2);
-    const row1 = LOGOS.slice(0, half);
-    const row2 = LOGOS.slice(half);
+    // 平分到 8 列（上下交替滚动）
+    const COLS = 8;
+    const columns = Array.from({ length: COLS }, () => []);
+    LOGOS.forEach((logo, i) => columns[i % COLS].push(logo));
 
     const buildTile = (filename) => {
       const div = document.createElement('div');
       div.className = 'logo-tile';
       const img = document.createElement('img');
-      img.src = 'logo/logo/' + filename;
+      img.src = 'logo/logo/' + encodeURIComponent(filename);
       img.alt = '';
       img.loading = 'lazy';
       div.appendChild(img);
       return div;
     };
 
-    const fillTrack = (track, list) => {
+    const fillColumn = (colEl, list) => {
       // 复制一份做无缝循环
-      [...list, ...list].forEach((f) => track.appendChild(buildTile(f)));
+      [...list, ...list].forEach((f) => colEl.appendChild(buildTile(f)));
     };
 
-    fillTrack(logosMarquee.querySelector('.logos-track-1'), row1);
-    fillTrack(logosMarquee.querySelector('.logos-track-2'), row2);
+    const columnEls = logosMarquee.querySelectorAll('.logos-column');
+    columnEls.forEach((col, i) => fillColumn(col, columns[i % COLS]));
   }
 
   /* ============================================
      8. 留资表单提交 → POST /api/contact
+     按 docs/shared/全站规范.md 第 2 节字段
      ============================================ */
   const leadForm = document.getElementById('leadForm');
   if (leadForm) {
@@ -378,7 +797,23 @@
     const setBusy = (busy) => {
       submitBtn.disabled = busy;
       submitBtn.querySelector('.btn-text-content').textContent =
-        busy ? '正在提交…' : '提交诊断需求';
+        busy ? '正在提交…' : '预约专家诊断';
+    };
+
+    // 把表单数据规范化（多选 ai_focus 收成数组，单选 pain_point 收成字符串）
+    const collectData = () => {
+      const fd = new FormData(leadForm);
+      return {
+        company: (fd.get('company') || '').trim(),
+        name:    (fd.get('name') || '').trim(),
+        role:    (fd.get('role') || '').trim(),
+        phone:   (fd.get('phone') || '').trim(),
+        email:   (fd.get('email') || '').trim(),
+        message: (fd.get('message') || '').trim(),
+        ai_focus:   fd.getAll('ai_focus'),     // 数组
+        pain_point: fd.get('pain_point') || '', // 单选
+        source: location.pathname + location.search
+      };
     };
 
     leadForm.addEventListener('submit', async (e) => {
@@ -386,10 +821,20 @@
       feedback.className = 'form-feedback';
       feedback.textContent = '';
 
-      // 基本前端校验
-      const data = Object.fromEntries(new FormData(leadForm).entries());
-      if (!data.name || !data.company || !data.email || !data.interest) {
-        showFeedback('请补齐必填项（姓名 / 公司名称 / 邮箱 / 关注方向）。', 'error');
+      const data = collectData();
+
+      // 校验必填
+      const missing = [];
+      if (!data.company) missing.push('公司名称');
+      if (!data.name)    missing.push('姓名');
+      if (!data.role)    missing.push('职位');
+      if (!data.phone)   missing.push('联系电话');
+      if (!data.email)   missing.push('邮箱');
+      if (!data.message) missing.push('核心需求');
+      if (data.ai_focus.length === 0) missing.push('最关注的 AI 大模型');
+      if (!data.pain_point) missing.push('品牌在 AI 时代的痛点');
+      if (missing.length) {
+        showFeedback('请补齐必填项：' + missing.join(' / '), 'error');
         return;
       }
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
@@ -402,10 +847,7 @@
         const res = await fetch('/api/contact', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            ...data,
-            source: location.pathname + location.search
-          })
+          body: JSON.stringify(data)
         });
         if (res.ok) {
           showFeedback(SUCCESS_MSG, 'success');
@@ -425,12 +867,51 @@
   }
 
   /* ============================================
-     9. 移动端 Hamburger（占位）
+     9. 移动端 Hamburger + 抽屉菜单
      ============================================ */
-  const hamburger = document.querySelector('.hamburger');
-  if (hamburger) {
+  const hamburger = document.getElementById('hamburger');
+  const drawer = document.getElementById('mobileDrawer');
+  if (hamburger && drawer) {
+    const setDrawer = (open) => {
+      hamburger.classList.toggle('open', open);
+      hamburger.setAttribute('aria-expanded', String(open));
+      if (open) {
+        drawer.hidden = false;
+        // 等一帧以触发 transition
+        requestAnimationFrame(() => drawer.classList.add('is-open'));
+        document.body.classList.add('drawer-open');
+      } else {
+        drawer.classList.remove('is-open');
+        document.body.classList.remove('drawer-open');
+        // 等过渡结束再 hidden（避免硬切）
+        setTimeout(() => {
+          if (!hamburger.classList.contains('open')) drawer.hidden = true;
+        }, 320);
+      }
+    };
+
     hamburger.addEventListener('click', () => {
-      hamburger.classList.toggle('open');
+      const isOpen = hamburger.classList.contains('open');
+      setDrawer(!isOpen);
+    });
+
+    // 点击抽屉内任意链接关闭抽屉
+    drawer.addEventListener('click', (e) => {
+      if (e.target.closest('a')) setDrawer(false);
+    });
+
+    // ESC 关闭
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && hamburger.classList.contains('open')) {
+        setDrawer(false);
+      }
+    });
+
+    // 窗口放大到桌面时自动关闭
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 769 && hamburger.classList.contains('open')) {
+        setDrawer(false);
+      }
     });
   }
 })();

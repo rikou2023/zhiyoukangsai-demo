@@ -35,3 +35,7 @@ database/leads.json
 
 # 临时构建产物（构建脚本本身保留，预览文件夹按需保留）
 # effect-preview/  ← 暂时保留可发客户，下阶段删
+
+# Claude Code / agents 本地配置（每台机器自己生成，不入库）
+.agents/
+.claude/

@@ -24,24 +24,40 @@ DATABASE_DIR = ROOT / "database"
 JSON_DB = DATABASE_DIR / "leads.json"
 EXCEL_DB = DATABASE_DIR / "leads.xlsx"
 
-ALLOWED_INTERESTS = {
-    "大模型占有率诊断与提升",
-    "AI 声誉风险与幻觉管控",
-    "引用源逆向溯源与内容分发",
-    "AI 搜索可见度护城河",
-    "全链条 GEO 执行托管",
+ALLOWED_AI_MODELS = {
+    "Kimi",
+    "文心一言",
+    "通义千问",
+    "豆包",
+    "智谱清言",
+    "DeepSeek",
+}
+
+ALLOWED_PAIN_POINTS = {
+    "A",  # AI 搜不到我们公司/产品
+    "B",  # AI 总是优先推荐竞争对手
+    "C",  # AI 对我们的回答有错误/负面信息
+    "D",  # 想建立专属的企业 AI 知识库
+}
+
+PAIN_POINT_LABELS = {
+    "A": "A · AI 搜不到我们公司/产品",
+    "B": "B · AI 总是优先推荐竞争对手",
+    "C": "C · AI 对我们的回答有错误/负面信息",
+    "D": "D · 想建立专属的企业 AI 知识库",
 }
 
 HEADERS = [
     "提交时间",
     "线索ID",
-    "姓名",
     "公司名称",
+    "姓名",
     "职位",
-    "邮箱",
     "联系电话",
-    "关注方向",
-    "需求与业务现状",
+    "邮箱",
+    "核心需求",
+    "关注的 AI 大模型",
+    "痛点选项",
     "来源页面",
     "IP",
     "User-Agent",
@@ -110,16 +126,23 @@ def write_excel(records: list[dict[str, Any]]) -> None:
         item.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
 
     for row_index, record in enumerate(records, 3):
+        # 新规范字段优先，旧字段名 fallback（不丢历史数据）
+        pain_code = record.get("painPoint", "")
+        pain_label = PAIN_POINT_LABELS.get(pain_code, pain_code)
+        role_val = record.get("role") or record.get("position", "")
+        message_val = record.get("message") or record.get("businessStatus", "")
+        ai_focus_val = record.get("aiFocus") or record.get("primaryInterest") or []
         values = [
             record.get("createdAt", ""),
             record.get("id", ""),
-            record.get("name", ""),
             record.get("company", ""),
-            record.get("position", ""),
-            record.get("email", ""),
+            record.get("name", ""),
+            role_val,
             record.get("phone", ""),
-            "、".join(record.get("primaryInterest", [])),
-            record.get("businessStatus", ""),
+            record.get("email", ""),
+            message_val,
+            "、".join(ai_focus_val) if isinstance(ai_focus_val, list) else str(ai_focus_val),
+            pain_label,
             record.get("source", ""),
             record.get("ip", ""),
             record.get("userAgent", ""),
@@ -131,7 +154,7 @@ def write_excel(records: list[dict[str, Any]]) -> None:
             if row_index % 2 == 1:
                 item.fill = PatternFill("solid", fgColor="F8FBFF")
 
-    widths = [22, 18, 12, 24, 16, 28, 18, 36, 48, 18, 18, 46]
+    widths = [22, 18, 24, 12, 16, 18, 28, 48, 30, 36, 18, 18, 46]
     for index, width in enumerate(widths, 1):
         ws.column_dimensions[get_column_letter(index)].width = width
     ws.freeze_panes = "A3"
@@ -149,52 +172,57 @@ def clean_text(value: Any, max_length: int) -> str:
 
 
 def validate_contact(payload: dict[str, Any]) -> dict[str, Any]:
+    """新规范字段：company / name / role / phone / email / message / ai_focus[] / pain_point"""
     if not isinstance(payload, dict):
         raise AppError(400, "请求格式不正确。")
 
-    name = clean_text(payload.get("name"), 80)
     company = clean_text(payload.get("company"), 120)
-    position = clean_text(payload.get("position"), 80)
-    email = clean_text(payload.get("email"), 160)
+    name = clean_text(payload.get("name"), 80)
+    role = clean_text(payload.get("role"), 80)
     phone = clean_text(payload.get("phone"), 60)
-    business_status = clean_text(payload.get("businessStatus"), 1200)
-    source = clean_text(payload.get("source"), 120)
-    interests_raw = payload.get("primaryInterest", [])
+    email = clean_text(payload.get("email"), 160)
+    message = clean_text(payload.get("message"), 1200)
+    source = clean_text(payload.get("source"), 200)
 
-    if isinstance(interests_raw, str):
-        interests = [interests_raw]
-    elif isinstance(interests_raw, list):
-        interests = [clean_text(item, 80) for item in interests_raw]
+    # AI 大模型多选（数组）
+    ai_focus_raw = payload.get("ai_focus", [])
+    if isinstance(ai_focus_raw, str):
+        ai_focus = [ai_focus_raw]
+    elif isinstance(ai_focus_raw, list):
+        ai_focus = [clean_text(item, 40) for item in ai_focus_raw]
     else:
-        interests = []
+        ai_focus = []
+    ai_focus = [item for item in ai_focus if item in ALLOWED_AI_MODELS]
 
-    interests = [item for item in interests if item in ALLOWED_INTERESTS]
+    # 痛点单选（A/B/C/D）
+    pain_point = clean_text(payload.get("pain_point"), 4).upper()
+    if pain_point not in ALLOWED_PAIN_POINTS:
+        pain_point = ""
 
     missing = []
-    if not name:
-        missing.append("姓名")
-    if not company:
-        missing.append("公司名称")
-    if not email:
-        missing.append("邮箱")
-    if not phone:
-        missing.append("联系电话")
-    if not interests:
-        missing.append("关注方向")
+    if not company:    missing.append("公司名称")
+    if not name:       missing.append("姓名")
+    if not role:       missing.append("职位")
+    if not phone:      missing.append("联系电话")
+    if not email:      missing.append("邮箱")
+    if not message:    missing.append("核心需求")
+    if not ai_focus:   missing.append("最关注的 AI 大模型")
+    if not pain_point: missing.append("品牌在 AI 时代的痛点")
     if missing:
         raise AppError(400, "请填写：" + "、".join(missing))
     if not re.match(r"^[^@\s]+@[^@\s]+\.[^@\s]+$", email):
         raise AppError(400, "邮箱格式不正确。")
 
     return {
-        "name": name,
-        "company": company,
-        "position": position,
-        "email": email,
-        "phone": phone,
-        "primaryInterest": interests,
-        "businessStatus": business_status,
-        "source": source or "website",
+        "company":    company,
+        "name":       name,
+        "role":       role,
+        "phone":      phone,
+        "email":      email,
+        "message":    message,
+        "aiFocus":    ai_focus,
+        "painPoint":  pain_point,
+        "source":     source or "website",
     }
 
 

@@ -2168,22 +2168,19 @@
   }
   .sol-tabs__nav .sol-tab {
     padding: 12px 10px;
+    /* 保留原 .sol-tab 的 border-bottom: 2px solid transparent（active 指示线，
+       不能在这里 override）；行间分隔改用 inset box-shadow 实现，不影响 border */
     border-right: 1px solid var(--hairline);
-    border-bottom: 1px solid var(--hairline);
-    /* 偶数列（右列）不要右边 border，避免重 */
+    box-shadow: inset 0 -1px 0 var(--hairline);
   }
   .sol-tabs__nav .sol-tab:nth-child(2n) {
     border-right: none;
   }
-  /* 第 5 个 tab 横跨两列，作为单独一行 */
+  /* 第 5 个 tab 横跨两列，作为单独一行；它是最后一行，不需要下分隔 */
   .sol-tabs__nav .sol-tab:nth-child(5) {
     grid-column: 1 / -1;
     border-right: none;
-    border-bottom: none;
-  }
-  /* 第 5 个之前的最后一行（4 号）也不要 bottom border */
-  .sol-tabs__nav .sol-tab:nth-child(4) {
-    border-bottom: none;
+    box-shadow: none;
   }
   .sol-tabs__nav .sol-tab__name {
     font-size: 13px;

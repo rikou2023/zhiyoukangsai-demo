@@ -9,62 +9,41 @@
   document.documentElement.setAttribute('data-theme', 'M');
 
   /* ============================================
-     0a. Preloader 加载页（首屏入口动画）
-     进度 0→100 + 结束后 .is-out 退场 + 解锁页面滚动
+     0a. Preloader 加载页（钛动同款，穿越缩放离场）
+     - 百分比 0→100% 用 easeOutExpo 在 1.6s 内完成
+     - 完成后立即触发"穿越缩放"离场：logo scale 1→60 + bg 950ms 延迟淡出
+     - 离场总时长 1300ms 后从 DOM 移除
      ============================================ */
   (function setupPreloader() {
     const preloader = document.getElementById('preloader');
+    if (!preloader) return;
     const numEl = document.getElementById('preloaderNum');
-    if (!preloader || !numEl) return;
+    document.body.classList.add('preloader-active');
 
-    // 锁定 body 滚动（直到 preloader 退场）
-    document.body.classList.add('preloading');
-
-    const DURATION = 1800; // 进度跑完时长 (ms)
-    const HOLD = 200;      // 到 100% 后停留 (ms)
-    const startTime = performance.now();
-
-    const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+    const DURATION = 1600;
+    // 离场总时长：logo 放大 1200ms 一气呵成 + bg 延迟 950ms 后 350ms 淡出 = 总 1300ms
+    const LEAVE_TOTAL = 1300;
+    const start = performance.now();
 
     const tick = (now) => {
-      const elapsed = now - startTime;
-      const t = Math.min(elapsed / DURATION, 1);
-      const eased = easeOutCubic(t);
-      const value = Math.floor(eased * 100);
-      numEl.textContent = String(value);
+      const t = Math.min((now - start) / DURATION, 1);
+      // easeOutExpo
+      const eased = t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
+      const pct = Math.floor(eased * 100);
+      if (numEl) numEl.textContent = pct;
       if (t < 1) {
         requestAnimationFrame(tick);
       } else {
-        numEl.textContent = '100';
-        // 短暂停留后退场
-        setTimeout(exit, HOLD);
+        if (numEl) numEl.textContent = '100';
+        // 100% 到达 → 立刻触发"穿越缩放"离场（不要 hold，钛动也是即刻冲出）
+        preloader.classList.add('is-leaving');
+        document.body.classList.remove('preloader-active');
+        setTimeout(() => {
+          if (preloader.parentNode) preloader.parentNode.removeChild(preloader);
+        }, LEAVE_TOTAL);
       }
     };
-
-    const exit = () => {
-      preloader.classList.add('is-out');
-      // 退场动画跑完后解锁滚动 + 隐藏 preloader
-      setTimeout(() => {
-        document.body.classList.remove('preloading');
-        preloader.style.display = 'none';
-        // 触发 Hero 入场（如果有 .hero.alan-parent 类）
-        document.querySelectorAll('.hero .alan-parent, .hero-title').forEach((el) => {
-          el.classList.add('is-go');
-        });
-      }, 700);
-    };
-
-    // 等字体 + 关键资源加载完成再开始
-    if (document.readyState === 'complete') {
-      requestAnimationFrame(tick);
-    } else {
-      window.addEventListener('load', () => requestAnimationFrame(tick), { once: true });
-    }
-
-    // 安全保险：3 秒强制退场（防止 load 事件不触发）
-    setTimeout(() => {
-      if (!preloader.classList.contains('is-out')) exit();
-    }, 3500);
+    requestAnimationFrame(tick);
   })();
 
   /* ============================================

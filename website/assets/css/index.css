@@ -2917,167 +2917,253 @@ body.drawer-open {
 }
 
 /* ===========================================
-   Preloader 加载页（首屏入口动画）
-   钛动同款"进度 0-100 + 退场 scale 缩放"
+   Preloader 加载页（钛动同款，穿越缩放离场）
+   - 全屏 #0A1428 + 4 个多色 blob 流体烟雾
+   - 中央 logo + 上方 eyebrow + 底部百分比
+   - 1.6s 进度 0→100% (easeOutExpo) → "穿越缩放"离场
+     logo scale 1→60 + bg 延迟 950ms 淡出
    =========================================== */
 .preloader {
   position: fixed;
   inset: 0;
   z-index: 9999;
+  background: var(--bg-base);
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--bg-base);
   overflow: hidden;
+  opacity: 1;
+  visibility: visible;
+  /* 整层 bg 在 logo 冲出后才淡出，避免穿越过程中露馅 */
   transition:
-    opacity 700ms cubic-bezier(0.76, 0, 0.24, 1),
-    transform 700ms cubic-bezier(0.76, 0, 0.24, 1),
-    visibility 700ms;
-}
-.preloader.is-out {
-  opacity: 0;
-  transform: scale(1.15);
-  visibility: hidden;
-  pointer-events: none;
+    opacity 350ms cubic-bezier(0.76, 0, 0.24, 1) 950ms,
+    visibility 0s linear 1300ms;
 }
 
-/* 深蓝流体 blob 背景 */
-.preloader-bg {
+.preloader.is-leaving {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* 钛动同款"穿越缩放"丝滑版：
+   - scale 单独走 1→60，1200ms 一气呵成（远超屏幕尺寸 = 真正的"冲出去"）
+   - opacity 前 85% 全保持 1，只在最后 15% 衰减（避免铺满瞬间就消失的错觉）
+   - 离场时杀掉所有 filter（drop-shadow / blur），让 GPU 专心做 transform，零卡顿 */
+@keyframes preloader-logo-scale {
+  0%   { transform: scale(1); }
+  100% { transform: scale(60); }
+}
+
+@keyframes preloader-logo-fade {
+  0%, 85% { opacity: 1; }
+  100%    { opacity: 0; }
+}
+
+.preloader.is-leaving .preloader-logo {
+  animation:
+    preloader-logo-scale 1200ms cubic-bezier(0.45, 0, 0.7, 1) forwards,
+    preloader-logo-fade  1200ms linear forwards;
+  filter: none;
+  will-change: transform, opacity;
+}
+
+.preloader.is-leaving .preloader-eyebrow {
+  opacity: 0;
+  transform: translate3d(0, -8px, 0);
+  transition: opacity 200ms ease-out, transform 200ms ease-out;
+  animation: none;
+}
+
+.preloader.is-leaving .preloader-progress {
+  opacity: 0;
+  transition: opacity 200ms ease-out;
+}
+
+/* 离场时立即杀掉 blob 容器的 blur 滤镜（每帧 80px 重绘是卡顿主因），同时淡出 */
+.preloader.is-leaving .preloader-blobs {
+  filter: none;
+  opacity: 0;
+  transition: opacity 300ms ease-out;
+}
+
+.preloader.is-leaving .preloader-blob {
+  animation: none;
+}
+
+body.preloader-active {
+  overflow: hidden;
+}
+
+/* 流体烟雾：4 个柔和大色块漂浮 + blur 模糊 */
+.preloader-blobs {
   position: absolute;
   inset: 0;
-  overflow: hidden;
   pointer-events: none;
-}
-.preloader-blob {
-  position: absolute;
-  width: 60vw;
-  height: 60vw;
-  max-width: 800px;
-  max-height: 800px;
-  border-radius: 50%;
-  filter: blur(100px);
-  opacity: 0.65;
-  animation: preloader-blob-drift 20s ease-in-out infinite;
-}
-.preloader-blob-1 {
-  top: -10%;
-  left: -10%;
-  background: radial-gradient(closest-side, rgba(47, 102, 255, 0.75), transparent);
-  animation-delay: 0s;
-}
-.preloader-blob-2 {
-  bottom: -10%;
-  right: -10%;
-  background: radial-gradient(closest-side, rgba(0, 180, 255, 0.55), transparent);
-  animation-delay: -7s;
-}
-.preloader-blob-3 {
-  top: 30%;
-  left: 40%;
-  width: 40vw;
-  height: 40vw;
-  background: radial-gradient(closest-side, rgba(120, 80, 255, 0.4), transparent);
-  animation-delay: -14s;
-}
-@keyframes preloader-blob-drift {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(8%, -6%) scale(1.15); }
-  66% { transform: translate(-7%, 8%) scale(0.9); }
+  filter: blur(80px);
+  opacity: 0.85;
 }
 
-/* 中心内容 */
-.preloader-inner {
+.preloader-blob {
+  position: absolute;
+  border-radius: 50%;
+  mix-blend-mode: screen;
+  will-change: transform;
+}
+
+.preloader-blob-1 {
+  width: 56vmin;
+  height: 56vmin;
+  left: -10vmin;
+  top: -8vmin;
+  background: radial-gradient(circle at 50% 50%, rgba(47, 102, 255, 0.55), rgba(47, 102, 255, 0) 70%);
+  animation: blob-drift-a 14s ease-in-out infinite alternate;
+}
+
+.preloader-blob-2 {
+  width: 64vmin;
+  height: 64vmin;
+  right: -12vmin;
+  top: 10vmin;
+  background: radial-gradient(circle at 50% 50%, rgba(107, 155, 255, 0.45), rgba(107, 155, 255, 0) 70%);
+  animation: blob-drift-b 16s ease-in-out infinite alternate;
+}
+
+.preloader-blob-3 {
+  width: 50vmin;
+  height: 50vmin;
+  left: 18vmin;
+  bottom: -10vmin;
+  background: radial-gradient(circle at 50% 50%, rgba(30, 64, 224, 0.50), rgba(30, 64, 224, 0) 70%);
+  animation: blob-drift-c 18s ease-in-out infinite alternate;
+}
+
+.preloader-blob-4 {
+  width: 42vmin;
+  height: 42vmin;
+  right: 8vmin;
+  bottom: -6vmin;
+  background: radial-gradient(circle at 50% 50%, rgba(79, 127, 255, 0.40), rgba(79, 127, 255, 0) 70%);
+  animation: blob-drift-d 12s ease-in-out infinite alternate;
+}
+
+@keyframes blob-drift-a {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to   { transform: translate3d(8vmin, 6vmin, 0) scale(1.15); }
+}
+@keyframes blob-drift-b {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to   { transform: translate3d(-10vmin, 4vmin, 0) scale(1.1); }
+}
+@keyframes blob-drift-c {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to   { transform: translate3d(6vmin, -8vmin, 0) scale(1.18); }
+}
+@keyframes blob-drift-d {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to   { transform: translate3d(-6vmin, -4vmin, 0) scale(1.12); }
+}
+
+/* 中央内容（垂直居中：eyebrow + logo） */
+.preloader-content {
   position: relative;
   z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 28px;
-  padding: 0 24px;
+  gap: 18px;
+  /* 比屏幕中心略偏上，给底部进度条留出舒展空间 */
+  transform: translateY(-4vh);
 }
 
-.preloader-tag {
+/* 钛动同款入场：eyebrow 先入场，logo 后入场 */
+.preloader-eyebrow {
   font-size: 18px;
-  color: rgba(220, 234, 255, 0.85);
-  letter-spacing: 0.4em;
-  margin: 0;
-  padding-left: 0.4em;
+  letter-spacing: 0.04em;
+  color: var(--text);
+  font-weight: var(--weight-regular);
   opacity: 0;
-  transform: translateY(8px);
-  animation: preloader-fade-in 800ms cubic-bezier(0.76, 0, 0.24, 1) 100ms forwards;
+  transform: translate3d(0, 12px, 0);
+  animation: preloader-fade-up 800ms cubic-bezier(0.22, 1, 0.36, 1) 100ms both;
+}
+
+.preloader-eyebrow b {
+  font-weight: var(--weight-bold);
+  color: var(--accent);
+  text-shadow: 0 0 14px rgba(47, 102, 255, 0.55);
 }
 
 .preloader-logo {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  height: 150px;
+  width: auto;
+  filter: drop-shadow(0 0 28px rgba(47, 102, 255, 0.45));
   opacity: 0;
-  transform: translateY(12px) scale(0.96);
-  animation: preloader-logo-in 1000ms cubic-bezier(0.76, 0, 0.24, 1) 300ms forwards;
-}
-.preloader-logo img {
-  width: clamp(220px, 28vw, 340px);
-  height: auto;
-  filter: drop-shadow(0 8px 24px rgba(47, 102, 255, 0.35));
+  transform: translate3d(0, 16px, 0);
+  animation: preloader-fade-up 900ms cubic-bezier(0.22, 1, 0.36, 1) 300ms both;
 }
 
+@keyframes preloader-fade-up {
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+/* 进度条 — 绝对定位在底部 18% 处，与中央 logo 分离 */
 .preloader-progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 18%;
+  z-index: 1;
   display: flex;
   align-items: baseline;
-  gap: 6px;
-  margin-top: 32px;
-  opacity: 0;
-  transform: translateY(8px);
-  animation: preloader-fade-in 800ms cubic-bezier(0.76, 0, 0.24, 1) 600ms forwards;
+  justify-content: center;
+  gap: 0.5em;
+  font-family: var(--font-sans);
+  color: var(--text);
+  margin: 0;
 }
+
 .preloader-progress-label {
-  font-family: var(--font-mono);
-  font-size: 13px;
-  color: rgba(200, 216, 242, 0.75);
-  letter-spacing: 0.15em;
-  margin-right: 8px;
+  font-size: 16px;
+  font-weight: var(--weight-semibold);
+  color: var(--text);
+  letter-spacing: 0.02em;
+  margin: 0;
 }
+
 .preloader-progress-num {
   font-family: var(--font-mono);
-  font-size: 28px;
-  font-weight: var(--weight-bold);
-  color: #FFFFFF;
-  font-style: normal;
-  min-width: 50px;
+  font-size: 42px;
+  font-weight: var(--weight-semibold);
+  color: var(--text);
+  min-width: 2.4ch;
   text-align: right;
+  font-variant-numeric: tabular-nums;
+  font-style: normal;
+  line-height: 1;
+  text-shadow: 0 0 18px rgba(47, 102, 255, 0.5);
 }
+
 .preloader-progress-pct {
   font-family: var(--font-mono);
-  font-size: 16px;
-  color: rgba(200, 216, 242, 0.85);
-}
-
-@keyframes preloader-fade-in {
-  to { opacity: 1; transform: translateY(0); }
-}
-@keyframes preloader-logo-in {
-  to { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-/* 防止 preloader 显示期间页面滚动 */
-body.preloading {
-  overflow: hidden;
-  height: 100vh;
-}
-
-/* 减弱动效偏好：直接淡入淡出 */
-@media (prefers-reduced-motion: reduce) {
-  .preloader, .preloader-tag, .preloader-logo, .preloader-progress,
-  .preloader-blob {
-    animation-duration: 0.01ms !important;
-    transition-duration: 200ms !important;
-  }
+  font-size: 22px;
+  font-weight: var(--weight-semibold);
+  color: var(--text);
+  line-height: 1;
 }
 
 @media (max-width: 640px) {
-  .preloader-tag { font-size: 14px; letter-spacing: 0.3em; }
-  .preloader-progress-num { font-size: 22px; }
-  .preloader-progress-label { font-size: 11px; }
+  .preloader-content { gap: 14px; transform: translateY(-2vh); }
+  .preloader-logo { height: 96px; }
+  .preloader-eyebrow { font-size: 14px; }
+  .preloader-progress { bottom: 14%; gap: 0.35em; }
+  .preloader-progress-label { font-size: 13px; }
+  .preloader-progress-num { font-size: 32px; }
+  .preloader-progress-pct { font-size: 18px; }
+}
+
+/* 减弱动效偏好：跳过 blob 漂浮 + content 入场 */
+@media (prefers-reduced-motion: reduce) {
+  .preloader-blob { animation: none !important; }
+  .preloader-content { animation: none !important; }
 }
 
 /* ===========================================

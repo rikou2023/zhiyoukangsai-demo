@@ -318,7 +318,9 @@ body.drawer-open {
   position: relative;
   padding: calc(var(--header-height) + var(--space-9)) 0 0;
   overflow: hidden;
+  /* iOS Safari URL bar 会顶掉 100vh，dvh 在现代浏览器自适应；vh 是 fallback */
   min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
 }
@@ -330,7 +332,9 @@ body.drawer-open {
   position: fixed;
   inset: 0;
   width: 100vw;
+  /* iOS Safari fix：用 lvh 锁全屏高，避免 URL bar 动画时背景上下抖 */
   height: 100vh;
+  height: 100lvh;
   z-index: 0;
   pointer-events: none;
   opacity: 0.85;
@@ -556,7 +560,8 @@ body.drawer-open {
 
 .marquee-viewport {
   overflow: hidden;
-  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
 }
 
 .platform-marquee:hover .marquee-track {
@@ -1595,7 +1600,8 @@ body.drawer-open {
     linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
   background-size: 80px 80px;
-  mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, #000 30%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, #000 30%, transparent 80%);
+          mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, #000 30%, transparent 80%);
 }
 
 .final-cta-content {
@@ -2090,7 +2096,8 @@ body.drawer-open {
 
 .shorts-viewport {
   overflow: hidden;
-  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
 }
 
 .shorts-track {

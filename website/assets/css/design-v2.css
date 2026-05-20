@@ -4767,4 +4767,76 @@ html, body {
   -webkit-overflow-scrolling: touch;
 }
 
+/* ============================================================
+   Apple Safari / iOS 兼容性补丁（最后加载，优先级最高）
+   解决：iOS 15 老设备 color-mix 不支持 / iOS 表单 native style /
+        Tap highlight / momentum scroll
+   ============================================================ */
+
+/* iOS Safari: 表单元素去 native bevel/shadow（保留各自 CSS 的圆角） */
+input,
+textarea,
+select,
+button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+/* iOS 移除 tap-highlight 蓝色高亮（链接/按钮点击瞬间） */
+a, button, .btn, .hamburger, [role="button"], [tabindex] {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* iOS 防止 input focus 时自动放大（要求 font-size ≥ 16px，已有但补保险） */
+@media (max-width: 768px) {
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="number"],
+  input[type="search"],
+  textarea,
+  select {
+    font-size: 16px;
+  }
+}
+
+/* iOS 平滑滚动（深度兼容） */
+html {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* color-mix() 老 Safari fallback —— 关键节点用纯色替代渐变 */
+@supports not (color: color-mix(in srgb, red 50%, blue 50%)) {
+  /* coopsnake 节点：fallback 为纯色圆形（不要混色渐变） */
+  .coopsnake__icon {
+    background: var(--c, #4A8BFF);
+    border: 2px solid var(--c, #4A8BFF);
+    box-shadow:
+      0 0 0 8px rgba(10, 20, 40, 0.95),
+      0 0 28px var(--c, #4A8BFF);
+  }
+  .coopsnake__node:hover .coopsnake__icon {
+    box-shadow:
+      0 0 0 8px rgba(10, 20, 40, 0.95),
+      0 10px 32px var(--c, #4A8BFF);
+  }
+  /* about books marquee mask fallback (无 mask 兼容时让 overflow:hidden 接管) */
+  .about-books-v2 {
+    -webkit-mask-image: none;
+            mask-image: none;
+  }
+  /* hero CTA / chip 等 color-mix 阴影 fallback */
+  .btn-primary,
+  .btn-header-cta,
+  .hamburger {
+    box-shadow: 0 4px 14px rgba(47, 102, 255, 0.35);
+  }
+}
+
+/* iOS Safari: 防止双击缩放（移动端按钮快响应） */
+button, a, .btn {
+  touch-action: manipulation;
+}
+
 /* ============================================================ */

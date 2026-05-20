@@ -2150,8 +2150,52 @@
   margin-bottom: 0;
   overflow-x: auto;
   scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
 }
 .sol-tabs__nav::-webkit-scrollbar { display: none; }
+
+/* 手机端：5 tab 全部显示 → 2 列网格 + 第 5 个 tab 横跨整行 */
+@media (max-width: 768px) {
+  .sol-tabs__nav {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    overflow: visible;
+    width: 100%;
+    max-width: 100%;
+    /* 取消之前的 mask 遮罩 */
+    -webkit-mask-image: none;
+            mask-image: none;
+  }
+  .sol-tabs__nav .sol-tab {
+    padding: 12px 10px;
+    border-right: 1px solid var(--hairline);
+    border-bottom: 1px solid var(--hairline);
+    /* 偶数列（右列）不要右边 border，避免重 */
+  }
+  .sol-tabs__nav .sol-tab:nth-child(2n) {
+    border-right: none;
+  }
+  /* 第 5 个 tab 横跨两列，作为单独一行 */
+  .sol-tabs__nav .sol-tab:nth-child(5) {
+    grid-column: 1 / -1;
+    border-right: none;
+    border-bottom: none;
+  }
+  /* 第 5 个之前的最后一行（4 号）也不要 bottom border */
+  .sol-tabs__nav .sol-tab:nth-child(4) {
+    border-bottom: none;
+  }
+  .sol-tabs__nav .sol-tab__name {
+    font-size: 13px;
+  }
+  .sol-tabs__nav .sol-tab__num {
+    font-size: 11px;
+  }
+  /* 底部 nav 边框由 .sol-tabs__nav 接管 */
+  .sol-tabs__nav {
+    border-bottom: 1px solid var(--hairline-strong);
+  }
+}
 
 .sol-tab {
   display: flex;
@@ -2225,14 +2269,6 @@
 }
 .sol-tab.is-active .sol-tab__name {
   color: var(--ink);
-}
-
-@media (max-width: 768px) {
-  .sol-tabs__nav {
-    grid-template-columns: repeat(5, minmax(140px, 1fr));
-    width: max-content;
-    min-width: 100%;
-  }
 }
 
 /* Panel 内容 */

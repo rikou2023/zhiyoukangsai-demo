@@ -4020,21 +4020,224 @@
 }
 
 /* ============================================================
-   services.html 独家组件 · 客户流程图全宽 spotlight（裸图）
+   services.html 独家组件 · 合作流程 8 步 milestone（替代原裸图）
+   桌面：水平 stepper + 渐变彩色节点 + 中央渐变连接线
+   平板：4×2 网格
+   手机：竖向时间线（左侧节点 + 右侧文案 + 渐变竖线）
+   创新：scroll-reveal stagger 每个节点依次亮起
    ============================================================ */
-.services-flowchart {
+.services-coopflow {
   padding-block: var(--section-y);
 }
-.services-flowchart__img {
+
+.coopflow-wrap {
   margin-top: var(--space-7);
+  position: relative;
+  padding: 12px 8px 8px;
+}
+
+/* 横向 stepper 中央连接线（仅桌面） */
+.coopflow-rail {
+  position: absolute;
+  top: 70px;
+  left: 7%;
+  right: 7%;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    #4A8BFF 0%,
+    #7A78FF 22%,
+    #A66BFF 38%,
+    #C166EE 54%,
+    #D573C8 70%,
+    #B58CD0 84%,
+    #6BA1FF 100%
+  );
+  border-radius: 2px;
+  opacity: 0.55;
+  z-index: 0;
+  box-shadow: 0 0 14px rgba(120, 100, 220, 0.32);
+}
+
+.coopflow {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.coopflow__step {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0 6px;
+  position: relative;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 600ms var(--ease-snap), transform 600ms var(--ease-snap);
+}
+/* 父级 .reveal 显隐时，逐个 stagger 入场 */
+.coopflow-wrap.is-visible .coopflow__step {
+  opacity: 1;
+  transform: translateY(0);
+}
+.coopflow-wrap.is-visible .coopflow__step:nth-child(1) { transition-delay: 0ms; }
+.coopflow-wrap.is-visible .coopflow__step:nth-child(2) { transition-delay: 80ms; }
+.coopflow-wrap.is-visible .coopflow__step:nth-child(3) { transition-delay: 160ms; }
+.coopflow-wrap.is-visible .coopflow__step:nth-child(4) { transition-delay: 240ms; }
+.coopflow-wrap.is-visible .coopflow__step:nth-child(5) { transition-delay: 320ms; }
+.coopflow-wrap.is-visible .coopflow__step:nth-child(6) { transition-delay: 400ms; }
+.coopflow-wrap.is-visible .coopflow__step:nth-child(7) { transition-delay: 480ms; }
+.coopflow-wrap.is-visible .coopflow__step:nth-child(8) { transition-delay: 560ms; }
+
+.coopflow__num {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 0.12em;
+  margin-bottom: 8px;
+}
+
+.coopflow__node {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
+  background: radial-gradient(circle at 30% 25%,
+    color-mix(in srgb, var(--c, #4A8BFF) 85%, #FFFFFF 15%) 0%,
+    var(--c, #4A8BFF) 45%,
+    color-mix(in srgb, var(--c, #4A8BFF) 60%, #0A1428 40%) 100%);
+  border: 1.5px solid color-mix(in srgb, var(--c, #4A8BFF) 80%, #FFFFFF 20%);
+  box-shadow:
+    0 0 0 5px rgba(10, 20, 40, 0.92),
+    0 0 22px color-mix(in srgb, var(--c, #4A8BFF) 55%, transparent),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  position: relative;
+  z-index: 2;
+  transition: transform 300ms var(--ease-snap), box-shadow 300ms var(--ease-snap);
 }
-.services-flowchart__img img {
-  max-width: 100%;
-  height: auto;
-  display: block;
+.coopflow__step:hover .coopflow__node {
+  transform: translateY(-4px) scale(1.06);
+  box-shadow:
+    0 0 0 5px rgba(10, 20, 40, 0.92),
+    0 10px 32px color-mix(in srgb, var(--c, #4A8BFF) 70%, transparent),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22);
+}
+
+.coopflow__icon {
+  width: 28px;
+  height: 28px;
+  color: #FFFFFF;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.25));
+}
+
+.coopflow__label {
+  margin: 14px 0 0;
+  font-size: 13px;
+  line-height: 1.45;
+  font-weight: 500;
+  color: var(--ink, #E5ECFF);
+  max-width: 120px;
+  letter-spacing: 0.01em;
+}
+
+/* ── 平板：4×2 网格 ── */
+@media (max-width: 1024px) {
+  .coopflow {
+    grid-template-columns: repeat(4, 1fr);
+    row-gap: 36px;
+  }
+  .coopflow-rail {
+    display: none;
+  }
+  .coopflow__label {
+    font-size: 12.5px;
+    max-width: 100%;
+  }
+}
+
+/* ── 手机：竖向时间线 ── */
+@media (max-width: 640px) {
+  .coopflow-wrap {
+    padding: 8px 0;
+  }
+  .coopflow {
+    grid-template-columns: 1fr;
+    row-gap: 0;
+  }
+  .coopflow__step {
+    flex-direction: row;
+    align-items: center;
+    text-align: left;
+    gap: 18px;
+    padding: 18px 0 18px 4px;
+    position: relative;
+  }
+  /* 竖向连接线，渐变收尾 */
+  .coopflow__step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 33px;
+    top: 84px;
+    bottom: -18px;
+    width: 2px;
+    background: linear-gradient(to bottom,
+      var(--c, #4A8BFF) 0%,
+      color-mix(in srgb, var(--c, #4A8BFF) 30%, transparent) 100%);
+    opacity: 0.5;
+    z-index: 0;
+  }
+  .coopflow__num {
+    position: absolute;
+    top: 22px;
+    right: 4px;
+    margin: 0;
+    font-size: 10px;
+  }
+  .coopflow__node {
+    flex-shrink: 0;
+    width: 56px;
+    height: 56px;
+    box-shadow:
+      0 0 0 4px rgba(10, 20, 40, 0.92),
+      0 0 16px color-mix(in srgb, var(--c, #4A8BFF) 55%, transparent),
+      inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  }
+  .coopflow__icon {
+    width: 24px;
+    height: 24px;
+  }
+  .coopflow__label {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.5;
+    max-width: none;
+    flex: 1;
+    padding-right: 32px; /* 给右上角 num 留位 */
+  }
+  .coopflow__label br {
+    display: none; /* 手机不需要桌面的换行 */
+  }
+  .coopflow__step:hover .coopflow__node {
+    transform: none;
+  }
+}
+
+/* 减少动效偏好：直接显示 */
+@media (prefers-reduced-motion: reduce) {
+  .coopflow__step {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 
 /* ============================================================

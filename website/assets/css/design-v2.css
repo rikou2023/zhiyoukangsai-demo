@@ -4313,3 +4313,58 @@
     min-height: 480px;
   }
 }
+
+/* ============================================================
+   13. 客户反馈 2026-05-20 二轮修复 (K/L/M/N + grid 残留)
+   ============================================================ */
+
+/* ──── K. 苹果框装饰小字全部删除（chrome-addr / chrome-status / footer） ──── */
+.demo-v2__chrome-addr,
+.demo-v2__chrome-status,
+.monitor-panel__chrome-addr,
+.monitor-panel__chrome-status,
+.monitor-panel__footer,
+.demo-v2__chrome-footer {
+  display: none !important;
+}
+/* chrome 行只保留 3 个红黄绿 dot；左对齐补足 */
+.demo-v2__chrome,
+.monitor-panel__chrome {
+  justify-content: flex-start;
+}
+
+/* ──── L. 5 大方案 sol-v2 grid 列数从 4 改 3（num 列已隐去） ──── */
+.sol-v2__row {
+  grid-template-columns: 240px 1fr 60px !important;
+}
+@media (max-width: 1024px) {
+  .sol-v2__row {
+    grid-template-columns: 200px 1fr 40px !important;
+    gap: var(--space-3);
+    padding-block: var(--space-5);
+  }
+}
+@media (max-width: 768px) {
+  .sol-v2__row {
+    grid-template-columns: 1fr !important;
+    gap: var(--space-2);
+  }
+  .sol-v2__arrow { display: none !important; }
+}
+/* eyebrow 字号 F 调大后再微缩 + 允许两行 */
+.sol-v2__audience {
+  line-height: 1.4;
+}
+
+/* ──── M. 评论分页器整组隐藏（箭头 + dots 都不要） ──── */
+.spotlight-controls {
+  display: none !important;
+}
+
+/* ──── N. 行业客户名单：去掉「01 / 」mono 序号前缀，只保留分类名 ──── */
+.logos-section .industry-row:nth-child(1)::before { content: "科技与消费电子" !important; }
+.logos-section .industry-row:nth-child(2)::before { content: "美妆 · 快消 · 大健康" !important; }
+.logos-section .industry-row:nth-child(3)::before { content: "汽车与出行" !important; }
+.logos-section .industry-row:nth-child(4)::before { content: "金融与保险" !important; }
+.logos-section .industry-row:nth-child(5)::before { content: "互联网与媒体" !important; }
+.logos-section .industry-row:nth-child(6)::before { content: "电商 · 零售 · 出行" !important; }

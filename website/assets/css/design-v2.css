@@ -4033,114 +4033,108 @@
 }
 
 /* ============================================================
-   services.html 独家组件 · 合作流程 8 步信息卡片（方案 A · 卡片化）
-   桌面 ≥1280：4 列 × 2 行
-   平板 768–1280：2 列 × 4 行
-   手机 ≤768：1 列 × 8 行
-   每张卡：图标头 + 编号 + 阶段标签 + 标题 + 子动作 + 时长/角色 chip
-   hover：lift 4px + 顶线发光 + 边框染色 + 阴影染色
-   reveal：scroll-stagger 80ms 逐张入场
+   services.html 独家组件 · 合作流程蛇形布局（方案最终版）
+   桌面 ≥1100：4 × 2 网格，上排 LTR / 下排 RTL，SVG 蛇形连线
+   手机 ≤640：2 × 4 网格，左右交错蛇形，SVG 路径不同
+   动效：scroll-reveal 触发 stroke-dashoffset 描线动画，
+        节点 stagger 入场跟随描线节奏
    ============================================================ */
 .services-coopflow {
   padding-block: var(--section-y);
 }
 
-.coopcards {
+.coopsnake-wrap {
+  position: relative;
+  margin-top: var(--space-7);
+  padding: 30px 20px 10px;
+}
+
+/* SVG 蛇形线 */
+.coopsnake-svg {
+  position: absolute;
+  top: 30px;
+  left: 20px;
+  right: 20px;
+  bottom: 10px;
+  width: calc(100% - 40px);
+  height: calc(100% - 40px);
+  pointer-events: none;
+  z-index: 0;
+  overflow: visible;
+}
+.coopsnake-path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  pathLength: 1;
+  filter: drop-shadow(0 0 8px rgba(120, 100, 220, 0.45));
+  opacity: 0;
+}
+.coopsnake-path--mobile { display: none; }
+.coopsnake-wrap.is-visible .coopsnake-path {
+  opacity: 1;
+  animation: coopsnake-draw 1.8s ease-out forwards;
+}
+@keyframes coopsnake-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* 网格：4 × 2 蛇形（手动排位置实现 LTR / RTL） */
+.coopsnake {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 18px;
+  grid-template-rows: auto auto;
+  gap: 90px 0;
   list-style: none;
   padding: 0;
-  margin: var(--space-7) 0 0;
+  margin: 0;
+  position: relative;
+  z-index: 1;
 }
 
-.coopcard {
-  position: relative;
+.coopsnake__node:nth-child(1) { grid-column: 1; grid-row: 1; }
+.coopsnake__node:nth-child(2) { grid-column: 2; grid-row: 1; }
+.coopsnake__node:nth-child(3) { grid-column: 3; grid-row: 1; }
+.coopsnake__node:nth-child(4) { grid-column: 4; grid-row: 1; }
+.coopsnake__node:nth-child(5) { grid-column: 4; grid-row: 2; }
+.coopsnake__node:nth-child(6) { grid-column: 3; grid-row: 2; }
+.coopsnake__node:nth-child(7) { grid-column: 2; grid-row: 2; }
+.coopsnake__node:nth-child(8) { grid-column: 1; grid-row: 2; }
+
+.coopsnake__node {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  padding: 20px 18px 18px;
-  background:
-    linear-gradient(180deg,
-      color-mix(in srgb, var(--c, #4A8BFF) 8%, transparent) 0%,
-      transparent 60%),
-    rgba(10, 20, 40, 0.42);
-  border: 1px solid var(--hairline-strong, rgba(255, 255, 255, 0.1));
-  border-radius: 12px;
-  overflow: hidden;
+  align-items: center;
+  text-align: center;
+  gap: 14px;
   opacity: 0;
-  transform: translateY(14px);
+  transform: scale(0.85);
   transition:
-    opacity 600ms var(--ease-snap),
-    transform 600ms var(--ease-snap),
-    border-color 280ms var(--ease-snap),
-    box-shadow 280ms var(--ease-snap),
-    background 280ms var(--ease-snap);
+    opacity 500ms var(--ease-snap),
+    transform 500ms var(--ease-snap);
 }
-.coopcards.is-visible .coopcard {
+.coopsnake-wrap.is-visible .coopsnake__node {
   opacity: 1;
-  transform: translateY(0);
+  transform: scale(1);
 }
-.coopcards.is-visible .coopcard:nth-child(1) { transition-delay: 0ms, 0ms, 0ms, 0ms, 0ms; }
-.coopcards.is-visible .coopcard:nth-child(2) { transition-delay: 80ms, 80ms, 0ms, 0ms, 0ms; }
-.coopcards.is-visible .coopcard:nth-child(3) { transition-delay: 160ms, 160ms, 0ms, 0ms, 0ms; }
-.coopcards.is-visible .coopcard:nth-child(4) { transition-delay: 240ms, 240ms, 0ms, 0ms, 0ms; }
-.coopcards.is-visible .coopcard:nth-child(5) { transition-delay: 320ms, 320ms, 0ms, 0ms, 0ms; }
-.coopcards.is-visible .coopcard:nth-child(6) { transition-delay: 400ms, 400ms, 0ms, 0ms, 0ms; }
-.coopcards.is-visible .coopcard:nth-child(7) { transition-delay: 480ms, 480ms, 0ms, 0ms, 0ms; }
-.coopcards.is-visible .coopcard:nth-child(8) { transition-delay: 560ms, 560ms, 0ms, 0ms, 0ms; }
+/* 节点跟随描线节奏 stagger 入场（总线 1.8s，每节点占 200ms 左右） */
+.coopsnake-wrap.is-visible .coopsnake__node:nth-child(1) { transition-delay: 120ms; }
+.coopsnake-wrap.is-visible .coopsnake__node:nth-child(2) { transition-delay: 320ms; }
+.coopsnake-wrap.is-visible .coopsnake__node:nth-child(3) { transition-delay: 520ms; }
+.coopsnake-wrap.is-visible .coopsnake__node:nth-child(4) { transition-delay: 720ms; }
+.coopsnake-wrap.is-visible .coopsnake__node:nth-child(5) { transition-delay: 1000ms; }
+.coopsnake-wrap.is-visible .coopsnake__node:nth-child(6) { transition-delay: 1200ms; }
+.coopsnake-wrap.is-visible .coopsnake__node:nth-child(7) { transition-delay: 1400ms; }
+.coopsnake-wrap.is-visible .coopsnake__node:nth-child(8) { transition-delay: 1600ms; }
 
-.coopcard:hover {
-  border-color: color-mix(in srgb, var(--c, #4A8BFF) 55%, var(--hairline-strong, rgba(255, 255, 255, 0.1)));
-  box-shadow: 0 10px 32px color-mix(in srgb, var(--c, #4A8BFF) 22%, transparent);
-  background:
-    linear-gradient(180deg,
-      color-mix(in srgb, var(--c, #4A8BFF) 14%, transparent) 0%,
-      transparent 65%),
-    rgba(10, 20, 40, 0.55);
-  transform: translateY(-4px);
-}
-
-/* 顶线发光 beam（hover 出现） */
-.coopcard__beam {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    var(--c, #4A8BFF) 25%,
-    var(--c, #4A8BFF) 75%,
-    transparent 100%
-  );
-  opacity: 0;
-  transform: scaleX(0.5);
-  transform-origin: center;
-  transition: opacity 280ms var(--ease-snap), transform 320ms var(--ease-snap);
-  pointer-events: none;
-  box-shadow: 0 0 12px color-mix(in srgb, var(--c, #4A8BFF) 70%, transparent);
-}
-.coopcard:hover .coopcard__beam {
-  opacity: 1;
-  transform: scaleX(1);
-}
-
-/* Header: 图标 + 编号 + 阶段标签 */
-.coopcard__head {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 10px;
-  margin: 0 0 4px;
-}
-
-.coopcard__icon {
-  flex-shrink: 0;
-  width: 42px;
-  height: 42px;
-  border-radius: 10px;
+.coopsnake__icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -4149,151 +4143,131 @@
       color-mix(in srgb, var(--c, #4A8BFF) 85%, #FFFFFF 15%) 0%,
       var(--c, #4A8BFF) 55%,
       color-mix(in srgb, var(--c, #4A8BFF) 55%, #0A1428 45%) 100%);
-  border: 1px solid color-mix(in srgb, var(--c, #4A8BFF) 70%, transparent);
+  border: 2px solid color-mix(in srgb, var(--c, #4A8BFF) 75%, #FFFFFF 25%);
   box-shadow:
-    0 0 14px color-mix(in srgb, var(--c, #4A8BFF) 30%, transparent),
-    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+    0 0 0 8px rgba(10, 20, 40, 0.95),
+    0 0 28px color-mix(in srgb, var(--c, #4A8BFF) 55%, transparent),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22);
+  position: relative;
+  z-index: 2;
+  transition: transform 300ms var(--ease-snap), box-shadow 300ms var(--ease-snap);
 }
-.coopcard__icon svg {
-  width: 22px;
-  height: 22px;
+.coopsnake__node:hover .coopsnake__icon {
+  transform: scale(1.08);
+  box-shadow:
+    0 0 0 8px rgba(10, 20, 40, 0.95),
+    0 10px 32px color-mix(in srgb, var(--c, #4A8BFF) 70%, transparent),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.coopsnake__icon svg {
+  width: 36px;
+  height: 36px;
   color: #FFFFFF;
-  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.3));
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.35));
 }
 
-.coopcard__meta {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 2px;
-  padding-top: 2px;
-}
-
-.coopcard__num {
+.coopsnake__num {
   font-family: var(--font-mono, ui-monospace, monospace);
-  font-size: 20px;
+  font-size: 12px;
   font-weight: 700;
   color: var(--c, #4A8BFF);
-  letter-spacing: 0.04em;
+  letter-spacing: 0.14em;
   line-height: 1;
 }
 
-.coopcard__stage {
-  font-family: var(--font-mono, ui-monospace, monospace);
-  font-size: 9px;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.4);
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-}
-
-/* Title */
-.coopcard__title {
-  font-size: 17px;
-  font-weight: 600;
-  line-height: 1.32;
-  color: var(--ink, #FFFFFF);
-  margin: 8px 0 0;
-  letter-spacing: -0.005em;
-}
-
-/* Subtitle */
-.coopcard__sub {
-  font-size: 13px;
-  line-height: 1.55;
-  color: var(--ink-muted, rgba(255, 255, 255, 0.62));
-  margin: 2px 0 0;
-}
-
-/* Footer chips */
-.coopcard__foot {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-top: auto;
-  padding-top: 14px;
-  border-top: 1px dashed var(--hairline, rgba(255, 255, 255, 0.06));
-}
-
-.coopcard__chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  padding: 4px 8px 4px 7px;
-  background: rgba(255, 255, 255, 0.035);
-  border: 1px solid var(--hairline-strong, rgba(255, 255, 255, 0.1));
-  border-radius: 6px;
-  font-size: 11px;
+.coopsnake__label {
+  font-size: 15px;
   font-weight: 500;
-  color: var(--ink-muted, rgba(255, 255, 255, 0.68));
-  font-family: var(--font-mono, ui-monospace, monospace);
-  letter-spacing: 0.02em;
-  line-height: 1;
-  white-space: nowrap;
-}
-.coopcard__chip svg {
-  width: 11px;
-  height: 11px;
-  opacity: 0.55;
-  flex-shrink: 0;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+  line-height: 1.4;
+  color: var(--ink, #FFFFFF);
+  margin: -4px 0 0;
+  max-width: 130px;
+  letter-spacing: 0.005em;
 }
 
-/* ── 中等屏：2 列 ── */
-@media (max-width: 1100px) {
-  .coopcards {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 14px;
+/* ── 平板 / 中屏 ── */
+@media (max-width: 900px) {
+  .coopsnake {
+    gap: 70px 0;
   }
-  .coopcard {
-    padding: 18px 16px 16px;
+  .coopsnake__icon {
+    width: 70px;
+    height: 70px;
+  }
+  .coopsnake__icon svg {
+    width: 30px;
+    height: 30px;
+  }
+  .coopsnake__label {
+    font-size: 13px;
+    max-width: 110px;
   }
 }
 
-/* ── 手机：1 列 ── */
+/* ── 手机：切换为 2 × 4 蛇形 + 不同 SVG 路径 ── */
 @media (max-width: 640px) {
-  .coopcards {
-    grid-template-columns: 1fr;
-    gap: 12px;
-    margin-top: var(--space-6);
+  .coopsnake-wrap {
+    padding: 24px 12px 10px;
   }
-  .coopcard {
-    padding: 16px 14px;
-    gap: 8px;
+  .coopsnake-svg {
+    top: 24px;
+    left: 12px;
+    right: 12px;
+    bottom: 10px;
+    width: calc(100% - 24px);
+    height: calc(100% - 34px);
   }
-  .coopcard__icon {
-    width: 38px;
-    height: 38px;
+  .coopsnake-path--desktop { display: none; }
+  .coopsnake-path--mobile  { display: block; }
+
+  .coopsnake {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(4, auto);
+    gap: 56px 0;
   }
-  .coopcard__icon svg {
-    width: 20px;
-    height: 20px;
+  /* 手机蛇形排位：行 1 LTR, 行 2 RTL, 行 3 LTR, 行 4 RTL */
+  .coopsnake__node:nth-child(1) { grid-column: 1; grid-row: 1; }
+  .coopsnake__node:nth-child(2) { grid-column: 2; grid-row: 1; }
+  .coopsnake__node:nth-child(3) { grid-column: 2; grid-row: 2; }
+  .coopsnake__node:nth-child(4) { grid-column: 1; grid-row: 2; }
+  .coopsnake__node:nth-child(5) { grid-column: 1; grid-row: 3; }
+  .coopsnake__node:nth-child(6) { grid-column: 2; grid-row: 3; }
+  .coopsnake__node:nth-child(7) { grid-column: 2; grid-row: 4; }
+  .coopsnake__node:nth-child(8) { grid-column: 1; grid-row: 4; }
+
+  .coopsnake__icon {
+    width: 64px;
+    height: 64px;
+    box-shadow:
+      0 0 0 6px rgba(10, 20, 40, 0.95),
+      0 0 20px color-mix(in srgb, var(--c, #4A8BFF) 55%, transparent),
+      inset 0 1px 0 rgba(255, 255, 255, 0.22);
   }
-  .coopcard__num {
-    font-size: 18px;
+  .coopsnake__icon svg {
+    width: 28px;
+    height: 28px;
   }
-  .coopcard__title {
-    font-size: 16px;
+  .coopsnake__label {
+    font-size: 13px;
+    max-width: 130px;
   }
-  .coopcard__sub {
-    font-size: 12.5px;
-  }
-  .coopcard__foot {
-    padding-top: 12px;
-  }
-  /* 手机 hover 退化 */
-  .coopcard:hover {
+  .coopsnake__node:hover .coopsnake__icon {
     transform: none;
   }
 }
 
 /* 减少动效偏好：直接显示 */
 @media (prefers-reduced-motion: reduce) {
-  .coopcard {
-    opacity: 1;
-    transform: none;
-    transition: none;
+  .coopsnake-path {
+    opacity: 1 !important;
+    stroke-dashoffset: 0 !important;
+    animation: none !important;
+  }
+  .coopsnake__node {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
   }
 }
 

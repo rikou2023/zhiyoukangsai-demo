@@ -4193,19 +4193,33 @@
 }
 
 /* ──── A. Hero 首屏标题 强制一行不换行（桌面/移动都保持单行） ──── */
-.hero-title .title-line-main {
-  white-space: nowrap;
+.hero-title .title-line-main,
+.hero-title.title-line-main,
+.title-line.title-line-main {
+  white-space: nowrap !important;
+}
+/* 防止溢出导致水平滚动条 */
+.hero-center, .hero {
+  overflow-x: clip;
 }
 
-/* 移动端：字号压到能容纳整句的范围，AI 放大倍率收回 */
+/* 移动端：字号压到能容纳整句「让您的品牌占领 AI 第一推荐位」(14 字 + AI 放大) */
+@media (max-width: 1024px) {
+  .title-line-main { font-size: clamp(18px, 4.4vw, 30px) !important; }
+  .title-ai        { font-size: 1.15em !important; }
+}
 @media (max-width: 768px) {
-  .title-line-main { font-size: clamp(20px, 5.6vw, 28px) !important; }
-  .title-ai        { font-size: 1.18em !important; }
+  .title-line-main { font-size: clamp(17px, 4.6vw, 22px) !important; }
+  .title-ai        { font-size: 1.12em !important; }
   .hero-title      { line-height: 1.25; }
 }
+@media (max-width: 480px) {
+  .title-line-main { font-size: 18px !important; }
+  .title-ai        { font-size: 1.1em !important; }
+}
 @media (max-width: 380px) {
-  .title-line-main { font-size: clamp(17px, 5.2vw, 22px) !important; }
-  .title-ai        { font-size: 1.12em !important; }
+  .title-line-main { font-size: 16px !important; }
+  .title-ai        { font-size: 1.08em !important; }
 }
 
 /* ──── G. 客户评价段（spotlight）手机端排版修复 ──── */

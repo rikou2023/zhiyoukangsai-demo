@@ -4033,220 +4033,264 @@
 }
 
 /* ============================================================
-   services.html 独家组件 · 合作流程 8 步 milestone（替代原裸图）
-   桌面：水平 stepper + 渐变彩色节点 + 中央渐变连接线
-   平板：4×2 网格
-   手机：竖向时间线（左侧节点 + 右侧文案 + 渐变竖线）
-   创新：scroll-reveal stagger 每个节点依次亮起
+   services.html 独家组件 · 合作流程 8 步信息卡片（方案 A · 卡片化）
+   桌面 ≥1280：4 列 × 2 行
+   平板 768–1280：2 列 × 4 行
+   手机 ≤768：1 列 × 8 行
+   每张卡：图标头 + 编号 + 阶段标签 + 标题 + 子动作 + 时长/角色 chip
+   hover：lift 4px + 顶线发光 + 边框染色 + 阴影染色
+   reveal：scroll-stagger 80ms 逐张入场
    ============================================================ */
 .services-coopflow {
   padding-block: var(--section-y);
 }
 
-.coopflow-wrap {
-  margin-top: var(--space-7);
-  position: relative;
-  padding: 12px 8px 8px;
-}
-
-/* 横向 stepper 中央连接线（仅桌面） */
-.coopflow-rail {
-  position: absolute;
-  top: 70px;
-  left: 7%;
-  right: 7%;
-  height: 2px;
-  background: linear-gradient(
-    90deg,
-    #4A8BFF 0%,
-    #7A78FF 22%,
-    #A66BFF 38%,
-    #C166EE 54%,
-    #D573C8 70%,
-    #B58CD0 84%,
-    #6BA1FF 100%
-  );
-  border-radius: 2px;
-  opacity: 0.55;
-  z-index: 0;
-  box-shadow: 0 0 14px rgba(120, 100, 220, 0.32);
-}
-
-.coopflow {
+.coopcards {
   display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  gap: 0;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
   list-style: none;
   padding: 0;
-  margin: 0;
-  position: relative;
-  z-index: 1;
+  margin: var(--space-7) 0 0;
 }
 
-.coopflow__step {
+.coopcard {
+  position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding: 0 6px;
-  position: relative;
+  gap: 10px;
+  padding: 20px 18px 18px;
+  background:
+    linear-gradient(180deg,
+      color-mix(in srgb, var(--c, #4A8BFF) 8%, transparent) 0%,
+      transparent 60%),
+    rgba(10, 20, 40, 0.42);
+  border: 1px solid var(--hairline-strong, rgba(255, 255, 255, 0.1));
+  border-radius: 12px;
+  overflow: hidden;
   opacity: 0;
-  transform: translateY(12px);
-  transition: opacity 600ms var(--ease-snap), transform 600ms var(--ease-snap);
+  transform: translateY(14px);
+  transition:
+    opacity 600ms var(--ease-snap),
+    transform 600ms var(--ease-snap),
+    border-color 280ms var(--ease-snap),
+    box-shadow 280ms var(--ease-snap),
+    background 280ms var(--ease-snap);
 }
-/* 父级 .reveal 显隐时，逐个 stagger 入场 */
-.coopflow-wrap.is-visible .coopflow__step {
+.coopcards.is-visible .coopcard {
   opacity: 1;
   transform: translateY(0);
 }
-.coopflow-wrap.is-visible .coopflow__step:nth-child(1) { transition-delay: 0ms; }
-.coopflow-wrap.is-visible .coopflow__step:nth-child(2) { transition-delay: 80ms; }
-.coopflow-wrap.is-visible .coopflow__step:nth-child(3) { transition-delay: 160ms; }
-.coopflow-wrap.is-visible .coopflow__step:nth-child(4) { transition-delay: 240ms; }
-.coopflow-wrap.is-visible .coopflow__step:nth-child(5) { transition-delay: 320ms; }
-.coopflow-wrap.is-visible .coopflow__step:nth-child(6) { transition-delay: 400ms; }
-.coopflow-wrap.is-visible .coopflow__step:nth-child(7) { transition-delay: 480ms; }
-.coopflow-wrap.is-visible .coopflow__step:nth-child(8) { transition-delay: 560ms; }
+.coopcards.is-visible .coopcard:nth-child(1) { transition-delay: 0ms, 0ms, 0ms, 0ms, 0ms; }
+.coopcards.is-visible .coopcard:nth-child(2) { transition-delay: 80ms, 80ms, 0ms, 0ms, 0ms; }
+.coopcards.is-visible .coopcard:nth-child(3) { transition-delay: 160ms, 160ms, 0ms, 0ms, 0ms; }
+.coopcards.is-visible .coopcard:nth-child(4) { transition-delay: 240ms, 240ms, 0ms, 0ms, 0ms; }
+.coopcards.is-visible .coopcard:nth-child(5) { transition-delay: 320ms, 320ms, 0ms, 0ms, 0ms; }
+.coopcards.is-visible .coopcard:nth-child(6) { transition-delay: 400ms, 400ms, 0ms, 0ms, 0ms; }
+.coopcards.is-visible .coopcard:nth-child(7) { transition-delay: 480ms, 480ms, 0ms, 0ms, 0ms; }
+.coopcards.is-visible .coopcard:nth-child(8) { transition-delay: 560ms, 560ms, 0ms, 0ms, 0ms; }
 
-.coopflow__num {
-  font-family: var(--font-mono, ui-monospace, monospace);
-  font-size: 11px;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.5);
-  letter-spacing: 0.12em;
-  margin-bottom: 8px;
+.coopcard:hover {
+  border-color: color-mix(in srgb, var(--c, #4A8BFF) 55%, var(--hairline-strong, rgba(255, 255, 255, 0.1)));
+  box-shadow: 0 10px 32px color-mix(in srgb, var(--c, #4A8BFF) 22%, transparent);
+  background:
+    linear-gradient(180deg,
+      color-mix(in srgb, var(--c, #4A8BFF) 14%, transparent) 0%,
+      transparent 65%),
+    rgba(10, 20, 40, 0.55);
+  transform: translateY(-4px);
 }
 
-.coopflow__node {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
+/* 顶线发光 beam（hover 出现） */
+.coopcard__beam {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--c, #4A8BFF) 25%,
+    var(--c, #4A8BFF) 75%,
+    transparent 100%
+  );
+  opacity: 0;
+  transform: scaleX(0.5);
+  transform-origin: center;
+  transition: opacity 280ms var(--ease-snap), transform 320ms var(--ease-snap);
+  pointer-events: none;
+  box-shadow: 0 0 12px color-mix(in srgb, var(--c, #4A8BFF) 70%, transparent);
+}
+.coopcard:hover .coopcard__beam {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+/* Header: 图标 + 编号 + 阶段标签 */
+.coopcard__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 0 0 4px;
+}
+
+.coopcard__icon {
+  flex-shrink: 0;
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: radial-gradient(circle at 30% 25%,
-    color-mix(in srgb, var(--c, #4A8BFF) 85%, #FFFFFF 15%) 0%,
-    var(--c, #4A8BFF) 45%,
-    color-mix(in srgb, var(--c, #4A8BFF) 60%, #0A1428 40%) 100%);
-  border: 1.5px solid color-mix(in srgb, var(--c, #4A8BFF) 80%, #FFFFFF 20%);
+  background:
+    radial-gradient(circle at 30% 25%,
+      color-mix(in srgb, var(--c, #4A8BFF) 85%, #FFFFFF 15%) 0%,
+      var(--c, #4A8BFF) 55%,
+      color-mix(in srgb, var(--c, #4A8BFF) 55%, #0A1428 45%) 100%);
+  border: 1px solid color-mix(in srgb, var(--c, #4A8BFF) 70%, transparent);
   box-shadow:
-    0 0 0 5px rgba(10, 20, 40, 0.92),
-    0 0 22px color-mix(in srgb, var(--c, #4A8BFF) 55%, transparent),
-    inset 0 1px 0 rgba(255, 255, 255, 0.15);
-  position: relative;
-  z-index: 2;
-  transition: transform 300ms var(--ease-snap), box-shadow 300ms var(--ease-snap);
+    0 0 14px color-mix(in srgb, var(--c, #4A8BFF) 30%, transparent),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
 }
-.coopflow__step:hover .coopflow__node {
-  transform: translateY(-4px) scale(1.06);
-  box-shadow:
-    0 0 0 5px rgba(10, 20, 40, 0.92),
-    0 10px 32px color-mix(in srgb, var(--c, #4A8BFF) 70%, transparent),
-    inset 0 1px 0 rgba(255, 255, 255, 0.22);
-}
-
-.coopflow__icon {
-  width: 28px;
-  height: 28px;
+.coopcard__icon svg {
+  width: 22px;
+  height: 22px;
   color: #FFFFFF;
-  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.25));
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.3));
 }
 
-.coopflow__label {
-  margin: 14px 0 0;
+.coopcard__meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  padding-top: 2px;
+}
+
+.coopcard__num {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--c, #4A8BFF);
+  letter-spacing: 0.04em;
+  line-height: 1;
+}
+
+.coopcard__stage {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 9px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.4);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* Title */
+.coopcard__title {
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.32;
+  color: var(--ink, #FFFFFF);
+  margin: 8px 0 0;
+  letter-spacing: -0.005em;
+}
+
+/* Subtitle */
+.coopcard__sub {
   font-size: 13px;
-  line-height: 1.45;
+  line-height: 1.55;
+  color: var(--ink-muted, rgba(255, 255, 255, 0.62));
+  margin: 2px 0 0;
+}
+
+/* Footer chips */
+.coopcard__foot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px dashed var(--hairline, rgba(255, 255, 255, 0.06));
+}
+
+.coopcard__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 8px 4px 7px;
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid var(--hairline-strong, rgba(255, 255, 255, 0.1));
+  border-radius: 6px;
+  font-size: 11px;
   font-weight: 500;
-  color: var(--ink, #E5ECFF);
-  max-width: 120px;
-  letter-spacing: 0.01em;
+  color: var(--ink-muted, rgba(255, 255, 255, 0.68));
+  font-family: var(--font-mono, ui-monospace, monospace);
+  letter-spacing: 0.02em;
+  line-height: 1;
+  white-space: nowrap;
+}
+.coopcard__chip svg {
+  width: 11px;
+  height: 11px;
+  opacity: 0.55;
+  flex-shrink: 0;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
-/* ── 平板：4×2 网格 ── */
-@media (max-width: 1024px) {
-  .coopflow {
-    grid-template-columns: repeat(4, 1fr);
-    row-gap: 36px;
+/* ── 中等屏：2 列 ── */
+@media (max-width: 1100px) {
+  .coopcards {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
   }
-  .coopflow-rail {
-    display: none;
-  }
-  .coopflow__label {
-    font-size: 12.5px;
-    max-width: 100%;
+  .coopcard {
+    padding: 18px 16px 16px;
   }
 }
 
-/* ── 手机：竖向时间线 ── */
+/* ── 手机：1 列 ── */
 @media (max-width: 640px) {
-  .coopflow-wrap {
-    padding: 8px 0;
-  }
-  .coopflow {
+  .coopcards {
     grid-template-columns: 1fr;
-    row-gap: 0;
+    gap: 12px;
+    margin-top: var(--space-6);
   }
-  .coopflow__step {
-    flex-direction: row;
-    align-items: center;
-    text-align: left;
-    gap: 18px;
-    padding: 18px 0 18px 4px;
-    position: relative;
+  .coopcard {
+    padding: 16px 14px;
+    gap: 8px;
   }
-  /* 竖向连接线，渐变收尾 */
-  .coopflow__step:not(:last-child)::after {
-    content: '';
-    position: absolute;
-    left: 33px;
-    top: 84px;
-    bottom: -18px;
-    width: 2px;
-    background: linear-gradient(to bottom,
-      var(--c, #4A8BFF) 0%,
-      color-mix(in srgb, var(--c, #4A8BFF) 30%, transparent) 100%);
-    opacity: 0.5;
-    z-index: 0;
+  .coopcard__icon {
+    width: 38px;
+    height: 38px;
   }
-  .coopflow__num {
-    position: absolute;
-    top: 22px;
-    right: 4px;
-    margin: 0;
-    font-size: 10px;
+  .coopcard__icon svg {
+    width: 20px;
+    height: 20px;
   }
-  .coopflow__node {
-    flex-shrink: 0;
-    width: 56px;
-    height: 56px;
-    box-shadow:
-      0 0 0 4px rgba(10, 20, 40, 0.92),
-      0 0 16px color-mix(in srgb, var(--c, #4A8BFF) 55%, transparent),
-      inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  .coopcard__num {
+    font-size: 18px;
   }
-  .coopflow__icon {
-    width: 24px;
-    height: 24px;
+  .coopcard__title {
+    font-size: 16px;
   }
-  .coopflow__label {
-    margin: 0;
-    font-size: 14px;
-    line-height: 1.5;
-    max-width: none;
-    flex: 1;
-    padding-right: 32px; /* 给右上角 num 留位 */
+  .coopcard__sub {
+    font-size: 12.5px;
   }
-  .coopflow__label br {
-    display: none; /* 手机不需要桌面的换行 */
+  .coopcard__foot {
+    padding-top: 12px;
   }
-  .coopflow__step:hover .coopflow__node {
+  /* 手机 hover 退化 */
+  .coopcard:hover {
     transform: none;
   }
 }
 
 /* 减少动效偏好：直接显示 */
 @media (prefers-reduced-motion: reduce) {
-  .coopflow__step {
+  .coopcard {
     opacity: 1;
     transform: none;
     transition: none;

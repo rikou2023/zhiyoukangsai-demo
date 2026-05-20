@@ -4416,3 +4416,33 @@
     transition: opacity 200ms ease !important;
   }
 }
+
+/* ──── 移动端 header 统一：只保留 logo + 汉堡包，加强 hamburger 视觉 ──── */
+@media (max-width: 768px) {
+  .site-header .btn-header-cta,
+  .site-header .btn-ghost {
+    display: none !important;
+  }
+  .site-header .header-actions {
+    gap: 0;
+  }
+  .hamburger {
+    display: inline-flex !important;
+    width: 44px;
+    height: 44px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(120, 180, 255, 0.28);
+    border-radius: 8px;
+    align-items: center;
+    justify-content: center;
+  }
+  .hamburger:active {
+    background: rgba(47, 102, 255, 0.18);
+    border-color: var(--primary);
+  }
+  .hamburger span {
+    width: 20px;
+    height: 2px;
+    background: #FFFFFF !important;
+  }
+}

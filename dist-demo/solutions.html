@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="智优康赛 GEO 解决方案。依托多年专业技术积累，提供从流量获取到商业转化的一站式解决方案，覆盖流量增长、内容新媒体、公关品牌、出海全球化、代理商生态 5 类团队场景。" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <title>GEO 解决方案 - 智优康赛 AIconcepts</title>
+
+  <link rel="stylesheet" href="assets/css/tokens.css" />
+  <link rel="stylesheet" href="assets/css/index.css" />
+  <link rel="stylesheet" href="assets/css/solutions.css" />
+  <link rel="stylesheet" href="assets/css/design-v2.css" />
+</head>
+<body>
+
+  <!-- ========== 全页神经网络背景 ========== -->
+  <canvas class="bg-neural" id="canvas-neural" aria-hidden="true"></canvas>
+
+  <!-- ========== Header 顶栏 ========== -->
+  <header class="site-header" role="banner">
+    <div class="container">
+      <a href="index.html" class="brand" aria-label="智优康赛首页">
+        <img src="images/智优康赛logo.svg" alt="智优康赛 AIconcepts" />
+      </a>
+
+      <nav class="main-nav" id="mainNav" aria-label="主导航">
+        <span class="nav-pill" aria-hidden="true"></span>
+        <a href="index.html" class="nav-link">首页</a>
+        <a href="solutions.html" class="nav-link is-active">GEO 解决方案</a>
+        <a href="cases.html" class="nav-link">客户案例</a>
+        <a href="ecosystem.html" class="nav-link">生态资源</a>
+        <a href="demo.html" class="nav-link">系统演示</a>
+        <a href="about.html" class="nav-link">关于我们</a>
+        <a href="services.html" class="nav-link">专属服务</a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="#contact-form" class="btn btn-ghost">联系我们</a>
+        <a href="#contact-form" class="btn btn-header-cta">预约诊断</a>
+        <button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false" aria-controls="mobileDrawer">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 移动端抽屉菜单 -->
+  <div class="mobile-drawer" id="mobileDrawer" role="dialog" aria-modal="true" aria-label="移动端导航菜单" hidden>
+    <nav class="mobile-nav" aria-label="移动端导航">
+      <a href="index.html" class="mobile-nav-link">首页</a>
+      <a href="solutions.html" class="mobile-nav-link is-active">GEO 解决方案</a>
+      <a href="cases.html" class="mobile-nav-link">客户案例</a>
+      <a href="ecosystem.html" class="mobile-nav-link">生态资源</a>
+      <a href="demo.html" class="mobile-nav-link">系统演示</a>
+      <a href="about.html" class="mobile-nav-link">关于我们</a>
+      <a href="services.html" class="mobile-nav-link">专属服务</a>
+    </nav>
+    <div class="mobile-drawer-cta">
+      <a href="#contact-form" class="btn btn-ghost mobile-cta-btn">联系我们</a>
+      <a href="#contact-form" class="btn btn-header-cta mobile-cta-btn">预约诊断</a>
+    </div>
+  </div>
+
+  <!-- ========== Page Banner V2 · GEO 解决方案 ========== -->
+  <section class="page-banner" aria-labelledby="sol-hero-title">
+    <div class="container page-banner__inner">
+      <div class="page-banner__grid">
+
+        <div class="page-banner__text">
+          <span class="page-banner__eyebrow">GEO 解决方案</span>
+          <h1 class="page-banner__title" id="sol-hero-title">
+            从流量获取到商业转化，<br/>
+            <em>一站式解决方案</em>
+          </h1>
+          <p class="page-banner__sub">无论您的团队负责哪个环节，<strong>智优康赛</strong>都能为您提供针对性的解决方案，结合行业领先的营销方法论及全球化服务能力，帮助您在 AI 搜索时代赢得竞争优势。</p>
+          <div class="page-banner__ctas">
+            <a href="#solutions-list" class="btn btn-primary">
+              查看 5 大方案
+              <span class="arrow">→</span>
+            </a>
+            <a href="#contact-form" class="btn btn-secondary">
+              预约专家诊断
+            </a>
+          </div>
+        </div>
+
+        <div class="page-banner__visual">
+          <!-- GEO 球体（客户要求保留）-->
+          <div class="geo-orb" aria-hidden="true">
+            <div class="geo-orb-stage">
+              <div class="geo-ring geo-ring-1"></div>
+              <div class="geo-ring geo-ring-2"></div>
+              <div class="geo-ring geo-ring-3"></div>
+              <div class="geo-ring geo-ring-4"></div>
+              <div class="geo-text">GEO</div>
+              <span class="geo-particle geo-particle-1"></span>
+              <span class="geo-particle geo-particle-2"></span>
+              <span class="geo-particle geo-particle-3"></span>
+              <span class="geo-particle geo-particle-4"></span>
+              <span class="geo-particle geo-particle-5"></span>
+              <span class="geo-particle geo-particle-6"></span>
+            </div>
+            <div class="geo-base"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 5 大解决方案 V2 · Tab 自动切换 ========== -->
+  <section class="solutions-list-section sol-tabs-section" id="solutions-list" aria-labelledby="solutions-list-title">
+    <div class="container">
+      <div class="section-head section-head--left section-head--v2">
+        <h2 class="section-title" id="solutions-list-title">5 类团队，<em>5 种破局路径</em></h2>
+      </div>
+      <p class="section-lead">每一个解决方案都直击该团队的核心目标 —— 点击或等待自动切换查看针对性的专家护航。</p>
+
+      <div class="sol-tabs reveal" id="solTabs">
+        <div class="sol-tabs__nav" role="tablist" id="solTabsNav"></div>
+        <div class="sol-tabs__content" id="solTabsContent"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 独家组件 · 5 方案矩阵对比表（首页没有） ========== -->
+  <section class="sol-matrix" aria-labelledby="sol-matrix-title">
+    <div class="container">
+      <div class="section-head section-head--left section-head--v2">
+        <h2 class="section-title" id="sol-matrix-title">5 方案<em>横向对比</em></h2>
+      </div>
+      <p class="section-lead">从适用团队、核心目标、关键服务到主要 AI 平台 —— 一表看清如何为您的业务选对方案。</p>
+
+      <div class="sol-matrix__table-wrap reveal">
+        <table class="sol-matrix__table">
+          <thead>
+            <tr>
+              <th>方案</th>
+              <th>适用团队</th>
+              <th>核心目标</th>
+              <th>关键服务</th>
+              <th>主要 AI 平台 / 渠道</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <span class="sol-matrix__num"><strong>01</strong></span>
+                <span class="sol-matrix__plan-title">GEO 与全网搜索优化战略</span>
+              </td>
+              <td>流量与增长团队</td>
+              <td>AI 平台抢占品牌口碑与用户增长先机</td>
+              <td>
+                <span class="sol-matrix__chip">SEO &amp; GEO 改造</span>
+                <span class="sol-matrix__chip">信源优化</span>
+                <span class="sol-matrix__chip">多模态内容占位</span>
+              </td>
+              <td>
+                <span class="sol-matrix__chip">DeepSeek</span>
+                <span class="sol-matrix__chip">豆包</span>
+                <span class="sol-matrix__chip">Kimi</span>
+                <span class="sol-matrix__chip">国际 AI 引擎</span>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span class="sol-matrix__num"><strong>02</strong></span>
+                <span class="sol-matrix__plan-title">多模态内容与知识库构建</span>
+              </td>
+              <td>内容与新媒体团队</td>
+              <td>驱动真实用户与大模型引擎的双重高价值流量</td>
+              <td>
+                <span class="sol-matrix__chip">结构化语料</span>
+                <span class="sol-matrix__chip">多模态内容</span>
+                <span class="sol-matrix__chip">AI 知识库基座</span>
+              </td>
+              <td>
+                <span class="sol-matrix__chip">短视频</span>
+                <span class="sol-matrix__chip">小红书</span>
+                <span class="sol-matrix__chip">知乎</span>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span class="sol-matrix__num"><strong>03</strong></span>
+                <span class="sol-matrix__plan-title">AI 时代声誉管理与舆情防火墙</span>
+              </td>
+              <td>公关与品牌团队</td>
+              <td>主动塑造 AI 对话，建设稳固的数字公关防御体系</td>
+              <td>
+                <span class="sol-matrix__chip">全域实时监测</span>
+                <span class="sol-matrix__chip">六大场景舆情防火墙</span>
+                <span class="sol-matrix__chip">危机公关全栈</span>
+              </td>
+              <td>
+                <span class="sol-matrix__chip">全 AI 平台监测</span>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span class="sol-matrix__num"><strong>04</strong></span>
+                <span class="sol-matrix__plan-title">品牌出海全域 GEO 护航</span>
+              </td>
+              <td>出海与全球化团队</td>
+              <td>赋能企业出海，拓展全球 AI 搜索市场商业增量</td>
+              <td>
+                <span class="sol-matrix__chip">多语言 SEO</span>
+                <span class="sol-matrix__chip">品牌出海传播</span>
+                <span class="sol-matrix__chip">多语言网站</span>
+                <span class="sol-matrix__chip">海外营销系统</span>
+              </td>
+              <td>
+                <span class="sol-matrix__chip">国际 AI 搜索生态</span>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span class="sol-matrix__num"><strong>05</strong></span>
+                <span class="sol-matrix__plan-title">前沿技术与业务赋能</span>
+              </td>
+              <td>代理商与生态伙伴</td>
+              <td>专为代理商合作伙伴打造的战略赋能</td>
+              <td>
+                <span class="sol-matrix__chip">GEO 技术整合</span>
+                <span class="sol-matrix__chip">AI SEO 能力</span>
+                <span class="sol-matrix__chip">体系无缝接入</span>
+              </td>
+              <td>
+                <span class="sol-matrix__chip">代理服务体系</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 底部全宽 CTA 终结段 ========== -->
+  <section class="final-cta-section" aria-labelledby="final-cta-title">
+    <div class="final-cta-bg" aria-hidden="true"></div>
+    <div class="container">
+      <div class="final-cta-content">
+        <h2 class="final-cta-title" id="final-cta-title">
+          找到属于<span class="gradient-text">您团队</span>的 GEO 破局蓝图
+        </h2>
+        <p class="final-cta-lead">告诉我们您的团队类型与核心目标，资深增长顾问将为您匹配 <strong>最贴合的解决方案路径</strong>。</p>
+        <a href="#contact-form" class="btn btn-primary btn-lg final-cta-btn">
+          立即预约专家诊断
+          <span class="arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 留资表单（全站共用） ========== -->
+  <section class="contact-section" id="contact-form" aria-labelledby="contact-title">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="contact-intro">
+          <h2 class="section-title contact-title-art" id="contact-title">
+            <span class="contact-title-line"><span class="contact-art-fill">被</span><span class="contact-art-stroke">AI</span><span class="contact-art-fill">看见</span></span>
+            <span class="contact-title-line"><span class="contact-art-fill">才能被</span><span class="contact-art-stroke">客户选择</span></span>
+          </h2>
+          <p class="contact-lead">提交您的品牌信息，GEO 专家将为您进行 <strong>1V1 深度扫描</strong>，评估您的品牌在主流 AI 中的推荐指数。</p>
+        </div>
+
+        <form class="contact-form" id="leadForm" novalidate>
+          <div class="form-row">
+            <label class="form-field">
+              <span class="form-label">公司名称 <em>*</em></span>
+              <input type="text" name="company" required maxlength="60" autocomplete="organization" />
+            </label>
+            <label class="form-field">
+              <span class="form-label">姓名 <em>*</em></span>
+              <input type="text" name="name" required maxlength="30" autocomplete="name" />
+            </label>
+          </div>
+
+          <div class="form-row">
+            <label class="form-field">
+              <span class="form-label">职位 <em>*</em></span>
+              <input type="text" name="role" required maxlength="30" autocomplete="organization-title" />
+            </label>
+            <label class="form-field">
+              <span class="form-label">联系电话 <em>*</em></span>
+              <input type="tel" name="phone" required maxlength="20" autocomplete="tel" />
+            </label>
+          </div>
+
+          <label class="form-field">
+            <span class="form-label">邮箱 <em>*</em></span>
+            <input type="email" name="email" required maxlength="80" autocomplete="email" />
+          </label>
+
+          <label class="form-field">
+            <span class="form-label">核心需求 <em>*</em></span>
+            <textarea name="message" required rows="3" maxlength="500" placeholder="简要描述您当前在 AI 搜索 / 品牌露出方面遇到的问题。"></textarea>
+          </label>
+
+          <fieldset class="form-field form-fieldset">
+            <legend class="form-label">目前最关注的 AI 大模型？<em>*</em>（可多选）</legend>
+            <div class="checkbox-grid">
+              <label class="checkbox-chip">
+                <input type="checkbox" name="ai_focus" value="Kimi" />
+                <span class="checkbox-label">Kimi</span>
+              </label>
+              <label class="checkbox-chip">
+                <input type="checkbox" name="ai_focus" value="文心一言" />
+                <span class="checkbox-label">文心一言</span>
+              </label>
+              <label class="checkbox-chip">
+                <input type="checkbox" name="ai_focus" value="通义千问" />
+                <span class="checkbox-label">通义千问</span>
+              </label>
+              <label class="checkbox-chip">
+                <input type="checkbox" name="ai_focus" value="豆包" />
+                <span class="checkbox-label">豆包</span>
+              </label>
+              <label class="checkbox-chip">
+                <input type="checkbox" name="ai_focus" value="智谱清言" />
+                <span class="checkbox-label">智谱清言</span>
+              </label>
+              <label class="checkbox-chip">
+                <input type="checkbox" name="ai_focus" value="DeepSeek" />
+                <span class="checkbox-label">DeepSeek</span>
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset class="form-field form-fieldset">
+            <legend class="form-label">目前品牌在 AI 时代的痛点是？<em>*</em></legend>
+            <div class="radio-stack">
+              <label class="radio-option">
+                <input type="radio" name="pain_point" value="A" required />
+                <span class="radio-mark"></span>
+                <span class="radio-text"><b>A</b> AI 搜不到我们公司/产品。</span>
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="pain_point" value="B" />
+                <span class="radio-mark"></span>
+                <span class="radio-text"><b>B</b> AI 总是优先推荐竞争对手。</span>
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="pain_point" value="C" />
+                <span class="radio-mark"></span>
+                <span class="radio-text"><b>C</b> AI 对我们的回答有错误/负面信息。</span>
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="pain_point" value="D" />
+                <span class="radio-mark"></span>
+                <span class="radio-text"><b>D</b> 想建立专属的企业 AI 知识库。</span>
+              </label>
+            </div>
+          </fieldset>
+
+          <div class="form-footer">
+            <button type="submit" class="btn btn-primary btn-lg" id="leadSubmit">
+              <span class="btn-text-content">预约专家诊断</span>
+            </button>
+            <p class="form-note">提交即视为同意智优康赛在 3 个工作日内通过邮件或电话与您联系。</p>
+          </div>
+
+          <div class="form-feedback" id="formFeedback" role="status" aria-live="polite"></div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== Footer ========== -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="images/智优康赛logo.svg" alt="智优康赛 AIconcepts" class="footer-logo" />
+          <p class="footer-tag">中国 GEO 第一服务商<br />让每一个优秀的企业都能被世界看见。</p>
+          <p class="footer-meta">国家高新技术企业 · 北京市专精特新企业<br />成立于 2008 · 1000+ 客户服务经验</p>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-heading">专属服务</h4>
+          <a href="services.html#stages">4 步交付流程</a>
+          <a href="services.html#manifesto-title">白帽宣言</a>
+          <a href="services.html#contact-form">预约诊断</a>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-heading">解决方案</h4>
+          <a href="solutions.html">GEO 解决方案</a>
+          <a href="demo.html">系统演示</a>
+          <a href="cases.html">客户案例</a>
+          <a href="ecosystem.html">生态资源</a>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-heading">公司</h4>
+          <a href="about.html">关于我们</a>
+          <a href="#contact-form">需求收集</a>
+          <a href="about.html">联系我们</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span class="footer-copyright">© 2026 智优康赛 AIconcepts · GEO 战略服务商</span>
+        <span class="footer-icp">京 ICP 备 XXXXXXXX 号</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 回到顶部按钮 -->
+  <button class="back-to-top" id="backToTop" aria-label="回到顶部" hidden>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M12 19V5M5 12l7-7 7 7"/>
+    </svg>
+  </button>
+
+  <script src="assets/js/index.js"></script>
+
+  <!-- ========== sol-tabs · 5 方案 Tab 自动切换 ========== -->
+  <script>
+  (function () {
+    const SOL_DATA = [
+      {
+        id: '01',
+        team: '面向流量与增长团队',
+        teamShort: '流量增长',
+        title: 'GEO 与全网搜索优化战略',
+        target: '让企业品牌在 AI 平台上抢占口碑与用户增长先机。',
+        path: '拒绝盲目的流量堆砌。提供系统化的官网 SEO & GEO 改造、GEO 信源优化以及多模态内容占位解决方案。针对 DeepSeek、豆包、Kimi 等国内主流大语言模型以及国际 AI 搜索引擎，精准重构您的品牌布局，让品牌在 AI 生成的回答中获得优先推荐，实现确定性的品效合一。',
+        visualLabel: '主要 AI 平台',
+        chips: ['DeepSeek', '豆包', 'Kimi', '国际 AI 引擎'],
+        servicesLabel: '关键服务',
+        services: ['SEO & GEO 改造', '信源优化', '多模态内容占位'],
+        bigNum: 'AI',
+      },
+      {
+        id: '02',
+        team: '面向内容与新媒体团队',
+        teamShort: '内容新媒体',
+        title: '多模态内容与知识库构建',
+        target: '塑造企业品牌形象，驱动真实用户意图与大模型引擎的双重高价值流量。',
+        path: 'AI 需要"结构化"的知识喂养。专家团队结合全网内容矩阵（涵盖短视频、小红书、知乎等平台），为您定制符合大模型语义解析偏好的高质量多模态内容。不仅吸引消费者的目光，更确保企业核心资产被大模型精准理解与高权重收录，构建坚实的 AI 营销知识库基座。',
+        visualLabel: '主要平台',
+        chips: ['短视频', '小红书', '知乎', '多模态内容'],
+        servicesLabel: '关键服务',
+        services: ['结构化语料', '多模态内容定制', 'AI 知识库基座'],
+        bigNum: '多',
+      },
+      {
+        id: '03',
+        team: '面向公关与品牌团队',
+        teamShort: '公关品牌',
+        title: 'AI 时代声誉管理与舆情防火墙',
+        target: '主动塑造 AI 对话内容，建设稳固的数字公关防御体系。',
+        path: '在 AI 主导的信息流中，品牌往往面临"隐形"或"信息有误"的危机。通过全域实时监测，全面掌握 AI 是如何评价您品牌的。结合品牌公关策略与危机公关的全栈服务，帮您构建六大场景舆情防火墙，确保品牌对外传达的信息永远准确、积极且权威。',
+        visualLabel: '主要场景',
+        chips: ['全 AI 平台监测', '六大舆情场景', '危机公关全栈'],
+        servicesLabel: '关键服务',
+        services: ['全域实时监测', '舆情防火墙', '危机公关'],
+        bigNum: '6',
+      },
+      {
+        id: '04',
+        team: '面向出海与全球化团队',
+        teamShort: '出海全球化',
+        title: '品牌出海全域 GEO 护航',
+        target: '赋能企业出海，拓展全球 AI 搜索市场的商业增量。',
+        path: '整合全球营销资源，为您提供多语言 SEO、品牌出海传播以及多语言网站开发等定制化服务。结合专属的海外营销系统，助力中国品牌在全球 AI 搜索生态中强势破圈，赢得国际市场的算法信任。',
+        visualLabel: '主要服务',
+        chips: ['多语言 SEO', '品牌出海传播', '多语言网站', '海外营销系统'],
+        servicesLabel: '关键服务',
+        services: ['国际 AI 搜索生态', '多语言内容', '出海营销'],
+        bigNum: '全球',
+      },
+      {
+        id: '05',
+        team: '面向代理商与生态伙伴',
+        teamShort: '代理生态',
+        title: '前沿技术与业务赋能',
+        target: '专为代理商合作伙伴打造的战略赋能方案。',
+        path: '赋能传统营销与公关代理机构，将最前沿的 GEO 技术与 AI 搜索引擎优化能力无缝整合到您的服务体系中。携手智优康赛，帮助您的客户在全新的生态中脱颖而出，实现商业价值共赢。',
+        visualLabel: '合作模式',
+        chips: ['技术整合', '能力赋能', '生态共建'],
+        servicesLabel: '关键服务',
+        services: ['GEO 技术接入', 'AI SEO 能力包', '服务体系整合'],
+        bigNum: '生态',
+      },
+    ];
+
+    const wrapEl = document.getElementById('solTabs');
+    const navEl = document.getElementById('solTabsNav');
+    const contentEl = document.getElementById('solTabsContent');
+    if (!wrapEl || !navEl || !contentEl) return;
+
+    navEl.innerHTML = SOL_DATA.map((d, i) => `
+      <button class="sol-tab ${i === 0 ? 'is-active' : ''}" role="tab" data-tab="${d.id}" aria-selected="${i === 0}">
+        <span class="sol-tab__num">${d.id}</span>
+        <span class="sol-tab__name">${d.teamShort}</span>
+        <span class="sol-tab__progress" aria-hidden="true"></span>
+      </button>
+    `).join('');
+
+    contentEl.innerHTML = SOL_DATA.map((d, i) => `
+      <article class="sol-panel ${i === 0 ? 'is-active' : ''}" data-panel="${d.id}" role="tabpanel">
+        <div class="sol-panel__grid">
+          <div class="sol-panel__text">
+            <span class="sol-panel__tag">PLAN / ${d.id} · ${d.team}</span>
+            <h3 class="sol-panel__title">${d.title}</h3>
+            <div class="sol-panel__block">
+              <span class="sol-panel__block-label">核心目标</span>
+              <p class="sol-panel__block-text">${d.target}</p>
+            </div>
+            <div class="sol-panel__block">
+              <span class="sol-panel__block-label">专家护航路径</span>
+              <p class="sol-panel__block-text">${d.path}</p>
+            </div>
+          </div>
+          <div class="sol-panel__visual">
+            <div class="sol-panel__big-num">${d.bigNum}</div>
+            <div class="sol-panel__visual-group">
+              <span class="sol-panel__visual-label">${d.visualLabel}</span>
+              <div class="sol-panel__visual-chips">
+                ${d.chips.map(c => `<span class="sol-panel__chip sol-panel__chip--primary">${c}</span>`).join('')}
+              </div>
+            </div>
+            <div class="sol-panel__visual-group">
+              <span class="sol-panel__visual-label">${d.servicesLabel}</span>
+              <div class="sol-panel__visual-chips">
+                ${d.services.map(s => `<span class="sol-panel__chip">${s}</span>`).join('')}
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+    `).join('');
+
+    const tabs = Array.from(navEl.querySelectorAll('.sol-tab'));
+    const panels = Array.from(contentEl.querySelectorAll('.sol-panel'));
+
+    let currentIdx = 0;
+    let timer = null;
+    const INTERVAL = 5000; // 5s 一切
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function activate(idx, userTriggered) {
+      currentIdx = idx;
+      const id = SOL_DATA[idx].id;
+      tabs.forEach((t, i) => {
+        // 重置进度条：先移除 is-active 让宽度归零，再重新加上触发动画
+        if (i === idx) {
+          // 强制 reflow 让进度条重新开始
+          const prog = t.querySelector('.sol-tab__progress');
+          if (prog) {
+            prog.style.transition = 'none';
+            prog.style.width = '0';
+            // 触发 reflow
+            void prog.offsetWidth;
+            prog.style.transition = '';
+            prog.style.width = '';
+          }
+          t.classList.add('is-active');
+          t.setAttribute('aria-selected', 'true');
+        } else {
+          t.classList.remove('is-active');
+          t.setAttribute('aria-selected', 'false');
+        }
+      });
+      panels.forEach(p => {
+        p.classList.toggle('is-active', p.dataset.panel === id);
+      });
+    }
+
+    function next() {
+      activate((currentIdx + 1) % SOL_DATA.length);
+    }
+
+    function start() {
+      if (prefersReducedMotion) return;
+      stop();
+      wrapEl.classList.remove('is-paused');
+      timer = setInterval(next, INTERVAL);
+    }
+
+    function stop() {
+      if (timer) {
+        clearInterval(timer);
+        timer = null;
+      }
+      wrapEl.classList.add('is-paused');
+    }
+
+    // 点击切换：手动操作
+    tabs.forEach((tab, i) => {
+      tab.addEventListener('click', () => {
+        activate(i, true);
+        start(); // 点击后重启计时
+      });
+    });
+
+    // 鼠标 hover 整个 tabs 区域暂停
+    wrapEl.addEventListener('mouseenter', stop);
+    wrapEl.addEventListener('mouseleave', start);
+
+    // 进入视口后才开始轮播（避免页面打开就跑）
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            start();
+          } else {
+            stop();
+          }
+        });
+      }, { threshold: 0.2 });
+      io.observe(wrapEl);
+    } else {
+      start();
+    }
+  })();
+  </script>
+</body>
+</html>

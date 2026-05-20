@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="关于智优康赛 AIconcepts —— 中国顶尖 GEO 战略服务商。国家高新技术企业 · 北京市专精特新企业 · 4 大国家级专利 · 100+ 行业专家智库 · 30+ 行业大奖 · 北京大学 / 中国传媒大学校企合作 · Google 双重合作伙伴 · SEMrush 中国唯一代理商。" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <title>关于我们 - 智优康赛 AIconcepts</title>
+
+  <link rel="stylesheet" href="assets/css/tokens.css" />
+  <link rel="stylesheet" href="assets/css/index.css" />
+  <link rel="stylesheet" href="assets/css/about.css" />
+  <link rel="stylesheet" href="assets/css/design-v2.css" />
+</head>
+<body>
+
+  <!-- ========== 全页神经网络背景 ========== -->
+  <canvas class="bg-neural" id="canvas-neural" aria-hidden="true"></canvas>
+
+  <!-- ========== Header 顶栏 ========== -->
+  <header class="site-header" role="banner">
+    <div class="container">
+      <a href="index.html" class="brand" aria-label="智优康赛首页">
+        <img src="images/智优康赛logo.svg" alt="智优康赛 AIconcepts" />
+      </a>
+
+      <nav class="main-nav" id="mainNav" aria-label="主导航">
+        <span class="nav-pill" aria-hidden="true"></span>
+        <a href="index.html" class="nav-link">首页</a>
+        <a href="solutions.html" class="nav-link">GEO 解决方案</a>
+        <a href="cases.html" class="nav-link">客户案例</a>
+        <a href="ecosystem.html" class="nav-link">生态资源</a>
+        <a href="demo.html" class="nav-link">系统演示</a>
+        <a href="about.html" class="nav-link is-active">关于我们</a>
+        <a href="services.html" class="nav-link">专属服务</a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="#contact-form" class="btn btn-ghost">联系我们</a>
+        <a href="#contact-form" class="btn btn-header-cta">预约诊断</a>
+        <button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false" aria-controls="mobileDrawer">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 移动端抽屉菜单 -->
+  <div class="mobile-drawer" id="mobileDrawer" role="dialog" aria-modal="true" aria-label="移动端导航菜单" hidden>
+    <nav class="mobile-nav" aria-label="移动端导航">
+      <a href="index.html" class="mobile-nav-link">首页</a>
+      <a href="solutions.html" class="mobile-nav-link">GEO 解决方案</a>
+      <a href="cases.html" class="mobile-nav-link">客户案例</a>
+      <a href="ecosystem.html" class="mobile-nav-link">生态资源</a>
+      <a href="demo.html" class="mobile-nav-link">系统演示</a>
+      <a href="about.html" class="mobile-nav-link is-active">关于我们</a>
+      <a href="services.html" class="mobile-nav-link">专属服务</a>
+    </nav>
+    <div class="mobile-drawer-cta">
+      <a href="#contact-form" class="btn btn-ghost mobile-cta-btn">联系我们</a>
+      <a href="#contact-form" class="btn btn-header-cta mobile-cta-btn">预约诊断</a>
+    </div>
+  </div>
+
+  <!-- ========== Page Banner V2 · 关于我们 ========== -->
+  <section class="page-banner page-banner--about" aria-labelledby="about-hero-title">
+    <div class="container page-banner__inner">
+      <div class="page-banner__grid">
+
+        <div class="page-banner__text">
+          <span class="page-banner__eyebrow">关于智优康赛</span>
+          <h1 class="page-banner__title" id="about-hero-title">
+            重塑品牌 AI 认知，<br/>
+            交付 <em>确定性增长</em>，<br/>
+            而非增加您的工作量。
+          </h1>
+          <p class="page-banner__sub">中国顶尖 <strong>GEO（生成式引擎优化）</strong>战略服务商 · 成立于 2008 · 1000+ 客户服务经验。我们提供的不是一套繁琐的软件系统，而是一个能<strong>直接交付结果的靠谱伙伴</strong>。</p>
+          <div class="page-banner__ctas">
+            <a href="#about-services" class="btn btn-primary">
+              查看核心服务
+              <span class="arrow">→</span>
+            </a>
+            <a href="#contact-form" class="btn btn-secondary">预约专家诊断</a>
+          </div>
+        </div>
+
+        <!-- 右侧独家视觉：4 资质数字阵列（不同于 cases 的 3 大案例数字） -->
+        <div class="page-banner__visual page-banner__visual--metrics">
+          <article class="cases-banner-metric">
+            <span class="cases-banner-metric__id">01</span>
+            <span class="cases-banner-metric__num" data-countup data-target="4" data-decimals="0" data-suffix="">0</span>
+            <span class="cases-banner-metric__label">国家级核心技术专利</span>
+            <span class="cases-banner-metric__tag">PATENT</span>
+          </article>
+          <article class="cases-banner-metric">
+            <span class="cases-banner-metric__id">02</span>
+            <span class="cases-banner-metric__num" data-countup data-target="6" data-decimals="0" data-suffix="">0</span>
+            <span class="cases-banner-metric__label">国家级软件著作权</span>
+            <span class="cases-banner-metric__tag">COPYRIGHT</span>
+          </article>
+          <article class="cases-banner-metric cases-banner-metric--mid">
+            <span class="cases-banner-metric__id">03</span>
+            <span class="cases-banner-metric__num" data-countup data-target="100" data-decimals="0" data-suffix="+">0+</span>
+            <span class="cases-banner-metric__label">行业专家智库</span>
+            <span class="cases-banner-metric__tag">EXPERTS</span>
+          </article>
+          <article class="cases-banner-metric">
+            <span class="cases-banner-metric__id">04</span>
+            <span class="cases-banner-metric__num" data-countup data-target="30" data-decimals="0" data-suffix="+">0+</span>
+            <span class="cases-banner-metric__label">行业权威大奖</span>
+            <span class="cases-banner-metric__tag">AWARDS</span>
+          </article>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 公司介绍 Lead V2 ========== -->
+  <section class="about-intro-section" aria-labelledby="about-intro-title">
+    <div class="container">
+      <div class="about-intro-v2 reveal">
+        <div class="about-intro-v2__meta">
+          <span class="about-intro-v2__label">COMPANY / 公司介绍</span>
+          <h2 class="about-intro-v2__title" id="about-intro-title">智优康赛 · <em>AIconcepts</em></h2>
+        </div>
+        <div class="about-intro-v2__body">
+          <p>智优康赛是中国顶尖的 <strong>GEO（生成式引擎优化）</strong>战略服务商。我们深知大企业在面对 AI 搜索变革时的痛点：您需要的不是一套繁琐的软件系统，而是<strong>一个能直接交付结果的靠谱伙伴</strong>。</p>
+          <p>依托拥有<strong>国家级专利的自研监测引擎</strong>与<strong>百人专家智库</strong>，我们将为您全面代管数据的洞察、分析、内容重构与效果追踪。您只需专注核心业务，我们将让您的品牌被大模型主动推荐。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 核心服务与技术底座（4 项 2×2） ========== -->
+  <section class="about-services-section" id="about-services" aria-labelledby="about-services-title">
+    <div class="container">
+      <div class="section-head section-head--left section-head--v2">
+        <h2 class="section-title" id="about-services-title">核心服务与<em>技术底座</em></h2>
+      </div>
+      <p class="section-lead">我们强大的自研技术底座，是保障专家服务效果的坚实后盾。</p>
+
+      <div class="about-services-grid alan-parent">
+        <article class="about-service-card alan-up">
+          <div class="about-service-icon" aria-hidden="true">
+            <svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="30" cy="30" r="22"/>
+              <circle cx="30" cy="30" r="12"/>
+              <circle cx="30" cy="30" r="3" fill="currentColor" stroke="none"/>
+              <path d="M30 8 v8 M30 44 v8 M8 30 h8 M44 30 h8"/>
+            </svg>
+          </div>
+          <h3 class="about-service-name">全域问答引擎洞察</h3>
+          <p class="about-service-desc">彻底打破 AI 搜索的"黑盒"。我们的监测系统与分析专家将<strong>全天候为您监控</strong>主流 AI 大模型是如何定义和评价您品牌的，为您提供深度的品牌声誉体检报告。</p>
+        </article>
+
+        <article class="about-service-card alan-up">
+          <div class="about-service-icon" aria-hidden="true">
+            <svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M10 18 L30 8 L50 18 v24 L30 52 L10 42 z"/>
+              <path d="M10 18 L30 28 L50 18 M30 28 v24"/>
+            </svg>
+          </div>
+          <h3 class="about-service-name">大模型语义解析分析</h3>
+          <p class="about-service-desc"><strong>精准把控 AI 流量入口</strong>。我们利用自研底层技术，实时追踪您的品牌官方资产是如何被 Kimi、豆包、文心一言等国内主流大模型及智能体读取、理解与深度解析的。我们确保您的品牌信息在 AI 的知识库中被正确收录并赋予高权重。</p>
+        </article>
+
+        <article class="about-service-card alan-up">
+          <div class="about-service-icon" aria-hidden="true">
+            <svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="26" cy="26" r="14"/>
+              <line x1="36" y1="36" x2="50" y2="50" stroke-width="2.4"/>
+              <path d="M20 22 L26 28 L32 22"/>
+              <line x1="26" y1="20" x2="26" y2="32"/>
+            </svg>
+          </div>
+          <h3 class="about-service-name">高转化提示词挖掘</h3>
+          <p class="about-service-desc"><strong>洞察真实意图，抢占语义先机</strong>。我们的数据团队帮您从数以百万计的大众 AI 提问中，挖掘出与您行业高度相关的高价值"提示词"，并以此为依据为您定制精准的 GEO 营销策略。</p>
+        </article>
+
+        <article class="about-service-card alan-up">
+          <div class="about-service-icon" aria-hidden="true">
+            <svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M8 48 L20 36 L30 42 L42 28 L52 16"/>
+              <circle cx="42" cy="28" r="3" fill="currentColor" stroke="none"/>
+              <circle cx="52" cy="16" r="5" fill="currentColor" stroke="none"/>
+              <line x1="8" y1="52" x2="52" y2="52" opacity="0.3"/>
+              <line x1="8" y1="8" x2="8" y2="52" opacity="0.3"/>
+            </svg>
+          </div>
+          <h3 class="about-service-name">AI 核心词排名追踪护航</h3>
+          <p class="about-service-desc"><strong>用确定的数据量化优化效果</strong>。我们提供细颗粒度的排名追踪服务，实时监控您的产品与品牌在 AI 搜索结果中的排位占位情况。由专家团队根据数据波动进行持续精调，守护核心曝光阵地。</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 资质徽章 chips（数字阵列已上挪到 banner） ========== -->
+  <section class="about-credentials-section" aria-labelledby="about-credentials-title">
+    <div class="container">
+      <div class="section-head section-head--left section-head--v2">
+        <h2 class="section-title" id="about-credentials-title">深厚的<em>行业根基</em>与权威认证</h2>
+      </div>
+      <p class="section-lead">智优康赛不仅是<strong>国家高新技术企业</strong>，更获评为<strong>北京市专精特新企业</strong>，为客户提供最可靠的硬核技术与交付保障。</p>
+
+      <div class="about-badges-v2 reveal">
+        <span class="about-badge-v2 about-badge-v2--featured"><span class="about-badge-v2__id">01</span>国家高新技术企业</span>
+        <span class="about-badge-v2 about-badge-v2--featured"><span class="about-badge-v2__id">02</span>北京市专精特新企业</span>
+        <span class="about-badge-v2"><span class="about-badge-v2__id">03</span>中国商务广告协会理事单位</span>
+        <span class="about-badge-v2"><span class="about-badge-v2__id">04</span>CAAC 品牌出海委员会联席理事</span>
+        <span class="about-badge-v2"><span class="about-badge-v2__id">05</span>《国际品牌观察杂志》独家商业运营权</span>
+        <span class="about-badge-v2"><span class="about-badge-v2__id">06</span>北京大学校企合作</span>
+        <span class="about-badge-v2"><span class="about-badge-v2__id">07</span>中国传媒大学校企合作</span>
+        <span class="about-badge-v2"><span class="about-badge-v2__id">08</span>金鼠标 · 虎啸奖 等 30 余项</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 证书大图 V2 spotlight（独家） ========== -->
+  <section class="about-cert-section" aria-labelledby="about-cert-title">
+    <div class="container">
+      <div class="section-head section-head--left section-head--v2">
+        <h2 class="section-title" id="about-cert-title">部分<em>证书展示</em></h2>
+      </div>
+      <p class="section-lead">硬核技术与权威背书 —— 真实证书，可追溯可验证。</p>
+
+      <div class="about-cert-v2 reveal">
+        <img src="assets/about/certs.png" alt="智优康赛部分证书展示" loading="lazy" class="about-cert-v2__img" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 出版书籍 V2 编辑陈列（独家） ========== -->
+  <section class="about-books-section" aria-labelledby="about-books-title">
+    <div class="container">
+      <div class="section-head section-head--left section-head--v2">
+        <h2 class="section-title" id="about-books-title">出版书籍 · <em>行业理论沉淀</em></h2>
+      </div>
+      <p class="section-lead">从数字营销到 GEO 战略，我们持续沉淀方法论于行业出版物。</p>
+
+      <div class="about-books-v2 reveal">
+        <figure class="about-book-v2">
+          <img src="assets/about/books/book-01.png" alt="智优康赛出版书籍 1" loading="lazy" />
+        </figure>
+        <figure class="about-book-v2">
+          <img src="assets/about/books/book-02.png" alt="智优康赛出版书籍 2" loading="lazy" />
+        </figure>
+        <figure class="about-book-v2">
+          <img src="assets/about/books/book-03.png" alt="智优康赛出版书籍 3" loading="lazy" />
+        </figure>
+        <figure class="about-book-v2">
+          <img src="assets/about/books/book-04.png" alt="智优康赛出版书籍 4" loading="lazy" />
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== Google + SEMrush 战略合作背书（复用 ecosystem V2） ========== -->
+  <section class="about-partners-section" aria-labelledby="about-partners-title">
+    <div class="container">
+      <div class="section-head section-head--left section-head--v2">
+        <h2 class="section-title" id="about-partners-title">全球数字营销<em>巨头联盟</em></h2>
+      </div>
+      <p class="section-lead">与全球数字营销的底层引擎保持<strong>最深度的战略绑定</strong>，为您提供最前沿的技术与流量赋能。</p>
+
+      <div class="alliance-partners-grid--v2 reveal">
+        <article class="alliance-card-v2">
+          <div class="alliance-card-v2__img-wrap">
+            <img src="images/Google双重合作伙伴.png" alt="Google 双重合作伙伴 · 一级代理商 · 出海生态合作伙伴优选计划" loading="lazy" class="alliance-card-v2__img" />
+          </div>
+          <div class="alliance-card-v2__body">
+            <span class="alliance-card-v2__rank">CORE PARTNER · 核心战略伙伴</span>
+            <h3 class="alliance-card-v2__name">Google</h3>
+            <p class="alliance-card-v2__text">智优康赛不仅是 <strong>Google 双重合作伙伴及一级代理商</strong>，更是<strong>唯一入选谷歌出海生态合作伙伴优选计划</strong>的 SEO 服务商与 SEM 代理商。</p>
+            <div class="alliance-card-v2__tags">
+              <span class="alliance-card-v2__tag">双重合作伙伴</span>
+              <span class="alliance-card-v2__tag">一级代理商</span>
+              <span class="alliance-card-v2__tag">出海生态优选</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="alliance-card-v2">
+          <div class="alliance-card-v2__img-wrap">
+            <img src="images/SEMrush中国唯一代理商.png" alt="SEMrush 中国区唯一代理商" loading="lazy" class="alliance-card-v2__img" />
+          </div>
+          <div class="alliance-card-v2__body">
+            <span class="alliance-card-v2__rank">SOLE AGENCY · 中国区唯一代理</span>
+            <h3 class="alliance-card-v2__name">SEMrush</h3>
+            <p class="alliance-card-v2__text">作为全球知名数字营销工具 <strong>SEMrush 在中国的唯一代理商</strong>，我们为您提供世界级的独立站营销数据与工具赋能。</p>
+            <div class="alliance-card-v2__tags">
+              <span class="alliance-card-v2__tag">中国唯一代理</span>
+              <span class="alliance-card-v2__tag">独立站数据</span>
+              <span class="alliance-card-v2__tag">营销工具赋能</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 智库 + 高校 V2 ledger（独家：编辑名册替代 SVG orb） ========== -->
+  <section class="about-think-tank-section" aria-labelledby="about-think-tank-title">
+    <div class="container">
+      <div class="section-head section-head--left section-head--v2">
+        <h2 class="section-title" id="about-think-tank-title">百人智库 · <em>顶尖高校深度协作</em></h2>
+      </div>
+      <p class="section-lead">真正的专业，源于持续的理论创新与行业标准引领。我们拥有 <strong>100+ 行业专家组成的深度赋能智库</strong>，并与<strong>北京大学、中国传媒大学</strong>等国内顶尖高校保持紧密的校企合作。</p>
+
+      <div class="about-tt-ledger reveal">
+        <div class="about-tt-ledger__head">
+          <span class="about-tt-ledger__label">THINK TANK / 智库与机构合作名册</span>
+          <span class="about-tt-ledger__meta">100+ 专家 · 5 大机构</span>
+        </div>
+        <ul class="about-tt-ledger__list">
+          <li class="about-tt-cell about-tt-cell--featured">
+            <span class="about-tt-cell__id">01</span>
+            <span class="about-tt-cell__name">北京大学</span>
+            <span class="about-tt-cell__tag">校企合作 · 理论创新</span>
+          </li>
+          <li class="about-tt-cell about-tt-cell--featured">
+            <span class="about-tt-cell__id">02</span>
+            <span class="about-tt-cell__name">中国传媒大学</span>
+            <span class="about-tt-cell__tag">校企合作 · 人才培养</span>
+          </li>
+          <li class="about-tt-cell">
+            <span class="about-tt-cell__id">03</span>
+            <span class="about-tt-cell__name">中国商务广告协会</span>
+            <span class="about-tt-cell__tag">理事单位</span>
+          </li>
+          <li class="about-tt-cell">
+            <span class="about-tt-cell__id">04</span>
+            <span class="about-tt-cell__name">CAAC 品牌出海委员会</span>
+            <span class="about-tt-cell__tag">联席理事单位</span>
+          </li>
+          <li class="about-tt-cell">
+            <span class="about-tt-cell__id">05</span>
+            <span class="about-tt-cell__name">《国际品牌观察杂志》</span>
+            <span class="about-tt-cell__tag">独家商业运营权</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 底部全宽 CTA 终结段 ========== -->
+  <section class="final-cta-section" aria-labelledby="final-cta-title">
+    <div class="final-cta-bg" aria-hidden="true"></div>
+    <div class="container">
+      <div class="final-cta-content">
+        <h2 class="final-cta-title" id="final-cta-title">
+          您只需专注<span class="gradient-text">核心业务</span><br />我们让品牌被大模型主动推荐
+        </h2>
+        <p class="final-cta-lead">提交您的品牌信息，资深 GEO 顾问将为您启动 <strong>《品牌 AI 可见性洞察报告》</strong>。</p>
+        <a href="#contact-form" class="btn btn-primary btn-lg final-cta-btn">
+          立即预约专家诊断
+          <span class="arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 留资表单（全站共用） ========== -->
+  <section class="contact-section" id="contact-form" aria-labelledby="contact-title">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="contact-intro">
+          <h2 class="section-title contact-title-art" id="contact-title">
+            <span class="contact-title-line"><span class="contact-art-fill">被</span><span class="contact-art-stroke">AI</span><span class="contact-art-fill">看见</span></span>
+            <span class="contact-title-line"><span class="contact-art-fill">才能被</span><span class="contact-art-stroke">客户选择</span></span>
+          </h2>
+          <p class="contact-lead">提交您的品牌信息，GEO 专家将为您进行 <strong>1V1 深度扫描</strong>，评估您的品牌在主流 AI 中的推荐指数。</p>
+        </div>
+
+        <form class="contact-form" id="leadForm" novalidate>
+          <div class="form-row">
+            <label class="form-field">
+              <span class="form-label">公司名称 <em>*</em></span>
+              <input type="text" name="company" required maxlength="60" autocomplete="organization" />
+            </label>
+            <label class="form-field">
+              <span class="form-label">姓名 <em>*</em></span>
+              <input type="text" name="name" required maxlength="30" autocomplete="name" />
+            </label>
+          </div>
+
+          <div class="form-row">
+            <label class="form-field">
+              <span class="form-label">职位 <em>*</em></span>
+              <input type="text" name="role" required maxlength="30" autocomplete="organization-title" />
+            </label>
+            <label class="form-field">
+              <span class="form-label">联系电话 <em>*</em></span>
+              <input type="tel" name="phone" required maxlength="20" autocomplete="tel" />
+            </label>
+          </div>
+
+          <label class="form-field">
+            <span class="form-label">邮箱 <em>*</em></span>
+            <input type="email" name="email" required maxlength="80" autocomplete="email" />
+          </label>
+
+          <label class="form-field">
+            <span class="form-label">核心需求 <em>*</em></span>
+            <textarea name="message" required rows="3" maxlength="500" placeholder="简要描述您当前在 AI 搜索 / 品牌露出方面遇到的问题。"></textarea>
+          </label>
+
+          <fieldset class="form-field form-fieldset">
+            <legend class="form-label">目前最关注的 AI 大模型？<em>*</em>（可多选）</legend>
+            <div class="checkbox-grid">
+              <label class="checkbox-chip"><input type="checkbox" name="ai_focus" value="Kimi" /><span class="checkbox-label">Kimi</span></label>
+              <label class="checkbox-chip"><input type="checkbox" name="ai_focus" value="文心一言" /><span class="checkbox-label">文心一言</span></label>
+              <label class="checkbox-chip"><input type="checkbox" name="ai_focus" value="通义千问" /><span class="checkbox-label">通义千问</span></label>
+              <label class="checkbox-chip"><input type="checkbox" name="ai_focus" value="豆包" /><span class="checkbox-label">豆包</span></label>
+              <label class="checkbox-chip"><input type="checkbox" name="ai_focus" value="智谱清言" /><span class="checkbox-label">智谱清言</span></label>
+              <label class="checkbox-chip"><input type="checkbox" name="ai_focus" value="DeepSeek" /><span class="checkbox-label">DeepSeek</span></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="form-field form-fieldset">
+            <legend class="form-label">目前品牌在 AI 时代的痛点是？<em>*</em></legend>
+            <div class="radio-stack">
+              <label class="radio-option"><input type="radio" name="pain_point" value="A" required /><span class="radio-mark"></span><span class="radio-text"><b>A</b> AI 搜不到我们公司/产品。</span></label>
+              <label class="radio-option"><input type="radio" name="pain_point" value="B" /><span class="radio-mark"></span><span class="radio-text"><b>B</b> AI 总是优先推荐竞争对手。</span></label>
+              <label class="radio-option"><input type="radio" name="pain_point" value="C" /><span class="radio-mark"></span><span class="radio-text"><b>C</b> AI 对我们的回答有错误/负面信息。</span></label>
+              <label class="radio-option"><input type="radio" name="pain_point" value="D" /><span class="radio-mark"></span><span class="radio-text"><b>D</b> 想建立专属的企业 AI 知识库。</span></label>
+            </div>
+          </fieldset>
+
+          <div class="form-footer">
+            <button type="submit" class="btn btn-primary btn-lg" id="leadSubmit">
+              <span class="btn-text-content">预约专家诊断</span>
+            </button>
+            <p class="form-note">提交即视为同意智优康赛在 3 个工作日内通过邮件或电话与您联系。</p>
+          </div>
+
+          <div class="form-feedback" id="formFeedback" role="status" aria-live="polite"></div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== Footer ========== -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="images/智优康赛logo.svg" alt="智优康赛 AIconcepts" class="footer-logo" />
+          <p class="footer-tag">中国 GEO 第一服务商<br />让每一个优秀的企业都能被世界看见。</p>
+          <p class="footer-meta">国家高新技术企业 · 北京市专精特新企业<br />成立于 2008 · 1000+ 客户服务经验</p>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-heading">专属服务</h4>
+          <a href="services.html#stages">4 步交付流程</a>
+          <a href="services.html#manifesto-title">白帽宣言</a>
+          <a href="services.html#contact-form">预约诊断</a>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-heading">解决方案</h4>
+          <a href="solutions.html">GEO 解决方案</a>
+          <a href="demo.html">系统演示</a>
+          <a href="cases.html">客户案例</a>
+          <a href="ecosystem.html">生态资源</a>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-heading">公司</h4>
+          <a href="about.html">关于我们</a>
+          <a href="#contact-form">需求收集</a>
+          <a href="about.html">联系我们</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span class="footer-copyright">© 2026 智优康赛 AIconcepts · GEO 战略服务商</span>
+        <span class="footer-icp">京 ICP 备 XXXXXXXX 号</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 回到顶部按钮 -->
+  <button class="back-to-top" id="backToTop" aria-label="回到顶部" hidden>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M12 19V5M5 12l7-7 7 7"/>
+    </svg>
+  </button>
+
+  <script src="assets/js/index.js"></script>
+</body>
+</html>

@@ -4361,6 +4361,12 @@
   display: none !important;
 }
 
+/* ──── 移动端隐藏系统演示右侧缩略图 sidebar，主截图占满 ──── */
+@media (max-width: 768px) {
+  .demo-v2__side { display: none !important; }
+  .demo-v2__layout { grid-template-columns: 1fr !important; }
+}
+
 /* ──── N. 行业客户名单：去掉「01 / 」mono 序号前缀，只保留分类名 ──── */
 .logos-section .industry-row:nth-child(1)::before { content: "科技与消费电子" !important; }
 .logos-section .industry-row:nth-child(2)::before { content: "美妆 · 快消 · 大健康" !important; }

@@ -4403,3 +4403,16 @@
 .testimonials-section .spotlight-card.is-next {
   transform: translate(calc(35% + var(--sp-dx, 0px)), -50%) scale(0.88) !important;
 }
+
+/* ──── 移动端 spotlight 强制单卡布局：transform: none 复活，drag-follow 不参与位移 ──── */
+@media (max-width: 768px) {
+  .testimonials-section .spotlight-card.is-active,
+  .testimonials-section .spotlight-card.is-prev,
+  .testimonials-section .spotlight-card.is-next {
+    transform: none !important;
+  }
+  /* 同步禁用 stage 拖动手势的视觉跟手（不影响 commit 切换） */
+  .spotlight-stage.is-dragging .spotlight-card {
+    transition: opacity 200ms ease !important;
+  }
+}

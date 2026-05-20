@@ -1815,7 +1815,10 @@
   .metric-v2__num {
     max-width: 100%;
     overflow-wrap: break-word;
-    word-break: keep-all;
+    /* word-break: keep-all 会让长中文句子整句不换行 → 375vw 视口溢出
+       中文默认就在字符间换行，normal 让长 meta 段自然 wrap */
+    word-break: normal;
+    line-break: auto;
   }
 
   /* 大数字 metric 在小屏不溢出 */

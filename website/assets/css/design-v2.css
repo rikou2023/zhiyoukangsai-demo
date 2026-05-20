@@ -4685,13 +4685,18 @@
 .logos-section .industry-row:nth-child(5)::before { content: "互联网与媒体" !important; }
 .logos-section .industry-row:nth-child(6)::before { content: "电商 · 零售 · 出行" !important; }
 
-/* ──── Q. 痛点段 "客户在问 AI" 的 AI 字明显比中文大 ──── */
-.pain-v2 .title-ai {
+/* ──── Q. 痛点段 "客户在问 AI" 的 AI 字明显比中文大 + 保持白色 ──── */
+/* 注：.pain-v2__quote em { color: var(--primary) } 会把 AI 染蓝，
+   此处显式拉回白色，保留紫色霓虹光晕（filter drop-shadow） */
+.pain-v2 .title-ai,
+.pain-v2__quote em.title-ai {
+  color: #FFFFFF !important;
   font-size: 1.4em !important;
   margin: 0 0.1em !important;
 }
 @media (max-width: 768px) {
-  .pain-v2 .title-ai {
+  .pain-v2 .title-ai,
+  .pain-v2__quote em.title-ai {
     font-size: 1.3em !important;
   }
 }

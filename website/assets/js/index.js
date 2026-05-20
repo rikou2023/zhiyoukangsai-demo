@@ -741,39 +741,119 @@
       start();
     }
 
-    // 鼠标 + 触摸 swipe 切换（左滑 → next，右滑 → prev）
-    attachSwipe(frame, () => { goTo(active - 1); start(); }, () => { goTo(active + 1); start(); });
+    // showcase 专用 drag-follow：拖动时实时跟手 + 同时显示当前+下一张
+    attachDragFollow(frame, slides, () => active, (dir) => {
+      goTo(active + dir);
+      start();
+    }, start);
   })();
 
   /* ============================================
-     5b. 通用 swipe 工具（鼠标拖动 + 触摸滑动）
+     5b. 通用 drag-follow 轮播（鼠标 / 触摸都跟手）
+       - 拖动时：当前 slide 跟手位移，prev/next 同步进入，实时显示半幅
+       - 释放时：超过 20% 容器宽 → 切到 prev/next；否则平滑回弹
      ============================================ */
-  function attachSwipe(el, onPrev, onNext) {
-    if (!el) return;
-    let sx = null, sy = null, active = false;
-    const TH = 50;
-    el.style.touchAction = 'pan-y';
-    el.style.cursor = 'grab';
+  function attachDragFollow(frame, slides, getActive, onCommit, onCancel) {
+    if (!frame || !slides || !slides.length) return;
+    const TH = 0.18;                       // 触发切换的最小拖动比例（容器宽）
+    const SNAP_MS = 260;
+    let sx = 0, sy = 0, dx = 0, dragging = false, vertical = false, w = 0;
+
+    frame.style.touchAction = 'pan-y';
+    frame.style.cursor = 'grab';
+
+    const setStage = (offset) => {
+      const cur = getActive();
+      const N = slides.length;
+      const prev = (cur - 1 + N) % N;
+      const next = (cur + 1) % N;
+      slides.forEach((s, i) => {
+        s.style.transition = 'none';
+        if (i === cur) {
+          s.style.transform = `translateX(${offset}px) scale(1)`;
+          s.style.opacity = '1';
+          s.style.zIndex = '5';
+        } else if (i === next) {
+          s.style.transform = `translateX(${offset + w}px) scale(1)`;
+          s.style.opacity = '1';
+          s.style.zIndex = '4';
+        } else if (i === prev) {
+          s.style.transform = `translateX(${offset - w}px) scale(1)`;
+          s.style.opacity = '1';
+          s.style.zIndex = '4';
+        } else {
+          s.style.opacity = '0';
+          s.style.zIndex = '1';
+        }
+      });
+    };
+
+    const clearStage = () => {
+      slides.forEach((s) => {
+        s.style.transition = '';
+        s.style.transform = '';
+        s.style.opacity = '';
+        s.style.zIndex = '';
+      });
+    };
+
+    const animateAndCleanup = (targetOffset, doCommit, dir) => {
+      slides.forEach((s) => {
+        s.style.transition = `transform ${SNAP_MS}ms cubic-bezier(0.22, 1, 0.36, 1), opacity ${SNAP_MS}ms ease-out`;
+      });
+      requestAnimationFrame(() => setStage(targetOffset));
+      setTimeout(() => {
+        clearStage();
+        if (doCommit) onCommit(dir);
+        else if (onCancel) onCancel();
+      }, SNAP_MS + 20);
+    };
+
     const down = (e) => {
       const p = e.touches ? e.touches[0] : e;
-      sx = p.clientX; sy = p.clientY; active = true;
-      el.style.cursor = 'grabbing';
+      sx = p.clientX; sy = p.clientY; dx = 0;
+      vertical = false;
+      w = frame.offsetWidth;
+      dragging = true;
+      frame.style.cursor = 'grabbing';
     };
-    const up = (e) => {
-      if (!active || sx === null) return;
-      const p = e.changedTouches ? e.changedTouches[0] : e;
-      const dx = p.clientX - sx, dy = p.clientY - sy;
-      if (Math.abs(dx) > TH && Math.abs(dx) > Math.abs(dy)) {
-        if (dx < 0) onNext(); else onPrev();
+    const move = (e) => {
+      if (!dragging) return;
+      const p = e.touches ? e.touches[0] : e;
+      const ddx = p.clientX - sx;
+      const ddy = p.clientY - sy;
+      if (!vertical && Math.abs(ddy) > Math.abs(ddx) + 8 && Math.abs(ddy) > 12) {
+        vertical = true; dragging = false; clearStage();
+        frame.style.cursor = 'grab';
+        return;
       }
-      active = false; sx = sy = null;
-      el.style.cursor = 'grab';
+      if (vertical) return;
+      dx = ddx;
+      setStage(dx);
+      if (e.cancelable && Math.abs(dx) > 4) e.preventDefault?.();
     };
-    el.addEventListener('pointerdown', down, { passive: true });
+    const up = () => {
+      if (!dragging) { dragging = false; return; }
+      dragging = false;
+      frame.style.cursor = 'grab';
+      const ratio = Math.abs(dx) / Math.max(1, w);
+      if (ratio > TH) {
+        const dir = dx < 0 ? 1 : -1;
+        // 把 stage 推到完全切出（commit）
+        animateAndCleanup(dir < 0 ? w : -w, true, dir);
+      } else {
+        // 回弹到 0
+        animateAndCleanup(0, false, 0);
+      }
+    };
+
+    frame.addEventListener('pointerdown', down, { passive: true });
+    window.addEventListener('pointermove', move, { passive: false });
     window.addEventListener('pointerup', up, { passive: true });
-    // 触摸事件也接（部分老浏览器 pointer 不全）
-    el.addEventListener('touchstart', down, { passive: true });
-    el.addEventListener('touchend', up, { passive: true });
+    window.addEventListener('pointercancel', up, { passive: true });
+    frame.addEventListener('touchstart', down, { passive: true });
+    window.addEventListener('touchmove', move, { passive: false });
+    window.addEventListener('touchend', up, { passive: true });
   }
 
   /* ============================================
@@ -826,10 +906,89 @@
       start();
     }
 
-    // 鼠标 + 触摸 swipe 切换
-    attachSwipe(spotlight, () => { goTo(active - 1); start(); }, () => { goTo(active + 1); start(); });
+    // 鼠标 + 触摸 drag-follow（spotlight 专版：用 CSS var --sp-dx 整体平移所有可见卡）
+    attachSpotlightDragFollow(spotlight, () => active, (dir) => {
+      goTo(active + dir);
+      start();
+    }, start);
 
     render();
+  }
+
+  /* ============================================
+     6b. Spotlight drag-follow（专版）
+     基于 CSS var --sp-dx，class-based 3 卡布局保持，仅整体水平偏移
+     需配合 design-v2.css 中 .spotlight-card.is-* 的 transform: calc(--sp-dx) 覆盖
+     ============================================ */
+  function attachSpotlightDragFollow(container, getActive, onCommit, onCancel) {
+    if (!container) return;
+    const stage = container.querySelector('.spotlight-stage') || container;
+    const TH = 0.16;
+    const SNAP_MS = 300;
+    let sx = 0, sy = 0, dx = 0, dragging = false, vertical = false, w = 0;
+
+    container.style.touchAction = 'pan-y';
+    container.style.cursor = 'grab';
+
+    const setVar = (v) => stage.style.setProperty('--sp-dx', v + 'px');
+    const clearVar = () => stage.style.removeProperty('--sp-dx');
+
+    const animateTo = (target, doCommit, dir) => {
+      stage.classList.remove('is-dragging');     // 重新启用 transition
+      requestAnimationFrame(() => setVar(target));
+      setTimeout(() => {
+        clearVar();
+        if (doCommit) onCommit(dir);
+        else if (onCancel) onCancel();
+      }, SNAP_MS + 30);
+    };
+
+    const down = (e) => {
+      const p = e.touches ? e.touches[0] : e;
+      sx = p.clientX; sy = p.clientY; dx = 0;
+      vertical = false;
+      w = stage.offsetWidth;
+      dragging = true;
+      stage.classList.add('is-dragging');
+      container.style.cursor = 'grabbing';
+    };
+    const move = (e) => {
+      if (!dragging) return;
+      const p = e.touches ? e.touches[0] : e;
+      const ddx = p.clientX - sx;
+      const ddy = p.clientY - sy;
+      if (!vertical && Math.abs(ddy) > Math.abs(ddx) + 8 && Math.abs(ddy) > 12) {
+        vertical = true; dragging = false;
+        stage.classList.remove('is-dragging');
+        clearVar();
+        container.style.cursor = 'grab';
+        return;
+      }
+      if (vertical) return;
+      dx = ddx;
+      setVar(dx);
+      if (e.cancelable && Math.abs(dx) > 4) e.preventDefault?.();
+    };
+    const up = () => {
+      if (!dragging) { dragging = false; return; }
+      dragging = false;
+      container.style.cursor = 'grab';
+      const ratio = Math.abs(dx) / Math.max(1, w);
+      if (ratio > TH) {
+        const dir = dx < 0 ? 1 : -1;
+        animateTo(dir < 0 ? w * 0.7 : -w * 0.7, true, dir);
+      } else {
+        animateTo(0, false, 0);
+      }
+    };
+
+    container.addEventListener('pointerdown', down, { passive: true });
+    window.addEventListener('pointermove', move, { passive: false });
+    window.addEventListener('pointerup', up, { passive: true });
+    window.addEventListener('pointercancel', up, { passive: true });
+    container.addEventListener('touchstart', down, { passive: true });
+    window.addEventListener('touchmove', move, { passive: false });
+    window.addEventListener('touchend', up, { passive: true });
   }
 
   /* ============================================

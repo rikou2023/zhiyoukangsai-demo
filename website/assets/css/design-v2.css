@@ -4385,3 +4385,21 @@
     font-size: 1.3em !important;
   }
 }
+
+/* ──── Spotlight drag-follow：3 卡布局保留，整体水平跟手位移 ──── */
+.spotlight-stage {
+  --sp-dx: 0px;
+}
+.spotlight-stage.is-dragging .spotlight-card {
+  transition: none !important;
+}
+/* 重写 3 卡 transform 加入 --sp-dx，原有 scale/blur 保留 */
+.testimonials-section .spotlight-card.is-active {
+  transform: translate(calc(-50% + var(--sp-dx, 0px)), -50%) scale(1) !important;
+}
+.testimonials-section .spotlight-card.is-prev {
+  transform: translate(calc(-135% + var(--sp-dx, 0px)), -50%) scale(0.88) !important;
+}
+.testimonials-section .spotlight-card.is-next {
+  transform: translate(calc(35% + var(--sp-dx, 0px)), -50%) scale(0.88) !important;
+}

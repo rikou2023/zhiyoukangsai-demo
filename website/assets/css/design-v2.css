@@ -4138,3 +4138,137 @@
   background: var(--primary);
   color: #ffffff;
 }
+
+/* ============================================================
+   11. 客户反馈 2026-05-20：去掉所有 [01][02][03]... 装饰序号
+   ────────────────────────────────────────────────────────────
+   一次性 hide 所有页面里的序号标签类，比删 30 处 HTML 干净
+   timeline-dot 仍保留圆点，只藏内部数字
+   ============================================================ */
+.pain-v2__num,
+.demo-v2__thumb-num,
+.sol-v2__num,
+.sol-matrix__num,
+.eco-edit-cell__id,
+.eco-resourcemap__zone-id,
+.demo-thumb__id,
+.demo-step__num,
+.cases-banner-metric__id,
+.stage-num,
+.commitment-v2__id,
+.about-cell__id,
+.section-head--v2[data-section]::before,
+.section-head--v2[data-section]::after,
+.timeline-dot span {
+  display: none !important;
+}
+
+/* ============================================================
+   12. 客户反馈 2026-05-20 批次修复
+   ============================================================ */
+
+/* ──── F. 5 大方案小标题（面向流量与增长团队等）字号调大 ──── */
+.sol-v2__audience {
+  font-size: 15px !important;      /* 12px → 15px */
+  font-weight: 600;
+  color: var(--ink-muted);
+  letter-spacing: var(--ls-wide);
+}
+@media (max-width: 768px) {
+  .sol-v2__audience { font-size: 14px !important; }
+}
+
+/* ──── H. 行业客户名单 mono 行业前缀字号调大 ──── */
+.logos-section .industry-row::before {
+  font-size: 15px !important;      /* 12px → 15px */
+  font-weight: 600;
+  color: var(--primary);
+  letter-spacing: var(--ls-wide);
+}
+@media (max-width: 768px) {
+  .logos-section .industry-row::before {
+    font-size: 14px !important;
+    margin-bottom: 4px;
+  }
+}
+
+/* ──── A. Hero 首屏标题手机端稳定换行 ──── */
+/* 桌面端隐藏可选断行；移动端在 AI 前强制换行，避免「多 1-2 字就乱断行」 */
+.hero-title .hero-br-m { display: none; }
+
+@media (max-width: 640px) {
+  /* 整体收一点字号，AI 放大倍率也收回 */
+  .title-line-main { font-size: clamp(26px, 8.4vw, 36px) !important; }
+  .title-ai { font-size: 1.22em !important; }
+  .hero-title { line-height: 1.22; }
+
+  /* 强制 2 行布局：让您的品牌占领 / AI 第一推荐位 */
+  .hero-title .hero-br-m { display: inline; }
+}
+
+/* ──── G. 客户评价段（spotlight）手机端排版修复 ──── */
+@media (max-width: 768px) {
+  .testimonials-section .spotlight {
+    margin: 0 auto var(--space-5);
+  }
+  .testimonials-section .spotlight-stage {
+    height: auto !important;
+    min-height: 420px;
+    padding-block: var(--space-5);
+  }
+  /* 移动端只显示激活卡，prev/next 隐藏（避免溢出 + 重叠模糊） */
+  .testimonials-section .spotlight-card {
+    width: calc(100vw - 32px) !important;
+    max-width: 520px;
+    padding: var(--space-6) var(--space-5) !important;
+    position: relative !important;
+    left: auto !important;
+    top: auto !important;
+    transform: none !important;
+    margin: 0 auto;
+  }
+  .testimonials-section .spotlight-card.is-prev,
+  .testimonials-section .spotlight-card.is-next {
+    display: none !important;
+  }
+  .testimonials-section .spotlight-card:not(.is-active) {
+    display: none !important;
+  }
+  .testimonials-section .spotlight-quote {
+    font-size: 15px !important;
+    line-height: 1.75;
+  }
+  .testimonials-section .spotlight-quote::before {
+    font-size: 44px;
+    top: -12px;
+    left: -6px;
+  }
+  .testimonials-section .spotlight-avatar {
+    width: 52px;
+    height: 52px;
+    top: -22px;
+    right: 22px;
+  }
+  .testimonials-section .spotlight-avatar svg { width: 24px; height: 24px; }
+  /* 序号角标手机端略缩 */
+  .testimonials-section .spotlight-card.is-active::after {
+    font-size: 11px;
+  }
+  /* 大水印手机端缩小避免遮文字 */
+  .testimonials-section .spotlight-card::before {
+    font-size: 56px;
+    opacity: 0.6;
+    right: 14px;
+    bottom: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .testimonials-section .section-title {
+    font-size: clamp(24px, 7vw, 32px) !important;
+    line-height: 1.3;
+  }
+  .testimonials-section .spotlight-stage {
+    min-height: 480px;
+  }
+}

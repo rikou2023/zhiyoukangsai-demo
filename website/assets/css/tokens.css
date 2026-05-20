@@ -103,6 +103,100 @@
   --grad-from:     #6B9BFF;
   --grad-mid:      #2F66FF;
   --grad-to:       #1E40E0;
+
+  /* ============================================================
+     V2 设计系统扩充 · 按 docs/DESIGN.md 规范（2026-05-20）
+     上方所有变量保留作兼容别名；下方为新增结构 token
+     ============================================================ */
+
+  /* ----- Surface 5 档阶梯 ----- */
+  --canvas:        #0A1428;
+  --canvas-soft:   #0E1A30;
+  --surface-1:     #142036;
+  --surface-2:     #1A2A47;
+  --surface-3:     #1F314D;
+  --surface-4:     #243859;
+
+  /* ----- Ink 文字 4 档 ----- */
+  --ink:           #F8FAFC;
+  --ink-muted:     #C8D0DC;
+  --ink-subtle:    #8B96AD;
+  --ink-tertiary:  #5E6878;
+
+  /* ----- Hairline 边框 3 档 ----- */
+  --hairline:        rgba(255, 255, 255, 0.06);
+  --hairline-strong: rgba(255, 255, 255, 0.12);
+  --hairline-bright: rgba(255, 255, 255, 0.18);
+
+  /* ----- Primary 品牌色 3 态 ----- */
+  --primary:         #2F66FF;
+  --primary-hover:   #4781FF;
+  --primary-pressed: #1E54E8;
+  --primary-soft:    rgba(47, 102, 255, 0.12);
+  --primary-glow:    rgba(47, 102, 255, 0.32);
+  --on-primary:      #FFFFFF;
+
+  /* ----- Signal 状态色 ----- */
+  --signal-success: #00E676;
+  --signal-warning: #FFB020;
+  --signal-error:   #FF4D4D;
+  --signal-info:    #2F66FF;
+
+  /* ----- 完整 Type Scale 12 档 ----- */
+  --t-display-xl: clamp(56px, 9vw, 128px);
+  --t-display-lg: clamp(40px, 6vw, 72px);
+  --t-display-md: clamp(32px, 4.5vw, 56px);
+  --t-display-sm: clamp(24px, 3vw, 36px);
+  --t-headline:   24px;
+  --t-card-title: 20px;
+  --t-subhead:    18px;
+  --t-body-lg:    17px;
+  --t-body:       15px;
+  --t-body-sm:    13px;
+  --t-caption:    12px;
+  --t-button:     14px;
+  --t-eyebrow:    12px;
+  --t-mono:       14px;
+  --t-metric:     clamp(56px, 8vw, 112px);
+
+  /* 字距精确 token */
+  --ls-tight:    -0.045em;
+  --ls-snug:     -0.025em;
+  --ls-normal:   0;
+  --ls-wide:     0.04em;
+  --ls-wider:    0.08em;
+  --ls-widest:   0.12em;
+
+  /* 行高 token */
+  --lh-tight:    1.02;
+  --lh-snug:     1.15;
+  --lh-normal:   1.4;
+  --lh-relaxed:  1.65;
+
+  /* ----- Spacing 扩充 ----- */
+  --space-11: 192px;
+  --section-y:        clamp(72px, 11vw, 160px);
+  --section-y-tight:  clamp(48px, 7vw, 96px);
+  --section-y-large:  clamp(96px, 14vw, 200px);
+  --gutter:           clamp(20px, 4vw, 48px);
+
+  /* ----- Motion 扩充 ----- */
+  --ease-expo:    cubic-bezier(0.7, 0, 0.3, 1);
+  --ease-snap:    cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast:     180ms;
+  --dur:          320ms;
+  --dur-slow:     680ms;
+
+  /* ----- Shadow 扩充 ----- */
+  --shadow-card:      0 1px 0 0 var(--hairline-strong) inset, 0 0 0 0 transparent;
+  --shadow-lift:      0 8px 24px -4px rgba(0, 0, 0, 0.4), 0 1px 0 0 var(--hairline-strong) inset;
+  --shadow-raised:    0 12px 40px -8px rgba(0, 0, 0, 0.55), 0 1px 0 0 var(--hairline-strong) inset;
+  --shadow-glow:      0 0 0 1px var(--primary), 0 0 24px var(--primary-glow);
+  --shadow-glow-sm:   0 0 12px var(--primary-glow);
+
+  /* ----- Rounded 完整 ----- */
+  --radius-xs:   3px;
+  --radius-pill: 9999px;
 }
 
 /* 减少动效偏好 */

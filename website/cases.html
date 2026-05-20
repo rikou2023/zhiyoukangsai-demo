@@ -1,68 +1,673 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="智优康赛客户案例与行业背书：用确定的数据重塑AI时代的品牌信任资产。">
-  <title>客户案例 - 智优康赛</title>
-  <link rel="icon" href="favicon.svg">
-  <link rel="stylesheet" href="subpage.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="智优康赛客户案例与行业背书。300% / 1.1亿+ / 37.22% — 3 大头部案例完整披露，8 条长评 + 5 条短评，覆盖全行业头部品牌信赖。" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <title>客户案例 - 智优康赛 AIconcepts</title>
+
+  <link rel="stylesheet" href="assets/css/tokens.css" />
+  <link rel="stylesheet" href="assets/css/index.css" />
+  <link rel="stylesheet" href="assets/css/cases.css" />
+  <link rel="stylesheet" href="assets/css/design-v2.css" />
 </head>
 <body>
-  <header class="nav">
-    <a href="index.html" aria-label="返回首页"><img src="images/智优康赛logo.svg" alt="智优康赛"></a>
-    <nav class="nav-links" aria-label="主导航">
-      <a href="index.html">首页</a>
-      <a href="solutions.html">GEO解决方案</a>
-      <a class="active" href="cases.html">客户案例</a>
-      <a href="ecosystem.html">生态资源</a>
-      <a href="demo.html">系统演示</a>
-      <a href="about.html">关于我们</a>
-      <a href="contact.html">需求对接</a>
-    </nav>
-    <a class="nav-cta" href="index.html#contact-form">联系我们</a>
-  </header>
 
-  <main class="wrap">
-    <section class="hero">
-      <div>
-        <div class="kicker"><b>02</b><span>客户验证</span></div>
-        <h1><span class="title-line">被头部品牌验证的</span><span class="title-line">AI 增长伙伴</span></h1>
-        <p>智优康赛关注的不只是曝光，而是“被推荐、被信任、被选择”的完整业务链路。我们把 AI 搜索可见度、声誉治理与内容分发统一到可追踪的增长指标里。</p>
-        <div class="btns">
-          <a class="btn primary" href="index.html#contact-form">获取行业诊断</a>
-          <a class="btn" href="ecosystem.html">查看生态资源</a>
-        </div>
-      </div>
-      <div class="visual"><img src="assets/showcase/space-brand-bg.jpeg" alt="AI时代品牌信任资产"></div>
-    </section>
+  <!-- ========== 全页神经网络背景 ========== -->
+  <canvas class="bg-neural" id="canvas-neural" aria-hidden="true"></canvas>
 
-    <section class="grid" aria-label="客户成果">
-      <article class="card"><strong>300%</strong><h3>B2B 智能硬件</h3><p>AI 核心搜索场景曝光量提升，专业设备推荐场景首推率超过 80%。</p></article>
-      <article class="card"><strong>1.1亿+</strong><h3>消费与大健康</h3><p>全场景 AI 深度解析覆盖曝光，核心词推荐指标达成率超过 113%。</p></article>
-      <article class="card"><strong>37.22%</strong><h3>精密制造与生命科学</h3><p>精准高潜线索量提升，权威信源植入带动点击率跃升 14.52%。</p></article>
-    </section>
+  <!-- ========== Header 顶栏 ========== -->
+  <header class="site-header" role="banner">
+    <div class="container">
+      <a href="index.html" class="brand" aria-label="智优康赛首页">
+        <img src="images/智优康赛logo.svg" alt="智优康赛 AIconcepts" />
+      </a>
 
-    <h2 class="section-title">从曝光、声誉到线索，每一个结果都能被追踪</h2>
-    <div class="split">
-      <div class="visual"><img src="assets/showcase/system-panel-2.png" alt="GEO效果追踪看板"></div>
-      <div class="list">
-        <span>24 小时内完成核心关键词的 AI 大模型露出优化。</span>
-        <span>通过多模态知识库矩阵，确保企业核心资产被准确理解与高权重收录。</span>
-        <span>围绕高频互动场景构建舆情防火墙，保持积极、准确、权威的 AI 第一印象。</span>
-        <span>以高意图查询布局命中专业采购人员的 AI 决策场景。</span>
-        <span>结合权威评估模型提升品牌可信度，缩短用户决策周期。</span>
+      <nav class="main-nav" id="mainNav" aria-label="主导航">
+        <span class="nav-pill" aria-hidden="true"></span>
+        <a href="index.html" class="nav-link">首页</a>
+        <a href="solutions.html" class="nav-link">GEO 解决方案</a>
+        <a href="cases.html" class="nav-link is-active">客户案例</a>
+        <a href="ecosystem.html" class="nav-link">生态资源</a>
+        <a href="demo.html" class="nav-link">系统演示</a>
+        <a href="about.html" class="nav-link">关于我们</a>
+        <a href="services.html" class="nav-link">专属服务</a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="#contact-form" class="btn btn-ghost">联系我们</a>
+        <a href="#contact-form" class="btn btn-header-cta">预约诊断</a>
+        <button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false" aria-controls="mobileDrawer">
+          <span></span><span></span><span></span>
+        </button>
       </div>
     </div>
+  </header>
 
-    <section class="feature-band" aria-label="服务过的代表性客户">
-      <div><h3>科技与制造</h3><p>华为、联想、OPPO、vivo、海尔、TCL、方太、佳能、飞利浦、正泰电器等。</p></div>
-      <div><h3>消费与健康</h3><p>雅诗兰黛、海蓝之谜、祝玛珑、耐克、健合集团、小仙炖、蒙牛、Swisse、波司登等。</p></div>
-      <div><h3>金融与平台</h3><p>中信银行、广发银行、人保、中国太平、腾讯、知乎、大众点评、汽车之家、央视等。</p></div>
-    </section>
-  </main>
+  <!-- 移动端抽屉菜单 -->
+  <div class="mobile-drawer" id="mobileDrawer" role="dialog" aria-modal="true" aria-label="移动端导航菜单" hidden>
+    <nav class="mobile-nav" aria-label="移动端导航">
+      <a href="index.html" class="mobile-nav-link">首页</a>
+      <a href="solutions.html" class="mobile-nav-link">GEO 解决方案</a>
+      <a href="cases.html" class="mobile-nav-link is-active">客户案例</a>
+      <a href="ecosystem.html" class="mobile-nav-link">生态资源</a>
+      <a href="demo.html" class="mobile-nav-link">系统演示</a>
+      <a href="about.html" class="mobile-nav-link">关于我们</a>
+      <a href="services.html" class="mobile-nav-link">专属服务</a>
+    </nav>
+    <div class="mobile-drawer-cta">
+      <a href="#contact-form" class="btn btn-ghost mobile-cta-btn">联系我们</a>
+      <a href="#contact-form" class="btn btn-header-cta mobile-cta-btn">预约诊断</a>
+    </div>
+  </div>
 
-  <footer class="footer">© 2026 智优康赛 · GEO战略服务商</footer>
-  <script src="subpage.js"></script>
+  <!-- ========== Page Banner V2 · 客户案例 ========== -->
+  <section class="page-banner page-banner--cases" aria-labelledby="cases-hero-title">
+    <div class="container page-banner__inner">
+      <div class="page-banner__grid">
+
+        <div class="page-banner__text">
+          <span class="page-banner__eyebrow">客户案例与行业背书</span>
+          <h1 class="page-banner__title" id="cases-hero-title">
+            备受全球顶尖营销人员，<br/>
+            与<em>头部品牌信赖</em>
+          </h1>
+          <p class="page-banner__sub">每天有超过 <strong>1 亿人</strong>将 AI 作为决策的首选工具。在智优康赛，我们不只提供策略，更交付肉眼可见的商业增长。<strong>18 年来</strong>，我们已帮助全球超千家头部品牌在全新的数字生态中建立起坚不可摧的认知护城河。</p>
+          <div class="page-banner__ctas">
+            <a href="#cases-stack" class="btn btn-primary">
+              查看 3 大案例
+              <span class="arrow">→</span>
+            </a>
+            <a href="#contact-form" class="btn btn-secondary">
+              预约专家诊断
+            </a>
+          </div>
+        </div>
+
+        <!-- 右侧独家视觉：3 大数据巨型阵列（不是 GEO 球体） -->
+        <div class="page-banner__visual page-banner__visual--metrics">
+          <article class="cases-banner-metric">
+            <span class="cases-banner-metric__id">01</span>
+            <span class="cases-banner-metric__num" data-countup data-target="300" data-decimals="0" data-suffix="%">0%</span>
+            <span class="cases-banner-metric__label">AI 核心搜索场景曝光量提升</span>
+            <span class="cases-banner-metric__tag">B2B 智能硬件</span>
+          </article>
+          <article class="cases-banner-metric cases-banner-metric--mid">
+            <span class="cases-banner-metric__id">02</span>
+            <span class="cases-banner-metric__num" data-countup data-target="1.1" data-decimals="1" data-suffix="亿+">0亿+</span>
+            <span class="cases-banner-metric__label">全场景 AI 深度解析覆盖曝光</span>
+            <span class="cases-banner-metric__tag">快消与大健康</span>
+          </article>
+          <article class="cases-banner-metric">
+            <span class="cases-banner-metric__id">03</span>
+            <span class="cases-banner-metric__num" data-countup data-target="37.22" data-decimals="2" data-suffix="%">0%</span>
+            <span class="cases-banner-metric__label">精准高潜 Leads 线索量激增</span>
+            <span class="cases-banner-metric__tag">精密制造 · 生命科学</span>
+          </article>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 案例一：B2B 智能硬件 ========== -->
+  <section class="case-detail-section case-detail-1 has-flow-bg" aria-labelledby="case-1-title">
+    <div class="container">
+      <div class="case-detail-grid alan-up">
+        <div class="case-detail-left">
+          <span class="case-detail-tag">案例一</span>
+          <span class="case-detail-industry">B2B 智能硬件行业</span>
+          <h2 class="case-detail-title" id="case-1-title">某国内头部打印设备品牌</h2>
+          <div class="case-detail-bignum">
+            <span class="case-detail-bignum-val">300%</span>
+            <span class="case-detail-bignum-label">AI 核心搜索场景曝光量提升</span>
+          </div>
+        </div>
+        <div class="case-detail-right">
+          <div class="case-detail-block">
+            <span class="case-detail-block-label">服务成效</span>
+            <p class="case-detail-block-text">24 小时内极速完成核心关键词的 AI 大模型露出优化。在各大主流大模型"专业设备推荐"场景下，实现<strong>首推率超 80%</strong>。</p>
+          </div>
+          <div class="case-detail-block">
+            <span class="case-detail-block-label">信任资产构建</span>
+            <p class="case-detail-block-text">品牌权威性评分（基于 EEAT 模型）大幅跃升，直接助力官网<strong>高意向流量增长 45%</strong>，用户决策周期<strong>大幅缩短 50%</strong>。</p>
+          </div>
+          <blockquote class="case-detail-quote">
+            "过去我们在传统搜索里争夺流量，现在智优康赛帮我们在 AI 的大脑里直接登上了首选推荐。上线短短几周，我们的核心产品曝光量激增，这是划时代的获客方式。"
+            <cite class="case-detail-quote-cite">—— 首席营销官 (CMO)</cite>
+          </blockquote>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 案例二：快消与大健康 ========== -->
+  <section class="case-detail-section case-detail-2" aria-labelledby="case-2-title">
+    <div class="container">
+      <div class="case-detail-grid case-detail-flip alan-up">
+        <div class="case-detail-left">
+          <span class="case-detail-tag">案例二</span>
+          <span class="case-detail-industry">快消与大健康行业</span>
+          <h2 class="case-detail-title" id="case-2-title">某跨国营养健康巨头</h2>
+          <div class="case-detail-bignum">
+            <span class="case-detail-bignum-val">1.1亿+</span>
+            <span class="case-detail-bignum-label">全场景 AI 深度解析覆盖曝光</span>
+          </div>
+        </div>
+        <div class="case-detail-right">
+          <div class="case-detail-block">
+            <span class="case-detail-block-label">服务成效</span>
+            <p class="case-detail-block-text">面对复杂的消费者提问与评测对比，我们为其构建了<strong>全网多模态知识库矩阵</strong>。确保企业核心资产被大模型精准理解与高权重收录。</p>
+          </div>
+          <div class="case-detail-block">
+            <span class="case-detail-block-label">信任资产构建</span>
+            <p class="case-detail-block-text">围绕<strong>六大高频交互场景</strong>构建坚实的舆情防火墙，<strong>核心词推荐 KPI 达成率超 113%</strong>，确保品牌在 AI 生成的回答中永远保持积极、正面的第一印象。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 案例三：精密制造与生命科学 ========== -->
+  <section class="case-detail-section case-detail-3 has-flow-bg" aria-labelledby="case-3-title">
+    <div class="container">
+      <div class="case-detail-grid alan-up">
+        <div class="case-detail-left">
+          <span class="case-detail-tag">案例三</span>
+          <span class="case-detail-industry">精密制造与生命科学行业</span>
+          <h2 class="case-detail-title" id="case-3-title">某全球头部仪器品牌</h2>
+          <div class="case-detail-bignum">
+            <span class="case-detail-bignum-val">37.22%</span>
+            <span class="case-detail-bignum-label">精准高潜 Leads 线索量激增</span>
+          </div>
+        </div>
+        <div class="case-detail-right">
+          <div class="case-detail-block">
+            <span class="case-detail-block-label">服务成效</span>
+            <p class="case-detail-block-text">在竞争极其激烈的专业设备行业，通过<strong>细颗粒度的意图洞察</strong>与<strong>高转化提示词（Prompt）布局</strong>，精准命中专业采购人员的 AI 查询场景。</p>
+          </div>
+          <div class="case-detail-block">
+            <span class="case-detail-block-label">信任资产构建</span>
+            <p class="case-detail-block-text">通过高质量学术内容与行业白皮书的权威信源植入，实现<strong>点击通过率（CTR）跃升 14.52%</strong>。</p>
+          </div>
+          <blockquote class="case-detail-quote">
+            "在使用智优康赛之前，AI 搜索对我们来说完全是一个黑盒。但现在，依托他们的专家智库，AI 已经成为了我们最高效的精准线索增长引擎。"
+            <cite class="case-detail-quote-cite">—— 某世界 500 强企业 · 增长与需求副总裁</cite>
+          </blockquote>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 独家组件 · 数据闪光墙（年报风全数据） ========== -->
+  <section class="cases-datawall" id="cases-datawall" aria-labelledby="cases-datawall-title">
+    <div class="container">
+      <div class="section-head section-head--left section-head--v2">
+        <h2 class="section-title" id="cases-datawall-title">用<em>确定的数据</em>，重塑算法信任资产</h2>
+      </div>
+      <p class="section-lead">从案例一到案例三，从服务成效到信任资产构建 —— 每一个数字都来自真实客户合作的真实成果。</p>
+
+      <div class="cases-datawall__grid reveal">
+        <article class="cases-datawall__cell cases-datawall__cell--highlight">
+          <span class="cases-datawall__id">01 · 案例一</span>
+          <span class="cases-datawall__num">300%</span>
+          <span class="cases-datawall__label">AI 核心搜索场景<br/>曝光量提升</span>
+          <span class="cases-datawall__source">B2B 智能硬件</span>
+        </article>
+        <article class="cases-datawall__cell">
+          <span class="cases-datawall__id">02 · 案例一</span>
+          <span class="cases-datawall__num">80%</span>
+          <span class="cases-datawall__label">主流大模型<br/>首推率</span>
+          <span class="cases-datawall__source">专业设备推荐场景</span>
+        </article>
+        <article class="cases-datawall__cell">
+          <span class="cases-datawall__id">03 · 案例一</span>
+          <span class="cases-datawall__num">45%</span>
+          <span class="cases-datawall__label">官网高意向<br/>流量增长</span>
+          <span class="cases-datawall__source">品牌权威性 EEAT 跃升</span>
+        </article>
+        <article class="cases-datawall__cell">
+          <span class="cases-datawall__id">04 · 案例一</span>
+          <span class="cases-datawall__num">50%</span>
+          <span class="cases-datawall__label">用户决策周期<br/>大幅缩短</span>
+          <span class="cases-datawall__source">认知护城河效应</span>
+        </article>
+
+        <article class="cases-datawall__cell cases-datawall__cell--highlight">
+          <span class="cases-datawall__id">05 · 案例二</span>
+          <span class="cases-datawall__num">1.1亿+</span>
+          <span class="cases-datawall__label">全场景 AI<br/>深度解析覆盖曝光</span>
+          <span class="cases-datawall__source">快消与大健康</span>
+        </article>
+        <article class="cases-datawall__cell">
+          <span class="cases-datawall__id">06 · 案例二</span>
+          <span class="cases-datawall__num">113%</span>
+          <span class="cases-datawall__label">核心词推荐<br/>KPI 达成率</span>
+          <span class="cases-datawall__source">六大场景舆情防火墙</span>
+        </article>
+        <article class="cases-datawall__cell cases-datawall__cell--highlight">
+          <span class="cases-datawall__id">07 · 案例三</span>
+          <span class="cases-datawall__num">37.22%</span>
+          <span class="cases-datawall__label">精准高潜 Leads<br/>线索量激增</span>
+          <span class="cases-datawall__source">精密制造 · 生命科学</span>
+        </article>
+        <article class="cases-datawall__cell">
+          <span class="cases-datawall__id">08 · 案例三</span>
+          <span class="cases-datawall__num">14.52%</span>
+          <span class="cases-datawall__label">点击通过率<br/>CTR 跃升</span>
+          <span class="cases-datawall__source">学术内容权威信源植入</span>
+        </article>
+
+        <article class="cases-datawall__cell">
+          <span class="cases-datawall__id">09 · 公司</span>
+          <span class="cases-datawall__num">1000+</span>
+          <span class="cases-datawall__label">头部品牌<br/>服务经验</span>
+          <span class="cases-datawall__source">18 年累积</span>
+        </article>
+        <article class="cases-datawall__cell">
+          <span class="cases-datawall__id">10 · 公司</span>
+          <span class="cases-datawall__num">100+</span>
+          <span class="cases-datawall__label">行业专家<br/>赋能智库</span>
+          <span class="cases-datawall__source">北大 · 中传深度合作</span>
+        </article>
+        <article class="cases-datawall__cell">
+          <span class="cases-datawall__id">11 · 公司</span>
+          <span class="cases-datawall__num">30+</span>
+          <span class="cases-datawall__label">行业权威大奖<br/>累计荣获</span>
+          <span class="cases-datawall__source">金鼠标 · 虎啸奖</span>
+        </article>
+        <article class="cases-datawall__cell">
+          <span class="cases-datawall__id">12 · 公司</span>
+          <span class="cases-datawall__num">4 / 6</span>
+          <span class="cases-datawall__label">国家级核心专利<br/>软件著作权</span>
+          <span class="cases-datawall__source">技术底蕴深厚</span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 独家组件 · 4 客群分类 Tab 切换 ========== -->
+  <section class="quotes-grid-section" id="quote-tabs-section" aria-labelledby="quotes-grid-title">
+    <div class="container">
+      <div class="section-head section-head--left section-head--v2">
+        <h2 class="section-title" id="quotes-grid-title">8 条真实反馈，<em>按客群分类</em></h2>
+      </div>
+      <p class="section-lead">从头部企业到 B2B 精准获客、从 B2C 流量转化到初创快速成长 —— 每一条评价都附带可量化的合作成果数据。Tab 自动切换，鼠标悬停暂停。</p>
+
+      <div class="quote-tabs reveal" id="quoteTabs">
+        <div class="quote-tabs__nav" role="tablist">
+          <button class="quote-tab is-active" role="tab" data-tab="A" aria-selected="true">
+            <span class="quote-tab__cat">A · 头部企业</span>
+            <span class="quote-tab__name">头部品牌 · 战略合作</span>
+            <span class="quote-tab__count">2 条评价</span>
+            <span class="quote-tab__progress" aria-hidden="true"></span>
+          </button>
+          <button class="quote-tab" role="tab" data-tab="B" aria-selected="false">
+            <span class="quote-tab__cat">B · B2B 企业</span>
+            <span class="quote-tab__name">精准获客 · 高质意向</span>
+            <span class="quote-tab__count">2 条评价</span>
+            <span class="quote-tab__progress" aria-hidden="true"></span>
+          </button>
+          <button class="quote-tab" role="tab" data-tab="C" aria-selected="false">
+            <span class="quote-tab__cat">C · B2C 企业</span>
+            <span class="quote-tab__name">流量转化 · 全平台覆盖</span>
+            <span class="quote-tab__count">2 条评价</span>
+            <span class="quote-tab__progress" aria-hidden="true"></span>
+          </button>
+          <button class="quote-tab" role="tab" data-tab="D" aria-selected="false">
+            <span class="quote-tab__cat">D · 初创企业</span>
+            <span class="quote-tab__name">快速成长 · 低成本高 ROI</span>
+            <span class="quote-tab__count">2 条评价</span>
+            <span class="quote-tab__progress" aria-hidden="true"></span>
+          </button>
+        </div>
+
+        <div class="quote-tabs__content">
+          <!-- A. 头部企业 -->
+          <div class="quote-tab-panel is-active" data-panel="A" role="tabpanel">
+            <article class="quote-card-v2">
+              <p class="quote-card-v2__body">智优康赛是我们在 AI 搜索时代最重要的战略合作伙伴。他们不仅帮我们在百度、谷歌保持了第一的排名，更重要的是，在 ChatGPT、文心一言、豆包等所有主流 AI 平台上，我们的品牌都获得了优先推荐。这让我们在行业竞争中占据了绝对的先发优势。</p>
+              <div class="quote-card-v2__author">某知名科技公司 · 市场副总裁</div>
+              <div class="quote-card-v2__result">合作成果：AI 搜索流量增长 <strong>320%</strong> · 自然获客成本降低 <strong>45%</strong></div>
+            </article>
+            <article class="quote-card-v2">
+              <p class="quote-card-v2__body">作为一家上市公司，我们对数字营销的要求非常高。智优康赛的 AI 驱动 GEO 解决方案彻底改变了我们的获客模式。他们的技术团队非常专业，能够精准把握搜索引擎算法的变化，特别是在大模型时代，他们的前瞻性让我们受益匪浅。</p>
+              <div class="quote-card-v2__author">某上市公司 · 数字营销总监</div>
+              <div class="quote-card-v2__result">合作成果：自然搜索收入占比从 <strong>12%</strong> 提升至 <strong>38%</strong> · ROI 达 <strong>1:8.5</strong></div>
+            </article>
+          </div>
+
+          <!-- B. B2B 企业 -->
+          <div class="quote-tab-panel" data-panel="B" role="tabpanel">
+            <article class="quote-card-v2">
+              <p class="quote-card-v2__body">我们是一家 To B 的企业服务公司，之前尝试过很多获客方式，效果都不理想。直到和智优康赛合作，他们的 AI GEO 技术帮我们精准定位了目标客户。现在我们 70% 的新客户都来自于自然搜索，而且都是高质量的意向客户。</p>
+              <div class="quote-card-v2__author">某企业服务公司 · CEO</div>
+              <div class="quote-card-v2__result">合作成果：精准线索量增长 <strong>280%</strong> · 销售转化率提升 <strong>60%</strong></div>
+            </article>
+            <article class="quote-card-v2">
+              <p class="quote-card-v2__body">智优康赛最让我佩服的是他们对 AI 搜索的理解深度。当其他 SEO 公司还在研究关键词排名的时候，他们已经在帮我们布局 AI 回答的内容矩阵了。现在客户在问 AI 任何关于我们行业的问题，第一个推荐的都是我们公司。</p>
+              <div class="quote-card-v2__author">某工业自动化公司 · 市场总监</div>
+              <div class="quote-card-v2__result">合作成果：AI 平台咨询量增长 <strong>450%</strong> · 品牌知名度提升 <strong>3 倍</strong></div>
+            </article>
+          </div>
+
+          <!-- C. B2C 企业 -->
+          <div class="quote-tab-panel" data-panel="C" role="tabpanel">
+            <article class="quote-card-v2">
+              <p class="quote-card-v2__body">我们是一家电商公司，竞争非常激烈。智优康赛的全平台 GEO 优化方案帮我们在百度、淘宝、小红书、抖音等所有平台都获得了很好的排名。特别是他们的 AI 内容生成技术，大大提高了我们的内容产出效率和质量。</p>
+              <div class="quote-card-v2__author">某电商品牌 · 创始人</div>
+              <div class="quote-card-v2__result">合作成果：全平台自然流量增长 <strong>520%</strong> · 销售额增长 <strong>210%</strong></div>
+            </article>
+            <article class="quote-card-v2">
+              <p class="quote-card-v2__body">智优康赛的服务真的超出了我的预期。他们不仅帮我们提升了搜索排名，更重要的是，他们会从用户的角度出发，优化我们的网站体验和转化路径。现在我们的网站跳出率降低了 40%，转化率提升了 35%。</p>
+              <div class="quote-card-v2__author">某教育科技公司 · 运营负责人</div>
+              <div class="quote-card-v2__result">合作成果：自然注册量增长 <strong>360%</strong> · 获客成本降低 <strong>50%</strong></div>
+            </article>
+          </div>
+
+          <!-- D. 初创企业 -->
+          <div class="quote-tab-panel" data-panel="D" role="tabpanel">
+            <article class="quote-card-v2">
+              <p class="quote-card-v2__body">作为一家初创公司，我们没有太多的营销预算。智优康赛的 GEO 服务帮我们用最低的成本获得了最高的回报。在他们的帮助下，我们只用了 6 个月的时间，就从一个默默无闻的小公司变成了行业内的知名品牌。</p>
+              <div class="quote-card-v2__author">某初创科技公司 · 创始人</div>
+              <div class="quote-card-v2__result">合作成果：品牌搜索量增长 <strong>1200%</strong> · 月均自然获客超 <strong>500 个</strong></div>
+            </article>
+            <article class="quote-card-v2">
+              <p class="quote-card-v2__body">智优康赛的团队非常专业和负责。他们会定期给我们发送详细的数据分析报告，告诉我们哪些地方做得好，哪些地方需要改进。他们就像我们自己的市场团队一样，真心实意地为我们的增长着想。</p>
+              <div class="quote-card-v2__author">某互联网初创公司 · 市场经理</div>
+              <div class="quote-card-v2__result">合作成果：网站日活从 <strong>300</strong> 增长到 <strong>5000</strong> · 用户留存率提升 <strong>45%</strong></div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 5 短评跑马灯 ========== -->
+  <section class="shorts-section" aria-labelledby="shorts-title">
+    <div class="container">
+      <div class="section-head section-head--left">
+        <h2 class="section-title" id="shorts-title">来自一线决策者的简短信赖</h2>
+      </div>
+
+      <div class="shorts-marquee" aria-label="短评跑马灯">
+        <div class="shorts-viewport">
+          <div class="shorts-track">
+            <div class="short-card"><span class="short-quote">"AI 搜索时代，选智优康赛就对了。"</span><span class="short-author">— 某知名互联网公司 CEO</span></div>
+            <div class="short-card"><span class="short-quote">"技术领先，效果显著，服务一流。"</span><span class="short-author">— 某金融科技公司 市场总监</span></div>
+            <div class="short-card"><span class="short-quote">"智优康赛让我们在 AI 时代赢在了起跑线上。"</span><span class="short-author">— 某医疗健康公司 创始人</span></div>
+            <div class="short-card"><span class="short-quote">"专业的人做专业的事，智优康赛是 GEO 领域的专家。"</span><span class="short-author">— 某教育集团 副总裁</span></div>
+            <div class="short-card"><span class="short-quote">"和智优康赛合作，是我们做过的最正确的营销决策。"</span><span class="short-author">— 某电商平台 运营总监</span></div>
+            <!-- 复制一份做无缝滚动 -->
+            <div class="short-card"><span class="short-quote">"AI 搜索时代，选智优康赛就对了。"</span><span class="short-author">— 某知名互联网公司 CEO</span></div>
+            <div class="short-card"><span class="short-quote">"技术领先，效果显著，服务一流。"</span><span class="short-author">— 某金融科技公司 市场总监</span></div>
+            <div class="short-card"><span class="short-quote">"智优康赛让我们在 AI 时代赢在了起跑线上。"</span><span class="short-author">— 某医疗健康公司 创始人</span></div>
+            <div class="short-card"><span class="short-quote">"专业的人做专业的事，智优康赛是 GEO 领域的专家。"</span><span class="short-author">— 某教育集团 副总裁</span></div>
+            <div class="short-card"><span class="short-quote">"和智优康赛合作，是我们做过的最正确的营销决策。"</span><span class="short-author">— 某电商平台 运营总监</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 合作品牌静态 Logo 网格 + 6 行客户名单 ========== -->
+  <section class="brands-section" aria-labelledby="brands-title">
+    <div class="container">
+      <div class="section-head">
+        <h2 class="section-title" id="brands-title">服务超千家行业头部品牌</h2>
+        <p class="section-lead">智优康赛拥有 <strong>1000+</strong> 客户服务经验，成功帮助各行业头部品牌实现流量突破、商业转化与业务可持续增长。</p>
+      </div>
+
+      <!-- 静态 Logo 网格（区别首页 8 列上下滚动），JS 注入 -->
+      <div class="brands-grid" id="brandsGrid" aria-label="合作品牌 Logo"></div>
+
+      <!-- 6 行行业客户名单（客户原文一字不落） -->
+      <div class="industries-list">
+        <div class="industry-row">
+          <span class="industry-clients">华为 · 联想 · OPPO · vivo · 海尔 · TCL · 方太 · 追觅 · 佳能 · 飞利浦 · 正泰电器</span>
+        </div>
+        <div class="industry-row">
+          <span class="industry-clients">雅诗兰黛 · 海蓝之谜 · 祖·玛珑 · 芬迪 · 沛纳海 · 耐克 · 健合集团 · 小仙炖 · 蒙牛 · Swisse · 波司登 · 佳贝艾特</span>
+        </div>
+        <div class="industry-row">
+          <span class="industry-clients">福特 · 起亚 · 林肯 · 长城汽车 · 阿维塔 · 高合 · 岚图</span>
+        </div>
+        <div class="industry-row">
+          <span class="industry-clients">中信银行 · 广发银行 · 中国人民保险 · 中国太平 · 华泰证券 · 信也科技 · 宜信</span>
+        </div>
+        <div class="industry-row">
+          <span class="industry-clients">腾讯 · 知乎 · 大众点评 · 汽车之家 · 芒果 tv · 天眼查 · CCTV</span>
+        </div>
+        <div class="industry-row">
+          <span class="industry-clients">亚马逊 · 唯品会 · 苏宁 · 丝芙兰 · 红星美凯龙 · 我爱我家 · 途牛 · Airbnb · 法国航空</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 底部全宽 CTA 终结段 ========== -->
+  <section class="final-cta-section" aria-labelledby="final-cta-title">
+    <div class="final-cta-bg" aria-hidden="true"></div>
+    <div class="container">
+      <div class="final-cta-content">
+        <h2 class="final-cta-title" id="final-cta-title">
+          下一个<span class="gradient-text">头部品牌案例</span>就是您吗？
+        </h2>
+        <p class="final-cta-lead">提交您的品牌信息，让我们用 <strong>真实数据</strong>，证明 AI 推荐位是可经营的资产。</p>
+        <a href="#contact-form" class="btn btn-primary btn-lg final-cta-btn">
+          立即预约专家诊断
+          <span class="arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 留资表单（全站共用） ========== -->
+  <section class="contact-section" id="contact-form" aria-labelledby="contact-title">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="contact-intro">
+          <h2 class="section-title contact-title-art" id="contact-title">
+            <span class="contact-title-line"><span class="contact-art-fill">被</span><span class="contact-art-stroke">AI</span><span class="contact-art-fill">看见</span></span>
+            <span class="contact-title-line"><span class="contact-art-fill">才能被</span><span class="contact-art-stroke">客户选择</span></span>
+          </h2>
+          <p class="contact-lead">提交您的品牌信息，GEO 专家将为您进行 <strong>1V1 深度扫描</strong>，评估您的品牌在主流 AI 中的推荐指数。</p>
+        </div>
+
+        <form class="contact-form" id="leadForm" novalidate>
+          <div class="form-row">
+            <label class="form-field">
+              <span class="form-label">公司名称 <em>*</em></span>
+              <input type="text" name="company" required maxlength="60" autocomplete="organization" />
+            </label>
+            <label class="form-field">
+              <span class="form-label">姓名 <em>*</em></span>
+              <input type="text" name="name" required maxlength="30" autocomplete="name" />
+            </label>
+          </div>
+
+          <div class="form-row">
+            <label class="form-field">
+              <span class="form-label">职位 <em>*</em></span>
+              <input type="text" name="role" required maxlength="30" autocomplete="organization-title" />
+            </label>
+            <label class="form-field">
+              <span class="form-label">联系电话 <em>*</em></span>
+              <input type="tel" name="phone" required maxlength="20" autocomplete="tel" />
+            </label>
+          </div>
+
+          <label class="form-field">
+            <span class="form-label">邮箱 <em>*</em></span>
+            <input type="email" name="email" required maxlength="80" autocomplete="email" />
+          </label>
+
+          <label class="form-field">
+            <span class="form-label">核心需求 <em>*</em></span>
+            <textarea name="message" required rows="3" maxlength="500" placeholder="简要描述您当前在 AI 搜索 / 品牌露出方面遇到的问题。"></textarea>
+          </label>
+
+          <fieldset class="form-field form-fieldset">
+            <legend class="form-label">目前最关注的 AI 大模型？<em>*</em>（可多选）</legend>
+            <div class="checkbox-grid">
+              <label class="checkbox-chip"><input type="checkbox" name="ai_focus" value="Kimi" /><span class="checkbox-label">Kimi</span></label>
+              <label class="checkbox-chip"><input type="checkbox" name="ai_focus" value="文心一言" /><span class="checkbox-label">文心一言</span></label>
+              <label class="checkbox-chip"><input type="checkbox" name="ai_focus" value="通义千问" /><span class="checkbox-label">通义千问</span></label>
+              <label class="checkbox-chip"><input type="checkbox" name="ai_focus" value="豆包" /><span class="checkbox-label">豆包</span></label>
+              <label class="checkbox-chip"><input type="checkbox" name="ai_focus" value="智谱清言" /><span class="checkbox-label">智谱清言</span></label>
+              <label class="checkbox-chip"><input type="checkbox" name="ai_focus" value="DeepSeek" /><span class="checkbox-label">DeepSeek</span></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="form-field form-fieldset">
+            <legend class="form-label">目前品牌在 AI 时代的痛点是？<em>*</em></legend>
+            <div class="radio-stack">
+              <label class="radio-option"><input type="radio" name="pain_point" value="A" required /><span class="radio-mark"></span><span class="radio-text"><b>A</b> AI 搜不到我们公司/产品。</span></label>
+              <label class="radio-option"><input type="radio" name="pain_point" value="B" /><span class="radio-mark"></span><span class="radio-text"><b>B</b> AI 总是优先推荐竞争对手。</span></label>
+              <label class="radio-option"><input type="radio" name="pain_point" value="C" /><span class="radio-mark"></span><span class="radio-text"><b>C</b> AI 对我们的回答有错误/负面信息。</span></label>
+              <label class="radio-option"><input type="radio" name="pain_point" value="D" /><span class="radio-mark"></span><span class="radio-text"><b>D</b> 想建立专属的企业 AI 知识库。</span></label>
+            </div>
+          </fieldset>
+
+          <div class="form-footer">
+            <button type="submit" class="btn btn-primary btn-lg" id="leadSubmit">
+              <span class="btn-text-content">预约专家诊断</span>
+            </button>
+            <p class="form-note">提交即视为同意智优康赛在 3 个工作日内通过邮件或电话与您联系。</p>
+          </div>
+
+          <div class="form-feedback" id="formFeedback" role="status" aria-live="polite"></div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== Footer ========== -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="images/智优康赛logo.svg" alt="智优康赛 AIconcepts" class="footer-logo" />
+          <p class="footer-tag">中国 GEO 第一服务商<br />让每一个优秀的企业都能被世界看见。</p>
+          <p class="footer-meta">国家高新技术企业 · 北京市专精特新企业<br />成立于 2008 · 1000+ 客户服务经验</p>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-heading">专属服务</h4>
+          <a href="services.html#stages">4 步交付流程</a>
+          <a href="services.html#manifesto-title">白帽宣言</a>
+          <a href="services.html#contact-form">预约诊断</a>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-heading">解决方案</h4>
+          <a href="solutions.html">GEO 解决方案</a>
+          <a href="demo.html">系统演示</a>
+          <a href="cases.html">客户案例</a>
+          <a href="ecosystem.html">生态资源</a>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-heading">公司</h4>
+          <a href="about.html">关于我们</a>
+          <a href="#contact-form">需求收集</a>
+          <a href="about.html">联系我们</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span class="footer-copyright">© 2026 智优康赛 AIconcepts · GEO 战略服务商</span>
+        <span class="footer-icp">京 ICP 备 XXXXXXXX 号</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 回到顶部按钮 -->
+  <button class="back-to-top" id="backToTop" aria-label="回到顶部" hidden>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M12 19V5M5 12l7-7 7 7"/>
+    </svg>
+  </button>
+
+  <script src="assets/js/index.js"></script>
+  <script src="assets/js/cases.js"></script>
+
+  <!-- ========== 4 客群 Tab 自动切换（cases 独家） ========== -->
+  <script>
+  (function () {
+    const wrapEl = document.getElementById('quoteTabs');
+    if (!wrapEl) return;
+    const tabs = Array.from(wrapEl.querySelectorAll('.quote-tab'));
+    const panels = Array.from(wrapEl.querySelectorAll('.quote-tab-panel'));
+    if (!tabs.length || !panels.length) return;
+
+    let currentIdx = 0;
+    let timer = null;
+    const INTERVAL = 6000;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function activate(idx) {
+      currentIdx = idx;
+      const id = tabs[idx].dataset.tab;
+      tabs.forEach((t, i) => {
+        if (i === idx) {
+          const prog = t.querySelector('.quote-tab__progress');
+          if (prog) {
+            prog.style.transition = 'none';
+            prog.style.width = '0';
+            void prog.offsetWidth;
+            prog.style.transition = '';
+            prog.style.width = '';
+          }
+          t.classList.add('is-active');
+          t.setAttribute('aria-selected', 'true');
+        } else {
+          t.classList.remove('is-active');
+          t.setAttribute('aria-selected', 'false');
+        }
+      });
+      panels.forEach(p => {
+        p.classList.toggle('is-active', p.dataset.panel === id);
+      });
+    }
+
+    function next() {
+      activate((currentIdx + 1) % tabs.length);
+    }
+    function start() {
+      if (prefersReducedMotion) return;
+      stop();
+      wrapEl.classList.remove('is-paused');
+      timer = setInterval(next, INTERVAL);
+    }
+    function stop() {
+      if (timer) { clearInterval(timer); timer = null; }
+      wrapEl.classList.add('is-paused');
+    }
+
+    tabs.forEach((tab, i) => {
+      tab.addEventListener('click', () => {
+        activate(i);
+        start();
+      });
+    });
+
+    wrapEl.addEventListener('mouseenter', stop);
+    wrapEl.addEventListener('mouseleave', start);
+
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) start();
+          else stop();
+        });
+      }, { threshold: 0.2 });
+      io.observe(wrapEl);
+    } else {
+      start();
+    }
+  })();
+  </script>
 </body>
 </html>

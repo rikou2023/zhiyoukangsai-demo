@@ -9,6 +9,65 @@
   document.documentElement.setAttribute('data-theme', 'M');
 
   /* ============================================
+     0a. Preloader 加载页（首屏入口动画）
+     进度 0→100 + 结束后 .is-out 退场 + 解锁页面滚动
+     ============================================ */
+  (function setupPreloader() {
+    const preloader = document.getElementById('preloader');
+    const numEl = document.getElementById('preloaderNum');
+    if (!preloader || !numEl) return;
+
+    // 锁定 body 滚动（直到 preloader 退场）
+    document.body.classList.add('preloading');
+
+    const DURATION = 1800; // 进度跑完时长 (ms)
+    const HOLD = 200;      // 到 100% 后停留 (ms)
+    const startTime = performance.now();
+
+    const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+
+    const tick = (now) => {
+      const elapsed = now - startTime;
+      const t = Math.min(elapsed / DURATION, 1);
+      const eased = easeOutCubic(t);
+      const value = Math.floor(eased * 100);
+      numEl.textContent = String(value);
+      if (t < 1) {
+        requestAnimationFrame(tick);
+      } else {
+        numEl.textContent = '100';
+        // 短暂停留后退场
+        setTimeout(exit, HOLD);
+      }
+    };
+
+    const exit = () => {
+      preloader.classList.add('is-out');
+      // 退场动画跑完后解锁滚动 + 隐藏 preloader
+      setTimeout(() => {
+        document.body.classList.remove('preloading');
+        preloader.style.display = 'none';
+        // 触发 Hero 入场（如果有 .hero.alan-parent 类）
+        document.querySelectorAll('.hero .alan-parent, .hero-title').forEach((el) => {
+          el.classList.add('is-go');
+        });
+      }, 700);
+    };
+
+    // 等字体 + 关键资源加载完成再开始
+    if (document.readyState === 'complete') {
+      requestAnimationFrame(tick);
+    } else {
+      window.addEventListener('load', () => requestAnimationFrame(tick), { once: true });
+    }
+
+    // 安全保险：3 秒强制退场（防止 load 事件不触发）
+    setTimeout(() => {
+      if (!preloader.classList.contains('is-out')) exit();
+    }, 3500);
+  })();
+
+  /* ============================================
      0b. 导航 Pill 滑动追随
          - 默认停在 .is-active 链接下
          - 鼠标 hover 任一链接 → 弹性追过去
@@ -590,6 +649,24 @@
     alanParents.forEach((el) => el.classList.add('is-go'));
   }
 
+  // Fallback: 独立的 .alan-up（不在 .alan-parent 内），进入视口时自激活
+  const alanSolos = Array.from(document.querySelectorAll('.alan-up')).filter(
+    (el) => !el.closest('.alan-parent')
+  );
+  if (alanSolos.length && 'IntersectionObserver' in window) {
+    const soloIO = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-go');
+          soloIO.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2, rootMargin: '0px 0px -50px 0px' });
+    alanSolos.forEach((el) => soloIO.observe(el));
+  } else {
+    alanSolos.forEach((el) => el.classList.add('is-go'));
+  }
+
   /* ============================================
      5. 数字 countup 动画（案例数据等）
      用 data-countup data-target="300" data-decimals="0" data-suffix="%"
@@ -636,14 +713,14 @@
      5b. 系统演示截图轮播
          - 3.5s 自动切换
          - 横向滑动 + 缩放 + 淡入三重动效
-         - 缩略图选择器 + 当前标题同步
+         - 圆点指示器（替代之前的缩略图）
          - hover 暂停 / 离开视口停 RAF
      ============================================ */
   (function setupShowcase() {
     const frame = document.querySelector('.showcase-frame');
     if (!frame) return;
     const slides = Array.from(frame.querySelectorAll('.showcase-slide'));
-    const thumbs = Array.from(document.querySelectorAll('.showcase-thumb'));
+    const dots = Array.from(document.querySelectorAll('.showcase-dot'));
     if (!slides.length) return;
     let active = 0;
     let timer = null;
@@ -654,13 +731,13 @@
       const prev = active;
       slides[prev].classList.remove('active');
       slides[prev].classList.add('leaving');
-      thumbs[prev]?.classList.remove('active');
+      dots[prev]?.classList.remove('is-active');
 
       active = (i + slides.length) % slides.length;
       slides[active].classList.remove('leaving');
       requestAnimationFrame(() => {
         slides[active].classList.add('active');
-        thumbs[active]?.classList.add('active');
+        dots[active]?.classList.add('is-active');
       });
       setTimeout(() => {
         slides[prev]?.classList.remove('leaving');
@@ -670,8 +747,8 @@
     const start = () => { stop(); timer = setInterval(next, INTERVAL); };
     const stop = () => { if (timer) { clearInterval(timer); timer = null; } };
 
-    thumbs.forEach((thumb, i) => {
-      thumb.addEventListener('click', () => { goTo(i); start(); });
+    dots.forEach((dot, i) => {
+      dot.addEventListener('click', () => { goTo(i); start(); });
     });
     frame.addEventListener('mouseenter', stop);
     frame.addEventListener('mouseleave', start);
@@ -687,35 +764,46 @@
   })();
 
   /* ============================================
-     6. 客户评价聚光灯轮播（5s 切一条，悬停暂停）
+     6. 客户评价段（钛动 r3 风格 3 卡同屏）
+        中心 .is-active + 左 .is-prev + 右 .is-next
+        箭头 / 点 / 自动切（5s）
      ============================================ */
   const spotlight = document.getElementById('spotlight');
   if (spotlight) {
-    const slides = Array.from(spotlight.querySelectorAll('.spotlight-slide'));
+    const cards = Array.from(spotlight.querySelectorAll('.spotlight-card'));
     const dots = Array.from(spotlight.querySelectorAll('.spotlight-dot'));
+    const prevBtn = document.getElementById('spotPrev');
+    const nextBtn = document.getElementById('spotNext');
+    const N = cards.length;
+    if (!N) return;
+
     let active = 0;
     let timer = null;
     const INTERVAL = 5000;
 
-    const goTo = (i) => {
-      slides[active].classList.remove('is-active');
-      dots[active]?.classList.remove('is-active');
-      active = (i + slides.length) % slides.length;
-      slides[active].classList.add('is-active');
-      dots[active]?.classList.add('is-active');
+    const render = () => {
+      const prevIdx = (active - 1 + N) % N;
+      const nextIdx = (active + 1) % N;
+      cards.forEach((c, i) => {
+        c.classList.remove('is-active', 'is-prev', 'is-next');
+        if (i === active) c.classList.add('is-active');
+        else if (i === prevIdx) c.classList.add('is-prev');
+        else if (i === nextIdx) c.classList.add('is-next');
+      });
+      dots.forEach((d, i) => d.classList.toggle('is-active', i === active));
     };
 
-    const next = () => goTo(active + 1);
-    const start = () => { stop(); timer = setInterval(next, INTERVAL); };
+    const goTo = (i) => { active = (i + N) % N; render(); };
+    const start = () => { stop(); timer = setInterval(() => goTo(active + 1), INTERVAL); };
     const stop = () => { if (timer) { clearInterval(timer); timer = null; } };
 
-    dots.forEach((dot, i) => {
-      dot.addEventListener('click', () => { goTo(i); start(); });
-    });
+    dots.forEach((dot, i) => dot.addEventListener('click', () => { goTo(i); start(); }));
+    prevBtn?.addEventListener('click', () => { goTo(active - 1); start(); });
+    nextBtn?.addEventListener('click', () => { goTo(active + 1); start(); });
+
     spotlight.addEventListener('mouseenter', stop);
     spotlight.addEventListener('mouseleave', start);
 
-    // 只在可见时跑
     if ('IntersectionObserver' in window) {
       const io = new IntersectionObserver((entries) => {
         entries.forEach((e) => { if (e.isIntersecting) start(); else stop(); });
@@ -724,6 +812,8 @@
     } else {
       start();
     }
+
+    render();
   }
 
   /* ============================================
@@ -912,6 +1002,115 @@
       if (window.innerWidth >= 769 && hamburger.classList.contains('open')) {
         setDrawer(false);
       }
+    });
+  }
+
+  /* ============================================
+     案例数据段：3 张案例左右翻页 + 切换时重新 countup
+     ============================================ */
+  (function setupCaseStage() {
+    const stage = document.getElementById('caseStage');
+    if (!stage) return;
+    const slides = Array.from(stage.querySelectorAll('.case-slide'));
+    const prevBtn = document.getElementById('casePrev');
+    const nextBtn = document.getElementById('caseNext');
+    const currentEl = document.getElementById('caseCurrent');
+    if (!slides.length) return;
+
+    let active = 0;
+    let autoTimer = null;
+    const AUTO_INTERVAL = 6000;
+
+    // 重置某 slide 内的 countup 数字到 0
+    const resetCountup = (slide) => {
+      const num = slide.querySelector('[data-countup]');
+      if (!num) return;
+      const decimals = parseInt(num.dataset.decimals || '0', 10);
+      const suffix = num.dataset.suffix || '';
+      num.textContent = (0).toFixed(decimals) + suffix;
+    };
+
+    // 触发某 slide 内的 countup
+    const triggerCountup = (slide) => {
+      const num = slide.querySelector('[data-countup]');
+      if (!num) return;
+      const target = parseFloat(num.dataset.target);
+      const decimals = parseInt(num.dataset.decimals || '0', 10);
+      const suffix = num.dataset.suffix || '';
+      const duration = 1400;
+      const start = performance.now();
+      const tick = (now) => {
+        const t = Math.min((now - start) / duration, 1);
+        const eased = t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
+        const v = target * eased;
+        num.textContent = v.toFixed(decimals) + suffix;
+        if (t < 1) requestAnimationFrame(tick);
+        else num.textContent = target.toFixed(decimals) + suffix;
+      };
+      requestAnimationFrame(tick);
+    };
+
+    const goTo = (i) => {
+      const prev = active;
+      active = (i + slides.length) % slides.length;
+      if (prev === active) return;
+      slides[prev].classList.remove('is-active');
+      slides[active].classList.add('is-active');
+      if (currentEl) currentEl.textContent = String(active + 1);
+      // 切换后触发 countup
+      resetCountup(slides[active]);
+      setTimeout(() => triggerCountup(slides[active]), 250);
+    };
+
+    prevBtn?.addEventListener('click', () => { goTo(active - 1); restartAuto(); });
+    nextBtn?.addEventListener('click', () => { goTo(active + 1); restartAuto(); });
+
+    const restartAuto = () => {
+      if (autoTimer) clearInterval(autoTimer);
+      autoTimer = setInterval(() => goTo(active + 1), AUTO_INTERVAL);
+    };
+
+    // 进入视口才开始自动轮播 + 触发首个 countup
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            triggerCountup(slides[active]);
+            restartAuto();
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.3 });
+      io.observe(stage);
+    } else {
+      triggerCountup(slides[active]);
+      restartAuto();
+    }
+
+    // 鼠标 hover 暂停
+    stage.addEventListener('mouseenter', () => { if (autoTimer) clearInterval(autoTimer); });
+    stage.addEventListener('mouseleave', restartAuto);
+  })();
+
+  /* ============================================
+     回到顶部按钮（滚动超 600px 显示）
+     ============================================ */
+  const backToTop = document.getElementById('backToTop');
+  if (backToTop) {
+    const THRESHOLD = 600;
+    let lastShown = false;
+    const onScroll = () => {
+      const shouldShow = window.scrollY > THRESHOLD;
+      if (shouldShow !== lastShown) {
+        backToTop.hidden = !shouldShow;
+        lastShown = shouldShow;
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll(); // 初始检查
+
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   }
 })();

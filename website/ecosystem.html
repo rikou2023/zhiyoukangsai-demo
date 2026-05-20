@@ -1,68 +1,596 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="智优康赛生态资源：技术专利、行业协会、高校智库、媒体资源与千家品牌服务经验。">
-  <title>生态资源 - 智优康赛</title>
-  <link rel="icon" href="favicon.svg">
-  <link rel="stylesheet" href="subpage.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="智优康赛生态资源 —— 汇聚全球顶尖资源，共筑 AI 时代护城河。Google 双重合作伙伴 · SEMrush 中国区唯一代理商 · 全链路出海与 DTC 护航网络 · 北大/中传校企合作 · 国家级媒体背书。" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <title>生态资源 - 智优康赛 AIconcepts</title>
+
+  <link rel="stylesheet" href="assets/css/tokens.css" />
+  <link rel="stylesheet" href="assets/css/index.css" />
+  <link rel="stylesheet" href="assets/css/ecosystem.css" />
+  <link rel="stylesheet" href="assets/css/design-v2.css" />
 </head>
 <body>
-  <header class="nav">
-    <a href="index.html" aria-label="返回首页"><img src="images/智优康赛logo.svg" alt="智优康赛"></a>
-    <nav class="nav-links" aria-label="主导航">
-      <a href="index.html">首页</a>
-      <a href="solutions.html">GEO解决方案</a>
-      <a href="cases.html">客户案例</a>
-      <a class="active" href="ecosystem.html">生态资源</a>
-      <a href="demo.html">系统演示</a>
-      <a href="about.html">关于我们</a>
-      <a href="contact.html">需求对接</a>
-    </nav>
-    <a class="nav-cta" href="index.html#contact-form">联系我们</a>
-  </header>
 
-  <main class="wrap">
-    <section class="hero">
-      <div>
-        <div class="kicker"><b>03</b><span>生态资源</span></div>
-        <h1><span class="title-line">以技术、媒体与专家智库</span><span class="title-line">构建交付底座</span></h1>
-        <p>GEO 服务的确定性来自完整生态。智优康赛把自研监测引擎、行业协会资源、权威媒体资源和百人专家智库融合为一套可执行的增长系统。</p>
-        <div class="btns">
-          <a class="btn primary" href="index.html#contact-form">连接专家资源</a>
-          <a class="btn" href="cases.html">查看客户背书</a>
-        </div>
-      </div>
-      <div class="visual"><img src="assets/showcase/tech-tunnel.png" alt="智优康赛生态资源"></div>
-    </section>
+  <!-- ========== 全页神经网络背景 ========== -->
+  <canvas class="bg-neural" id="canvas-neural" aria-hidden="true"></canvas>
 
-    <section class="grid" aria-label="生态资源数字">
-      <article class="card"><strong>6+14</strong><h3>技术资产</h3><p>核心国家专利与软件著作权，支撑大模型监测、语义解析与效果追踪。</p></article>
-      <article class="card"><strong>100+</strong><h3>专家智库</h3><p>行业专家深度赋能，并与高校、研究机构及专业媒体保持长期协同。</p></article>
-      <article class="card"><strong>30+</strong><h3>行业奖项</h3><p>累计荣获金鼎奖、虎啸奖等权威奖项，验证长期品效合一能力。</p></article>
-    </section>
+  <!-- ========== Header 顶栏 ========== -->
+  <header class="site-header" role="banner">
+    <div class="container">
+      <a href="index.html" class="brand" aria-label="智优康赛首页">
+        <img src="images/智优康赛logo.svg" alt="智优康赛 AIconcepts" />
+      </a>
 
-    <h2 class="section-title">把品牌带入更权威、更可信的 AI 信源网络</h2>
-    <div class="split">
-      <div class="visual"><img src="assets/showcase/digital-orb.png" alt="AI信源网络"></div>
-      <div class="list">
-        <span>国家高新技术企业与北京市专精特新企业，提供硬核技术与交付保障。</span>
-        <span>行业协会与专业组织资源，帮助品牌进入更可信的知识网络。</span>
-        <span>整合权威媒体、白皮书、行业报告与内容平台，提高 AI 可引用资产密度。</span>
-        <span>整合全球营销资源，支持多语言网站、多语言 SEO 与品牌出海传播。</span>
-        <span>服务超千家行业头部品牌，沉淀跨行业 AI 搜索增长方法论。</span>
+      <nav class="main-nav" id="mainNav" aria-label="主导航">
+        <span class="nav-pill" aria-hidden="true"></span>
+        <a href="index.html" class="nav-link">首页</a>
+        <a href="solutions.html" class="nav-link">GEO 解决方案</a>
+        <a href="cases.html" class="nav-link">客户案例</a>
+        <a href="ecosystem.html" class="nav-link is-active">生态资源</a>
+        <a href="demo.html" class="nav-link">系统演示</a>
+        <a href="about.html" class="nav-link">关于我们</a>
+        <a href="services.html" class="nav-link">专属服务</a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="#contact-form" class="btn btn-ghost">联系我们</a>
+        <a href="#contact-form" class="btn btn-header-cta">预约诊断</a>
+        <button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false" aria-controls="mobileDrawer">
+          <span></span><span></span><span></span>
+        </button>
       </div>
     </div>
+  </header>
 
-    <section class="feature-band" aria-label="生态能力">
-      <div><h3>权威信源</h3><p>围绕官网、媒体报道、行业白皮书和知识平台，提升 AI 可引用资产密度。</p></div>
-      <div><h3>专家策略</h3><p>由增长、公关、内容、数据专家共同制定品牌 AI 认知重构路径。</p></div>
-      <div><h3>全球协同</h3><p>支持中国品牌进入海外 AI 搜索生态，建立全球化算法信任。</p></div>
-    </section>
-  </main>
+  <!-- 移动端抽屉菜单 -->
+  <div class="mobile-drawer" id="mobileDrawer" role="dialog" aria-modal="true" aria-label="移动端导航菜单" hidden>
+    <nav class="mobile-nav" aria-label="移动端导航">
+      <a href="index.html" class="mobile-nav-link">首页</a>
+      <a href="solutions.html" class="mobile-nav-link">GEO 解决方案</a>
+      <a href="cases.html" class="mobile-nav-link">客户案例</a>
+      <a href="ecosystem.html" class="mobile-nav-link is-active">生态资源</a>
+      <a href="demo.html" class="mobile-nav-link">系统演示</a>
+      <a href="about.html" class="mobile-nav-link">关于我们</a>
+      <a href="services.html" class="mobile-nav-link">专属服务</a>
+    </nav>
+    <div class="mobile-drawer-cta">
+      <a href="#contact-form" class="btn btn-ghost mobile-cta-btn">联系我们</a>
+      <a href="#contact-form" class="btn btn-header-cta mobile-cta-btn">预约诊断</a>
+    </div>
+  </div>
 
-  <footer class="footer">© 2026 智优康赛 · GEO战略服务商</footer>
-  <script src="subpage.js"></script>
+  <!-- ========== Page Banner V2 · Editorial 排排极简版 ========== -->
+  <section class="page-banner page-banner--eco-editorial" aria-labelledby="eco-hero-title">
+    <div class="container">
+
+      <!-- 顶部：eyebrow + 元信息行 -->
+      <div class="eco-edit-meta">
+        <span class="eco-edit-eyebrow">生态与合作</span>
+        <span class="eco-edit-meta-right">22+ 全球战略合作伙伴 · 4 大生态联盟</span>
+      </div>
+
+      <!-- 巨型大标题 -->
+      <h1 class="eco-edit-headline" id="eco-hero-title">
+        汇聚<em>全球顶尖资源</em>，<br/>
+        共筑 AI 时代<em>护城河</em>。
+      </h1>
+
+      <!-- 副标 + CTA 横排 -->
+      <div class="eco-edit-meta-row">
+        <p class="eco-edit-sub">智优康赛不仅是 GEO 战略的制定者，更是<strong>全球顶级数字营销资源的整合者</strong>。携手全球顶尖的科技巨头、生态服务伙伴及权威学术机构，构筑坚不可摧的品牌护城河。</p>
+        <div class="eco-edit-ctas">
+          <a href="#alliance-1" class="btn btn-primary">
+            查看 4 大联盟
+            <span class="arrow">→</span>
+          </a>
+          <a href="#contact-form" class="btn btn-secondary">申请合作伙伴</a>
+        </div>
+      </div>
+
+      <!-- Ledger 头：表头分隔 -->
+      <div class="eco-edit-ledger-head">
+        <span class="eco-edit-ledger-label">核心合作伙伴名册</span>
+        <span class="eco-edit-ledger-meta">2026 年</span>
+      </div>
+
+      <!-- 8 列 partner ledger（编辑年报风） -->
+      <ul class="eco-edit-ledger" aria-label="核心合作伙伴名册">
+        <li class="eco-edit-cell eco-edit-cell--featured">
+          <span class="eco-edit-cell__id">01</span>
+          <span class="eco-edit-cell__name">GOOGLE</span>
+          <span class="eco-edit-cell__tag">双重合作伙伴</span>
+        </li>
+        <li class="eco-edit-cell eco-edit-cell--featured">
+          <span class="eco-edit-cell__id">02</span>
+          <span class="eco-edit-cell__name">SEMRUSH</span>
+          <span class="eco-edit-cell__tag">中国唯一代理</span>
+        </li>
+        <li class="eco-edit-cell">
+          <span class="eco-edit-cell__id">03</span>
+          <span class="eco-edit-cell__name">SHOPIFY</span>
+          <span class="eco-edit-cell__tag">出海建站</span>
+        </li>
+        <li class="eco-edit-cell">
+          <span class="eco-edit-cell__id">04</span>
+          <span class="eco-edit-cell__name">PAYPAL</span>
+          <span class="eco-edit-cell__tag">跨境支付</span>
+        </li>
+        <li class="eco-edit-cell">
+          <span class="eco-edit-cell__id">05</span>
+          <span class="eco-edit-cell__name">PINGPONG</span>
+          <span class="eco-edit-cell__tag">跨境支付</span>
+        </li>
+        <li class="eco-edit-cell">
+          <span class="eco-edit-cell__id">06</span>
+          <span class="eco-edit-cell__name">北京大学</span>
+          <span class="eco-edit-cell__tag">校企合作</span>
+        </li>
+        <li class="eco-edit-cell">
+          <span class="eco-edit-cell__id">07</span>
+          <span class="eco-edit-cell__name">中国传媒大学</span>
+          <span class="eco-edit-cell__tag">校企合作</span>
+        </li>
+        <li class="eco-edit-cell">
+          <span class="eco-edit-cell__id">08</span>
+          <span class="eco-edit-cell__name">CAAC</span>
+          <span class="eco-edit-cell__tag">品牌出海委员会</span>
+        </li>
+      </ul>
+
+    </div>
+  </section>
+
+  <!-- ========== 联盟 1：全球数字营销巨头联盟（V2 大图硬背书） ========== -->
+  <section class="alliance-section alliance-1" id="alliance-1" aria-labelledby="alliance-1-title">
+    <div class="container">
+      <div class="section-head section-head--left section-head--v2">
+        <span class="alliance-num">联盟 01 · ALLIANCE</span>
+        <h2 class="section-title" id="alliance-1-title">全球数字营销<em>巨头联盟</em></h2>
+      </div>
+      <p class="section-lead">我们与全球数字营销的底层引擎保持着<strong>最深度的战略绑定</strong>，为您提供最前沿的技术与流量赋能。</p>
+
+      <div class="alliance-partners-grid--v2 reveal">
+        <article class="alliance-card-v2">
+          <div class="alliance-card-v2__img-wrap">
+            <img src="images/Google双重合作伙伴.png" alt="Google 双重合作伙伴 · 一级代理商 · 出海生态合作伙伴优选计划" loading="lazy" class="alliance-card-v2__img" />
+          </div>
+          <div class="alliance-card-v2__body">
+            <span class="alliance-card-v2__rank">CORE PARTNER · 核心战略伙伴</span>
+            <h3 class="alliance-card-v2__name">Google</h3>
+            <p class="alliance-card-v2__text">智优康赛不仅是 <strong>Google 双重合作伙伴及一级代理商</strong>，更是<strong>唯一入选谷歌出海生态合作伙伴优选计划</strong>的 SEO 服务商与 SEM 代理商。</p>
+            <div class="alliance-card-v2__tags">
+              <span class="alliance-card-v2__tag">双重合作伙伴</span>
+              <span class="alliance-card-v2__tag">一级代理商</span>
+              <span class="alliance-card-v2__tag">出海生态优选</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="alliance-card-v2">
+          <div class="alliance-card-v2__img-wrap">
+            <img src="images/SEMrush中国唯一代理商.png" alt="SEMrush 中国区唯一代理商" loading="lazy" class="alliance-card-v2__img" />
+          </div>
+          <div class="alliance-card-v2__body">
+            <span class="alliance-card-v2__rank">SOLE AGENCY · 中国区唯一代理</span>
+            <h3 class="alliance-card-v2__name">SEMrush</h3>
+            <p class="alliance-card-v2__text">作为全球知名数字营销工具 <strong>SEMrush 在中国的唯一代理商</strong>，我们为您提供世界级的独立站营销数据与工具赋能。</p>
+            <div class="alliance-card-v2__tags">
+              <span class="alliance-card-v2__tag">中国唯一代理</span>
+              <span class="alliance-card-v2__tag">独立站数据</span>
+              <span class="alliance-card-v2__tag">营销工具赋能</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 联盟 2：全链路出海与 DTC 护航网络 ========== -->
+  <section class="alliance-section alliance-2" id="alliance-2" aria-labelledby="alliance-2-title">
+    <div class="container">
+      <div class="section-head section-head--left section-head--v2">
+        <span class="alliance-num">联盟 02 · ALLIANCE</span>
+        <h2 class="section-title" id="alliance-2-title">全链路出海与 <em>DTC 护航网络</em></h2>
+      </div>
+      <p class="section-lead">助力中国品牌走向世界，我们联合各领域头部平台，为您提供<strong>全方位的 DTC 生态服务保障</strong>。</p>
+
+      <div class="dtc-tiers alan-parent">
+        <article class="dtc-tier alan-up">
+          <div class="dtc-tier-icon" aria-hidden="true">
+            <svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="8" y="14" width="44" height="36" rx="3"/>
+              <line x1="8" y1="22" x2="52" y2="22"/>
+              <circle cx="14" cy="18" r="1.5" fill="currentColor" stroke="none"/>
+              <circle cx="20" cy="18" r="1.5" fill="currentColor" stroke="none"/>
+              <path d="M16 32h12M16 38h20M16 44h16"/>
+            </svg>
+          </div>
+          <h3 class="dtc-tier-title">出海基建与平台</h3>
+          <p class="dtc-tier-desc">深度链接全球主流建站与电商平台。</p>
+          <div class="dtc-tier-partners">
+            <span class="dtc-partner-chip">Shopify</span>
+            <span class="dtc-partner-chip">+ 全球主流建站平台</span>
+          </div>
+        </article>
+
+        <article class="dtc-tier alan-up">
+          <div class="dtc-tier-icon" aria-hidden="true">
+            <svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="30" cy="30" r="22"/>
+              <path d="M30 12 v36 M18 22 h24 M18 38 h24"/>
+              <ellipse cx="30" cy="30" rx="10" ry="22"/>
+            </svg>
+          </div>
+          <h3 class="dtc-tier-title">跨境支付与全域物流</h3>
+          <p class="dtc-tier-desc">携手跨境支付巨头，整合海外仓与国际物流及退货建站解决方案。</p>
+          <div class="dtc-tier-partners">
+            <span class="dtc-partner-chip">PayPal</span>
+            <span class="dtc-partner-chip">pingpong</span>
+            <span class="dtc-partner-chip">Return Helper</span>
+            <span class="dtc-partner-chip">海外仓</span>
+          </div>
+        </article>
+
+        <article class="dtc-tier alan-up">
+          <div class="dtc-tier-icon" aria-hidden="true">
+            <svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M10 14h28a6 6 0 0 1 6 6v14a6 6 0 0 1-6 6H22 l-8 8 v-8 H16 a6 6 0 0 1-6-6 V20 a6 6 0 0 1 6-6z"/>
+              <circle cx="20" cy="27" r="1.5" fill="currentColor" stroke="none"/>
+              <circle cx="28" cy="27" r="1.5" fill="currentColor" stroke="none"/>
+              <circle cx="36" cy="27" r="1.5" fill="currentColor" stroke="none"/>
+            </svg>
+          </div>
+          <h3 class="dtc-tier-title">全渠道运营赋能</h3>
+          <p class="dtc-tier-desc">集成全渠道客户服务智能系统，彻底打通客服与物流的海外运营闭环。</p>
+          <div class="dtc-tier-partners">
+            <span class="dtc-partner-chip">SaleSmartly</span>
+            <span class="dtc-partner-chip">+ 全渠道客服系统</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 联盟 3：权威产学研深度协作 ========== -->
+  <section class="alliance-section alliance-3" id="alliance-3" aria-labelledby="alliance-3-title">
+    <div class="container">
+      <div class="section-head section-head--left section-head--v2">
+        <span class="alliance-num">联盟 03 · ALLIANCE</span>
+        <h2 class="section-title" id="alliance-3-title">权威产学研<em>深度协作</em></h2>
+      </div>
+      <p class="section-lead">真正的专业，源于<strong>持续的理论创新与行业标准引领</strong>。</p>
+
+      <div class="academia-grid alan-parent">
+        <article class="academia-card alan-up">
+          <div class="academia-emblem">
+            <svg viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <!-- 学位帽 -->
+              <path d="M40 14 L8 28 L40 42 L72 28 L40 14z"/>
+              <path d="M16 32 v18 c0 4 11 8 24 8 s24-4 24-8 V32"/>
+              <line x1="68" y1="30" x2="68" y2="56"/>
+              <circle cx="68" cy="58" r="2" fill="currentColor" stroke="none"/>
+            </svg>
+          </div>
+          <h3 class="academia-title">顶尖高校赋能</h3>
+          <p class="academia-text">与<strong>北京大学</strong>、<strong>中国传媒大学</strong>等国内顶尖高校保持紧密的校企合作，持续推动行业理论创新与人才培养。</p>
+          <div class="academia-tags">
+            <span class="academia-tag">北京大学</span>
+            <span class="academia-tag">中国传媒大学</span>
+          </div>
+        </article>
+
+        <article class="academia-card alan-up">
+          <div class="academia-emblem">
+            <svg viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <!-- 印章 / 协会 -->
+              <circle cx="40" cy="40" r="28"/>
+              <circle cx="40" cy="40" r="20"/>
+              <path d="M40 26 v28 M28 38 h24 M28 44 h24"/>
+              <circle cx="40" cy="40" r="4" fill="currentColor" stroke="none"/>
+            </svg>
+          </div>
+          <h3 class="academia-title">行业标准共建</h3>
+          <p class="academia-text">担任<strong>中国商务广告协会理事单位</strong>、<strong>CAAC 品牌出海委员会联席理事单位</strong>，共同引领数字营销与品牌传播的行业标准。</p>
+          <div class="academia-tags">
+            <span class="academia-tag">中国商务广告协会</span>
+            <span class="academia-tag">CAAC 品牌出海委员会</span>
+          </div>
+        </article>
+
+        <article class="academia-card alan-up">
+          <div class="academia-emblem">
+            <svg viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <!-- 期刊 / 杂志 -->
+              <rect x="14" y="14" width="52" height="52" rx="3"/>
+              <path d="M14 24 h52"/>
+              <path d="M22 36 h36 M22 44 h28 M22 52 h32"/>
+              <circle cx="20" cy="19" r="1.5" fill="currentColor" stroke="none"/>
+              <circle cx="26" cy="19" r="1.5" fill="currentColor" stroke="none"/>
+            </svg>
+          </div>
+          <h3 class="academia-title">国家级媒体背书</h3>
+          <p class="academia-text">拥有国家级期刊媒体<strong>《国际品牌观察杂志》的独家商业运营权</strong>，为客户提供无可比拟的<strong>权威发声阵地</strong>。</p>
+          <div class="academia-tags">
+            <span class="academia-tag">《国际品牌观察杂志》独家商业运营权</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 联盟 4：智优康赛合作伙伴计划 ========== -->
+  <section class="alliance-section alliance-4" id="alliance-4" aria-labelledby="alliance-4-title">
+    <div class="container">
+      <div class="section-head section-head--left section-head--v2">
+        <span class="alliance-num">联盟 04 · ALLIANCE</span>
+        <h2 class="section-title" id="alliance-4-title">智优康赛<em>合作伙伴计划</em></h2>
+      </div>
+      <p class="section-lead">连接经过严格认证的优质代理服务商，欢迎全球优秀机构申请加入，<strong>共同助力品牌在 AI 时代脱颖而出</strong>。</p>
+
+      <div class="partner-program-grid alan-parent">
+        <article class="partner-program-card alan-up">
+          <div class="partner-program-icon" aria-hidden="true">
+            <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="32" cy="22" r="10"/>
+              <path d="M16 54 a16 16 0 0 1 32 0"/>
+              <path d="M40 28 l5 5 8-8" stroke="currentColor" stroke-width="2.4"/>
+            </svg>
+          </div>
+          <h3 class="partner-program-title">寻找认证伙伴</h3>
+          <p class="partner-program-text">连接经过智优康赛严格认证的优质代理服务商，获取涵盖 <strong>GEO、SEO、内容创作与公关传播</strong>等领域的专业支持。</p>
+          <a href="#contact-form" class="partner-program-cta">
+            浏览认证伙伴
+            <span class="arrow">→</span>
+          </a>
+        </article>
+
+        <article class="partner-program-card partner-program-apply alan-up">
+          <div class="partner-program-icon" aria-hidden="true">
+            <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="32" cy="32" r="22"/>
+              <path d="M32 20 v24 M20 32 h24" stroke-width="2.4"/>
+            </svg>
+          </div>
+          <h3 class="partner-program-title">申请加入伙伴计划</h3>
+          <p class="partner-program-text">欢迎全球优秀的<strong>营销机构、代理商和技术开发者</strong>申请加入智优康赛合作伙伴计划，共建行业生态。</p>
+          <a href="#contact-form" class="partner-program-cta partner-program-cta-primary">
+            申请加入
+            <span class="arrow">→</span>
+          </a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 独家组件 · 生态资源全景图（resource map） ========== -->
+  <section class="eco-resourcemap" id="eco-resourcemap" aria-labelledby="eco-resourcemap-title">
+    <div class="container">
+      <div class="section-head section-head--left section-head--v2">
+        <h2 class="section-title" id="eco-resourcemap-title">一张图看尽 <em>智优康赛生态全貌</em></h2>
+      </div>
+      <p class="section-lead">从科技巨头到产学研机构、从出海护航到合作伙伴 —— 把全球顶级数字营销资源整合在同一个 GEO 战略团队下，为您所用。</p>
+
+      <div class="eco-resourcemap__grid reveal">
+        <!-- 区 01 · 科技巨头联盟 -->
+        <div class="eco-resourcemap__zone">
+          <div class="eco-resourcemap__zone-header">
+            <span class="eco-resourcemap__zone-id">01</span>
+            <h3 class="eco-resourcemap__zone-title">科技巨头联盟</h3>
+            <span class="eco-resourcemap__zone-cat">TECH GIANTS</span>
+          </div>
+          <div class="eco-resourcemap__partners">
+            <span class="eco-resourcemap__partner eco-resourcemap__partner--featured">Google<span class="eco-resourcemap__partner-tag">双重合作伙伴</span></span>
+            <span class="eco-resourcemap__partner eco-resourcemap__partner--featured">SEMrush<span class="eco-resourcemap__partner-tag">中国唯一代理</span></span>
+            <span class="eco-resourcemap__partner">一级代理商</span>
+            <span class="eco-resourcemap__partner">出海生态优选</span>
+            <span class="eco-resourcemap__partner">独立站数据赋能</span>
+          </div>
+          <p class="eco-resourcemap__note">最深度的战略绑定 —— 提供最前沿的技术与流量赋能。</p>
+        </div>
+
+        <!-- 区 02 · DTC 出海护航 -->
+        <div class="eco-resourcemap__zone">
+          <div class="eco-resourcemap__zone-header">
+            <span class="eco-resourcemap__zone-id">02</span>
+            <h3 class="eco-resourcemap__zone-title">DTC 出海护航</h3>
+            <span class="eco-resourcemap__zone-cat">GLOBAL DTC</span>
+          </div>
+          <div class="eco-resourcemap__partners">
+            <span class="eco-resourcemap__partner">Shopify<span class="eco-resourcemap__partner-tag">建站</span></span>
+            <span class="eco-resourcemap__partner">PayPal<span class="eco-resourcemap__partner-tag">支付</span></span>
+            <span class="eco-resourcemap__partner">pingpong<span class="eco-resourcemap__partner-tag">跨境</span></span>
+            <span class="eco-resourcemap__partner">Return Helper<span class="eco-resourcemap__partner-tag">物流</span></span>
+            <span class="eco-resourcemap__partner">海外仓</span>
+            <span class="eco-resourcemap__partner">SaleSmartly<span class="eco-resourcemap__partner-tag">客服</span></span>
+          </div>
+          <p class="eco-resourcemap__note">出海基建 / 跨境支付 / 全域物流 / 全渠道运营 —— 全方位 DTC 生态服务保障。</p>
+        </div>
+
+        <!-- 区 03 · 产学研协作 -->
+        <div class="eco-resourcemap__zone">
+          <div class="eco-resourcemap__zone-header">
+            <span class="eco-resourcemap__zone-id">03</span>
+            <h3 class="eco-resourcemap__zone-title">权威产学研协作</h3>
+            <span class="eco-resourcemap__zone-cat">ACADEMIA</span>
+          </div>
+          <div class="eco-resourcemap__partners">
+            <span class="eco-resourcemap__partner eco-resourcemap__partner--featured">北京大学<span class="eco-resourcemap__partner-tag">校企合作</span></span>
+            <span class="eco-resourcemap__partner eco-resourcemap__partner--featured">中国传媒大学<span class="eco-resourcemap__partner-tag">校企合作</span></span>
+            <span class="eco-resourcemap__partner">中国商务广告协会<span class="eco-resourcemap__partner-tag">理事单位</span></span>
+            <span class="eco-resourcemap__partner">CAAC 品牌出海委员会<span class="eco-resourcemap__partner-tag">联席理事</span></span>
+            <span class="eco-resourcemap__partner">《国际品牌观察杂志》<span class="eco-resourcemap__partner-tag">独家运营</span></span>
+          </div>
+          <p class="eco-resourcemap__note">理论创新 + 标准共建 + 权威发声 —— 行业标准的引领者。</p>
+        </div>
+
+        <!-- 区 04 · 合作伙伴计划 -->
+        <div class="eco-resourcemap__zone">
+          <div class="eco-resourcemap__zone-header">
+            <span class="eco-resourcemap__zone-id">04</span>
+            <h3 class="eco-resourcemap__zone-title">合作伙伴计划</h3>
+            <span class="eco-resourcemap__zone-cat">PARTNER PROGRAM</span>
+          </div>
+          <div class="eco-resourcemap__partners">
+            <span class="eco-resourcemap__partner">GEO 认证服务商</span>
+            <span class="eco-resourcemap__partner">SEO 代理</span>
+            <span class="eco-resourcemap__partner">内容创作伙伴</span>
+            <span class="eco-resourcemap__partner">公关传播伙伴</span>
+            <span class="eco-resourcemap__partner">技术开发者</span>
+            <span class="eco-resourcemap__partner">营销机构</span>
+          </div>
+          <p class="eco-resourcemap__note">连接经过严格认证的优质代理服务商，欢迎全球优秀机构申请加入。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 底部全宽 CTA 终结段 ========== -->
+  <section class="final-cta-section" aria-labelledby="final-cta-title">
+    <div class="final-cta-bg" aria-hidden="true"></div>
+    <div class="container">
+      <div class="final-cta-content">
+        <h2 class="final-cta-title" id="final-cta-title">
+          构筑<span class="gradient-text">坚不可摧</span>的品牌护城河
+        </h2>
+        <p class="final-cta-lead">把全球顶级数字营销资源，整合在<strong>同一个 GEO 战略团队</strong>下，为您所用。</p>
+        <a href="#contact-form" class="btn btn-primary btn-lg final-cta-btn">
+          立即预约专家诊断
+          <span class="arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 留资表单（全站共用） ========== -->
+  <section class="contact-section" id="contact-form" aria-labelledby="contact-title">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="contact-intro">
+          <h2 class="section-title contact-title-art" id="contact-title">
+            <span class="contact-title-line"><span class="contact-art-fill">被</span><span class="contact-art-stroke">AI</span><span class="contact-art-fill">看见</span></span>
+            <span class="contact-title-line"><span class="contact-art-fill">才能被</span><span class="contact-art-stroke">客户选择</span></span>
+          </h2>
+          <p class="contact-lead">提交您的品牌信息，GEO 专家将为您进行 <strong>1V1 深度扫描</strong>，评估您的品牌在主流 AI 中的推荐指数。</p>
+        </div>
+
+        <form class="contact-form" id="leadForm" novalidate>
+          <div class="form-row">
+            <label class="form-field">
+              <span class="form-label">公司名称 <em>*</em></span>
+              <input type="text" name="company" required maxlength="60" autocomplete="organization" />
+            </label>
+            <label class="form-field">
+              <span class="form-label">姓名 <em>*</em></span>
+              <input type="text" name="name" required maxlength="30" autocomplete="name" />
+            </label>
+          </div>
+
+          <div class="form-row">
+            <label class="form-field">
+              <span class="form-label">职位 <em>*</em></span>
+              <input type="text" name="role" required maxlength="30" autocomplete="organization-title" />
+            </label>
+            <label class="form-field">
+              <span class="form-label">联系电话 <em>*</em></span>
+              <input type="tel" name="phone" required maxlength="20" autocomplete="tel" />
+            </label>
+          </div>
+
+          <label class="form-field">
+            <span class="form-label">邮箱 <em>*</em></span>
+            <input type="email" name="email" required maxlength="80" autocomplete="email" />
+          </label>
+
+          <label class="form-field">
+            <span class="form-label">核心需求 <em>*</em></span>
+            <textarea name="message" required rows="3" maxlength="500" placeholder="简要描述您当前在 AI 搜索 / 品牌露出方面遇到的问题。"></textarea>
+          </label>
+
+          <fieldset class="form-field form-fieldset">
+            <legend class="form-label">目前最关注的 AI 大模型？<em>*</em>（可多选）</legend>
+            <div class="checkbox-grid">
+              <label class="checkbox-chip"><input type="checkbox" name="ai_focus" value="Kimi" /><span class="checkbox-label">Kimi</span></label>
+              <label class="checkbox-chip"><input type="checkbox" name="ai_focus" value="文心一言" /><span class="checkbox-label">文心一言</span></label>
+              <label class="checkbox-chip"><input type="checkbox" name="ai_focus" value="通义千问" /><span class="checkbox-label">通义千问</span></label>
+              <label class="checkbox-chip"><input type="checkbox" name="ai_focus" value="豆包" /><span class="checkbox-label">豆包</span></label>
+              <label class="checkbox-chip"><input type="checkbox" name="ai_focus" value="智谱清言" /><span class="checkbox-label">智谱清言</span></label>
+              <label class="checkbox-chip"><input type="checkbox" name="ai_focus" value="DeepSeek" /><span class="checkbox-label">DeepSeek</span></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="form-field form-fieldset">
+            <legend class="form-label">目前品牌在 AI 时代的痛点是？<em>*</em></legend>
+            <div class="radio-stack">
+              <label class="radio-option"><input type="radio" name="pain_point" value="A" required /><span class="radio-mark"></span><span class="radio-text"><b>A</b> AI 搜不到我们公司/产品。</span></label>
+              <label class="radio-option"><input type="radio" name="pain_point" value="B" /><span class="radio-mark"></span><span class="radio-text"><b>B</b> AI 总是优先推荐竞争对手。</span></label>
+              <label class="radio-option"><input type="radio" name="pain_point" value="C" /><span class="radio-mark"></span><span class="radio-text"><b>C</b> AI 对我们的回答有错误/负面信息。</span></label>
+              <label class="radio-option"><input type="radio" name="pain_point" value="D" /><span class="radio-mark"></span><span class="radio-text"><b>D</b> 想建立专属的企业 AI 知识库。</span></label>
+            </div>
+          </fieldset>
+
+          <div class="form-footer">
+            <button type="submit" class="btn btn-primary btn-lg" id="leadSubmit">
+              <span class="btn-text-content">预约专家诊断</span>
+            </button>
+            <p class="form-note">提交即视为同意智优康赛在 3 个工作日内通过邮件或电话与您联系。</p>
+          </div>
+
+          <div class="form-feedback" id="formFeedback" role="status" aria-live="polite"></div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== Footer ========== -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="images/智优康赛logo.svg" alt="智优康赛 AIconcepts" class="footer-logo" />
+          <p class="footer-tag">中国 GEO 第一服务商<br />让每一个优秀的企业都能被世界看见。</p>
+          <p class="footer-meta">国家高新技术企业 · 北京市专精特新企业<br />成立于 2008 · 1000+ 客户服务经验</p>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-heading">专属服务</h4>
+          <a href="services.html#stages">4 步交付流程</a>
+          <a href="services.html#manifesto-title">白帽宣言</a>
+          <a href="services.html#contact-form">预约诊断</a>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-heading">解决方案</h4>
+          <a href="solutions.html">GEO 解决方案</a>
+          <a href="demo.html">系统演示</a>
+          <a href="cases.html">客户案例</a>
+          <a href="ecosystem.html">生态资源</a>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-heading">公司</h4>
+          <a href="about.html">关于我们</a>
+          <a href="#contact-form">需求收集</a>
+          <a href="about.html">联系我们</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span class="footer-copyright">© 2026 智优康赛 AIconcepts · GEO 战略服务商</span>
+        <span class="footer-icp">京 ICP 备 XXXXXXXX 号</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 回到顶部按钮 -->
+  <button class="back-to-top" id="backToTop" aria-label="回到顶部" hidden>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M12 19V5M5 12l7-7 7 7"/>
+    </svg>
+  </button>
+
+  <script src="assets/js/index.js"></script>
 </body>
 </html>

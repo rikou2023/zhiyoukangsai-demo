@@ -9,8 +9,28 @@
 
   <link rel="stylesheet" href="assets/css/tokens.css" />
   <link rel="stylesheet" href="assets/css/index.css" />
+  <link rel="stylesheet" href="assets/css/design-v2.css" />
 </head>
 <body>
+
+  <!-- ========== Preloader 加载页（首屏入口动画） ========== -->
+  <div class="preloader is-active" id="preloader" aria-hidden="true">
+    <div class="preloader-bg" aria-hidden="true">
+      <span class="preloader-blob preloader-blob-1"></span>
+      <span class="preloader-blob preloader-blob-2"></span>
+      <span class="preloader-blob preloader-blob-3"></span>
+    </div>
+    <div class="preloader-inner">
+      <p class="preloader-tag">中国 GEO 第一服务商</p>
+      <div class="preloader-logo">
+        <img src="images/智优康赛logo_白.svg" alt="智优康赛 AIconcepts" />
+      </div>
+      <div class="preloader-progress">
+        <em class="preloader-progress-num" id="preloaderNum">0</em>
+        <small class="preloader-progress-pct">%</small>
+      </div>
+    </div>
+  </div>
 
   <!-- ========== 全页神经网络背景（fixed 在最底层，跨所有 section） ========== -->
   <canvas class="bg-neural" id="canvas-neural" aria-hidden="true"></canvas>
@@ -65,7 +85,7 @@
     <div class="container hero-center">
       <h1 class="hero-title" id="hero-title">
         <span class="title-line title-line-main">
-          让您的品牌占领 AI <span class="title-highlight">第一</span>推荐位
+          让您的品牌占领 <span class="title-ai">AI</span> 第一推荐位
         </span>
         <span class="title-line title-line-rotator">
           <span class="platform-rotator" aria-live="polite">
@@ -112,124 +132,296 @@
     </div>
   </section>
 
-  <!-- ========== 痛点段（客户原话） ========== -->
-  <section class="pain-section" aria-labelledby="pain-title">
-    <div class="container">
-      <h2 class="pain-question reveal" id="pain-title">
-        客户在问 <span class="pain-hl">Kimi</span>、<span class="pain-hl">文心一言</span>、<span class="pain-hl">通义千问</span>，<br />
-        但 AI 的回答里，<em class="pain-em">有你的品牌吗？</em>
+  <!-- ========== §01 痛点段 V2（客户原话） ========== -->
+  <section class="pain-v2" aria-labelledby="pain-title">
+    <div class="pain-v2__bg" aria-hidden="true"></div>
+    <div class="container pain-v2__inner">
+
+      <h2 class="pain-v2__quote reveal" id="pain-title">
+        客户在问 <em>Kimi</em>、<em>文心一言</em>、<em>通义千问</em>，<br />
+        但 AI 的回答里，<em class="pain-v2__hl">有你的品牌吗？</em>
       </h2>
-      <p class="pain-warning reveal" data-reveal-delay="200">
+
+      <p class="pain-v2__lede reveal">
         AI 的回答往往<strong>只有一个最优解</strong>。<br />
-        如果不做 GEO，你的潜在客户就在这一句回答中丢失了。
+        如果不做 GEO，您的潜在客户就在这一句回答中悄然丢失。
       </p>
+
+      <div class="pain-v2__rows reveal-stagger alan-parent">
+        <div class="pain-v2__row alan-up">
+          <span class="pain-v2__num">[01]</span>
+          <div class="pain-v2__text">
+            当 CMO 问 ChatGPT "哪家品牌值得选"，<em>你的名字在答案里吗？</em>
+            <span class="pain-v2__meta">→ 答案里没有您的品牌——意味着潜在客户根本不会发现您。</span>
+          </div>
+        </div>
+        <div class="pain-v2__row alan-up">
+          <span class="pain-v2__num">[02]</span>
+          <div class="pain-v2__text">
+            <em>每天 1 亿+ 决策</em>在 AI 对话中悄无声息地完成，传统 SEO 已经触达不了。
+            <span class="pain-v2__meta">→ 大模型不再只是工具，而是用户做决策前的"前置算法"。</span>
+          </div>
+        </div>
+        <div class="pain-v2__row alan-up">
+          <span class="pain-v2__num">[03]</span>
+          <div class="pain-v2__text">
+            您需要的<em>不是一套繁琐的软件系统</em>，而是一个能直接交付结果的靠谱伙伴。
+            <span class="pain-v2__meta">→ 智优康赛 — 中国 GEO 第一服务商，为您全面代管 AI 时代品牌资产。</span>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
   <!-- ========== 系统演示（"段主视觉"风格，大截图 + 缩略图轮播） ========== -->
-  <section class="showcase-section" aria-labelledby="showcase-title">
+  <!-- ========== §03 系统演示 V2 · Mac chrome + sidebar ========== -->
+  <section class="showcase-section demo-v2" aria-labelledby="showcase-title">
     <div class="container">
-      <div class="section-head section-head--left">
-        <h2 class="section-title" id="showcase-title">看 AI 在每一次对话中如何展示您的品牌</h2>
+      <div class="section-head section-head--left section-head--v2"
+           data-section="03"
+           data-section-en="SYSTEM DEMO"
+           data-section-meta="LIVE · 5 SLIDES">
+        <h2 class="section-title" id="showcase-title">看 AI 在每一次对话中<em>如何展示您的品牌</em></h2>
       </div>
+      <p class="section-lead">亲眼看到 GEO 引擎如何运转。从现状评估、词包管理、监测追踪到智能分析，<strong style="color:var(--ink);">系统覆盖 GEO 策略全周期</strong>。</p>
 
-      <div class="showcase-stage">
-        <!-- 大截图框（带浏览器装饰） -->
-        <div class="showcase-frame" aria-label="智优康赛 GEO 系统演示">
-          <div class="showcase-chrome" aria-hidden="true">
-            <span class="chrome-dot"></span>
-            <span class="chrome-dot"></span>
-            <span class="chrome-dot"></span>
+      <div class="demo-v2__layout">
+
+        <!-- 左侧主屏：Mac chrome + 大截图轮播 -->
+        <div class="demo-v2__stage">
+          <div class="demo-v2__chrome">
+            <div class="demo-v2__chrome-left">
+              <span class="demo-v2__chrome-dots">
+                <span></span><span></span><span></span>
+              </span>
+              <span class="demo-v2__chrome-addr">aiconcepts.cn/console</span>
+            </div>
+            <span class="demo-v2__chrome-status">
+              <span class="demo-v2__chrome-status-dot"></span>
+              LIVE
+            </span>
           </div>
-          <div class="showcase-slide active">
-            <img src="assets/system/screen-01.jpg" alt="智优康赛 GEO 系统截图 1" />
+
+          <div class="showcase-frame demo-v2__frame" aria-label="智优康赛 GEO 系统演示">
+            <div class="showcase-slide active">
+              <img src="assets/system/screen-01.jpg" alt="智优康赛 GEO 系统截图 1" />
+            </div>
+            <div class="showcase-slide">
+              <img src="assets/system/screen-02.jpg" alt="智优康赛 GEO 系统截图 2" />
+            </div>
+            <div class="showcase-slide">
+              <img src="assets/system/screen-03.jpg" alt="智优康赛 GEO 系统截图 3" />
+            </div>
+            <div class="showcase-slide">
+              <img src="assets/system/screen-04.jpg" alt="智优康赛 GEO 系统截图 4" />
+            </div>
+            <div class="showcase-slide">
+              <img src="assets/system/screen-05.jpg" alt="智优康赛 GEO 系统截图 5" />
+            </div>
           </div>
-          <div class="showcase-slide">
-            <img src="assets/system/screen-02.jpg" alt="智优康赛 GEO 系统截图 2" />
-          </div>
-          <div class="showcase-slide">
-            <img src="assets/system/screen-03.jpg" alt="智优康赛 GEO 系统截图 3" />
-          </div>
-          <div class="showcase-slide">
-            <img src="assets/system/screen-04.jpg" alt="智优康赛 GEO 系统截图 4" />
-          </div>
-          <div class="showcase-slide">
-            <img src="assets/system/screen-05.jpg" alt="智优康赛 GEO 系统截图 5" />
+
+          <div class="demo-v2__chrome-footer">
+            <span>NETCONCEPTS · GEO ENGINE</span>
+            <span>REAL-TIME · 自动 3s 切换</span>
           </div>
         </div>
 
-        <div class="showcase-thumbnails" role="tablist" aria-label="切换系统演示截图">
-          <button class="showcase-thumb active" aria-label="第 1 张">
-            <img src="assets/system/screen-01.jpg" alt="" />
-            <span class="thumb-num">01</span>
-          </button>
-          <button class="showcase-thumb" aria-label="第 2 张">
-            <img src="assets/system/screen-02.jpg" alt="" />
-            <span class="thumb-num">02</span>
-          </button>
-          <button class="showcase-thumb" aria-label="第 3 张">
-            <img src="assets/system/screen-03.jpg" alt="" />
-            <span class="thumb-num">03</span>
-          </button>
-          <button class="showcase-thumb" aria-label="第 4 张">
-            <img src="assets/system/screen-04.jpg" alt="" />
-            <span class="thumb-num">04</span>
-          </button>
-          <button class="showcase-thumb" aria-label="第 5 张">
-            <img src="assets/system/screen-05.jpg" alt="" />
-            <span class="thumb-num">05</span>
-          </button>
-        </div>
+        <!-- 右侧缩略图 sidebar -->
+        <aside class="demo-v2__side">
+          <div class="demo-v2__side-head">
+            <span class="mono-tag">SLIDES / 05</span>
+          </div>
+
+          <div class="showcase-dots demo-v2__thumbs" role="tablist" aria-label="切换系统演示截图">
+            <button class="showcase-dot demo-v2__thumb is-active" data-idx="0" aria-label="第 1 张">
+              <span class="demo-v2__thumb-img"><img src="assets/system/screen-01.jpg" alt="" loading="lazy" /></span>
+              <span class="demo-v2__thumb-text">现状评估</span>
+              <span class="demo-v2__thumb-num">01</span>
+            </button>
+            <button class="showcase-dot demo-v2__thumb" data-idx="1" aria-label="第 2 张">
+              <span class="demo-v2__thumb-img"><img src="assets/system/screen-02.jpg" alt="" loading="lazy" /></span>
+              <span class="demo-v2__thumb-text">提示词挖掘</span>
+              <span class="demo-v2__thumb-num">02</span>
+            </button>
+            <button class="showcase-dot demo-v2__thumb" data-idx="2" aria-label="第 3 张">
+              <span class="demo-v2__thumb-img"><img src="assets/system/screen-03.jpg" alt="" loading="lazy" /></span>
+              <span class="demo-v2__thumb-text">实时监测</span>
+              <span class="demo-v2__thumb-num">03</span>
+            </button>
+            <button class="showcase-dot demo-v2__thumb" data-idx="3" aria-label="第 4 张">
+              <span class="demo-v2__thumb-img"><img src="assets/system/screen-04.jpg" alt="" loading="lazy" /></span>
+              <span class="demo-v2__thumb-text">竞品对比</span>
+              <span class="demo-v2__thumb-num">04</span>
+            </button>
+            <button class="showcase-dot demo-v2__thumb" data-idx="4" aria-label="第 5 张">
+              <span class="demo-v2__thumb-img"><img src="assets/system/screen-05.jpg" alt="" loading="lazy" /></span>
+              <span class="demo-v2__thumb-text">优化建议</span>
+              <span class="demo-v2__thumb-num">05</span>
+            </button>
+          </div>
+        </aside>
+
       </div>
     </div>
   </section>
 
   <!-- ========== AI 平台监测可视化（文案 100% 来自客户原文） ========== -->
-  <section class="monitor-section" aria-labelledby="monitor-title">
+  <!-- ========== §02 核心服务 4 大技术底座 V2 ========== -->
+  <section class="services-v2" aria-labelledby="services-title">
     <div class="container">
-      <div class="section-head section-head--left">
-        <h2 class="section-title" id="monitor-title">精准把控 AI 流量入口</h2>
-        <p class="section-lead">实时追踪您的品牌官方资产是如何被 Kimi、豆包、文心一言等国内主流大模型及智能体读取、理解与深度解析的。</p>
+      <div class="section-head section-head--left section-head--v2"
+           data-section="02"
+           data-section-en="CORE SERVICES"
+           data-section-meta="4 PILLARS">
+        <h2 class="section-title" id="services-title">精准把控 <em>AI 流量入口</em></h2>
+      </div>
+      <p class="section-lead">实时追踪您的品牌官方资产是如何被 Kimi、豆包、文心一言等国内主流大模型及智能体读取、理解与深度解析的。<br />强大的<strong style="color:var(--ink);">自研技术底座</strong>，是保障专家服务效果的坚实后盾。</p>
+
+      <!-- 4 大服务 grid -->
+      <div class="svc-v2-grid reveal-stagger alan-parent">
+
+        <article class="svc-v2-card card-v2 alan-up">
+          <div class="svc-v2-card__head">
+            <span class="svc-v2-card__num">SERVICE / 01</span>
+            <span class="svc-v2-card__icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="9"/>
+                <circle cx="12" cy="12" r="3"/>
+                <path d="M12 3v2M21 12h-2M12 21v-2M3 12h2"/>
+              </svg>
+            </span>
+          </div>
+          <h3 class="svc-v2-card__title">全域问答引擎洞察</h3>
+          <p class="svc-v2-card__desc">彻底打破 AI 搜索的"黑盒"。监测系统与分析专家全天候监控主流 AI 大模型如何定义和评价您的品牌，提供深度的品牌声誉体检报告。</p>
+        </article>
+
+        <article class="svc-v2-card card-v2 alan-up">
+          <div class="svc-v2-card__head">
+            <span class="svc-v2-card__num">SERVICE / 02</span>
+            <span class="svc-v2-card__icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="1"/>
+                <path d="M3 9h18M9 3v18"/>
+              </svg>
+            </span>
+          </div>
+          <h3 class="svc-v2-card__title">大模型语义解析分析</h3>
+          <p class="svc-v2-card__desc">精准把控 AI 流量入口。利用自研底层技术，实时追踪品牌资产被 Kimi、豆包、文心一言等主流大模型读取、理解与解析的全过程。</p>
+        </article>
+
+        <article class="svc-v2-card card-v2 alan-up">
+          <div class="svc-v2-card__head">
+            <span class="svc-v2-card__num">SERVICE / 03</span>
+            <span class="svc-v2-card__icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="7"/>
+                <path d="m21 21-4.35-4.35"/>
+              </svg>
+            </span>
+          </div>
+          <h3 class="svc-v2-card__title">高转化提示词挖掘</h3>
+          <p class="svc-v2-card__desc">洞察真实意图，抢占语义先机。从数以百万计的大众 AI 提问中挖掘出与您行业高度相关的高价值"提示词"，定制精准的 GEO 营销策略。</p>
+        </article>
+
+        <article class="svc-v2-card card-v2 alan-up">
+          <div class="svc-v2-card__head">
+            <span class="svc-v2-card__num">SERVICE / 04</span>
+            <span class="svc-v2-card__icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 17v3M9 13v7M15 9v11M21 5v15"/>
+              </svg>
+            </span>
+          </div>
+          <h3 class="svc-v2-card__title">AI 核心词排名追踪护航</h3>
+          <p class="svc-v2-card__desc">用确定的数据量化优化效果。提供细颗粒度的排名追踪服务，实时监控产品与品牌在 AI 搜索结果中的排位情况，专家持续精调。</p>
+        </article>
+
       </div>
 
-      <!-- 全宽画布 + 左卡 overlay -->
-      <div class="monitor-stage">
-        <!-- 全宽画布：7 个 AI 平台节点环绕"智优康赛 GEO 引擎"中心 -->
-        <div class="monitor-viz" aria-label="国内主流 AI 平台节点连接示意">
-          <canvas id="canvas-monitor"></canvas>
-          <!-- 鼠标 hover 节点时弹窗 -->
-          <div class="monitor-popup" id="monitorPopup" hidden>
-            <span class="monitor-popup-dot"></span>
-            <div class="monitor-popup-body">
-              <strong class="monitor-popup-platform">DeepSeek</strong>
-              <span class="monitor-popup-meta">已接入监测</span>
-            </div>
+      <!-- AI 监测面板 V2 · 实时监测仪表盘 -->
+      <div class="monitor-panel reveal">
+
+        <div class="monitor-panel__chrome">
+          <div class="monitor-panel__chrome-left">
+            <span class="monitor-panel__chrome-dots">
+              <span></span><span></span><span></span>
+            </span>
+            <span class="monitor-panel__chrome-addr">monitor.aiconcepts.cn/engines</span>
+          </div>
+          <span class="monitor-panel__chrome-status">
+            <span class="monitor-panel__chrome-status-dot"></span>
+            LIVE
+          </span>
+        </div>
+
+        <div class="monitor-panel__head">
+          <span class="monitor-panel__head-label">监测平台 · MONITORED ENGINES</span>
+          <span class="monitor-panel__head-meta">7 ENGINES · 24/7 实时接入</span>
+        </div>
+
+        <div class="monitor-panel__rows">
+          <div class="monitor-panel__row">
+            <span class="monitor-panel__icon"><img src="images/DeepSeek.png" alt="DeepSeek" /></span>
+            <span class="monitor-panel__name">DeepSeek</span>
+            <span class="monitor-panel__vendor">深度求索</span>
+            <span class="monitor-panel__status"><span class="monitor-panel__status-dot"></span>ACTIVE</span>
+          </div>
+          <div class="monitor-panel__row">
+            <span class="monitor-panel__icon"><img src="images/豆包.png" alt="豆包" /></span>
+            <span class="monitor-panel__name">豆包</span>
+            <span class="monitor-panel__vendor">字节跳动</span>
+            <span class="monitor-panel__status"><span class="monitor-panel__status-dot"></span>ACTIVE</span>
+          </div>
+          <div class="monitor-panel__row">
+            <span class="monitor-panel__icon"><img src="images/Kimi.png" alt="Kimi" /></span>
+            <span class="monitor-panel__name">Kimi</span>
+            <span class="monitor-panel__vendor">月之暗面</span>
+            <span class="monitor-panel__status"><span class="monitor-panel__status-dot"></span>ACTIVE</span>
+          </div>
+          <div class="monitor-panel__row">
+            <span class="monitor-panel__icon"><img src="images/文心一言.png" alt="文心一言" /></span>
+            <span class="monitor-panel__name">文心一言</span>
+            <span class="monitor-panel__vendor">百度</span>
+            <span class="monitor-panel__status"><span class="monitor-panel__status-dot"></span>ACTIVE</span>
+          </div>
+          <div class="monitor-panel__row">
+            <span class="monitor-panel__icon"><img src="images/通义千问.png" alt="通义千问" /></span>
+            <span class="monitor-panel__name">通义千问</span>
+            <span class="monitor-panel__vendor">阿里云</span>
+            <span class="monitor-panel__status"><span class="monitor-panel__status-dot"></span>ACTIVE</span>
+          </div>
+          <div class="monitor-panel__row">
+            <span class="monitor-panel__icon"><img src="images/智谱清言.png" alt="智谱清言" /></span>
+            <span class="monitor-panel__name">智谱清言</span>
+            <span class="monitor-panel__vendor">ZHIPU AI</span>
+            <span class="monitor-panel__status"><span class="monitor-panel__status-dot"></span>ACTIVE</span>
+          </div>
+          <div class="monitor-panel__row">
+            <span class="monitor-panel__icon"><img src="images/腾讯元宝.png" alt="腾讯元宝" /></span>
+            <span class="monitor-panel__name">腾讯元宝</span>
+            <span class="monitor-panel__vendor">腾讯</span>
+            <span class="monitor-panel__status"><span class="monitor-panel__status-dot"></span>ACTIVE</span>
           </div>
         </div>
 
-        <!-- 左卡 overlay（桌面 absolute，移动端 static） -->
-        <article class="monitor-card reveal">
-          <h3 class="monitor-card-title">核心服务与<br />技术底座</h3>
-          <ul class="monitor-features">
-            <li><span class="check">✓</span> 全域问答引擎洞察</li>
-            <li><span class="check">✓</span> 大模型语义解析分析</li>
-            <li><span class="check">✓</span> 高转化提示词挖掘</li>
-            <li><span class="check">✓</span> AI 核心词排名追踪护航</li>
-          </ul>
-          <div class="monitor-stat">
-            <span class="monitor-stat-num">7</span>
-            <span class="monitor-stat-label">已接入国内主流 AI 大模型</span>
-          </div>
-        </article>
+        <div class="monitor-panel__footer">
+          <span>NETCONCEPTS · GEO ENGINE</span>
+          <span>FULL COVERAGE · 7 / 7 PLATFORMS</span>
+        </div>
       </div>
+
     </div>
   </section>
 
   <!-- ========== 产品优势矩阵 ========== -->
   <section class="advantages-section" aria-labelledby="advantages-title">
     <div class="container">
-      <div class="section-head">
-        <h2 class="section-title" id="advantages-title">产品优势</h2>
+      <div class="section-head section-head--v2"
+           data-section="03"
+           data-section-en="PRODUCT EDGES"
+           data-section-meta="DATA × ANALYSIS × OPTIMIZATION">
+        <h2 class="section-title" id="advantages-title">三大能力底座 · <em>18 项产品优势</em></h2>
       </div>
 
       <div class="advantages-grid">
@@ -374,32 +566,320 @@
     </div>
   </section>
 
-  <!-- ========== 案例数据 ========== -->
+  <!-- ========== 5 大解决方案（3 卡精选展示） ========== -->
+  <!-- ========== §05 5 大解决方案 V2 · 横向 list rows ========== -->
+  <section class="sol-v2" aria-labelledby="solutions-title">
+    <div class="container">
+      <div class="section-head section-head--left section-head--v2"
+           data-section="04"
+           data-section-en="SOLUTIONS"
+           data-section-meta="5 SCENARIOS">
+        <h2 class="section-title" id="solutions-title">从流量获取到商业转化，<br /><em>一站式解决方案</em></h2>
+      </div>
+      <p class="section-lead">无论您的团队负责哪个环节，智优康赛都能为您提供针对性的解决方案，结合行业领先的营销方法论及全球化服务能力，帮助您在 AI 搜索时代赢得竞争优势。</p>
+
+      <div class="sol-v2__list reveal-stagger alan-parent">
+
+        <a class="sol-v2__row alan-up" href="solutions.html">
+          <span class="sol-v2__num">01</span>
+          <span class="sol-v2__audience">面向流量与增长团队</span>
+          <div class="sol-v2__main">
+            <h3 class="sol-v2__title">GEO 与全网搜索优化战略</h3>
+            <p class="sol-v2__goal"><strong>让企业品牌在 AI 平台上抢占口碑与用户增长先机。</strong>系统化的官网 SEO &amp; GEO 改造、信源优化以及多模态内容占位解决方案，针对 DeepSeek、豆包、Kimi 等国内主流大语言模型精准重构您的品牌布局。</p>
+          </div>
+          <span class="sol-v2__arrow">→</span>
+        </a>
+
+        <a class="sol-v2__row alan-up" href="solutions.html">
+          <span class="sol-v2__num">02</span>
+          <span class="sol-v2__audience">面向内容与新媒体团队</span>
+          <div class="sol-v2__main">
+            <h3 class="sol-v2__title">多模态内容与知识库构建</h3>
+            <p class="sol-v2__goal"><strong>塑造企业品牌形象，驱动真实用户意图与大模型引擎的双重高价值流量。</strong>结合全网内容矩阵（短视频、小红书、知乎等），为您定制符合大模型语义解析偏好的高质量多模态内容。</p>
+          </div>
+          <span class="sol-v2__arrow">→</span>
+        </a>
+
+        <a class="sol-v2__row alan-up" href="solutions.html">
+          <span class="sol-v2__num">03</span>
+          <span class="sol-v2__audience">面向公关与品牌团队</span>
+          <div class="sol-v2__main">
+            <h3 class="sol-v2__title">AI 时代声誉管理与舆情防火墙</h3>
+            <p class="sol-v2__goal"><strong>主动塑造 AI 对话内容，建设稳固的数字公关防御体系。</strong>通过全域实时监测，全面掌握 AI 是如何评价您品牌的，构建六大场景舆情防火墙。</p>
+          </div>
+          <span class="sol-v2__arrow">→</span>
+        </a>
+
+        <a class="sol-v2__row alan-up" href="solutions.html">
+          <span class="sol-v2__num">04</span>
+          <span class="sol-v2__audience">面向出海与全球化团队</span>
+          <div class="sol-v2__main">
+            <h3 class="sol-v2__title">品牌出海全域 GEO 护航</h3>
+            <p class="sol-v2__goal"><strong>赋能企业出海，拓展全球 AI 搜索市场的商业增量。</strong>整合全球营销资源，提供多语言 SEO、品牌出海传播以及多语言网站开发等定制化服务，助力中国品牌在全球 AI 搜索生态中强势破圈。</p>
+          </div>
+          <span class="sol-v2__arrow">→</span>
+        </a>
+
+        <a class="sol-v2__row alan-up" href="solutions.html">
+          <span class="sol-v2__num">05</span>
+          <span class="sol-v2__audience">面向代理商与生态伙伴</span>
+          <div class="sol-v2__main">
+            <h3 class="sol-v2__title">前沿技术与业务赋能</h3>
+            <p class="sol-v2__goal"><strong>专为代理商合作伙伴打造的战略赋能方案。</strong>将最前沿的 GEO 技术与 AI 搜索引擎优化能力无缝整合到您的服务体系中，帮助您的客户在全新的生态中脱颖而出。</p>
+          </div>
+          <span class="sol-v2__arrow">→</span>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 案例数据（钛动 r4 风格：左大图 + 右数字 + 翻页） ========== -->
   <section class="metrics-section" aria-labelledby="metrics-title">
     <div class="container">
-      <div class="section-head section-head--left">
-        <h2 class="section-title" id="metrics-title">用确定的数据<br />重塑 AI 时代的算法信任资产</h2>
-        <p class="section-lead">每天有超过 1 亿人将 AI 作为决策的首选工具。18 年来，我们已帮助全球超千家头部品牌在全新的数字生态中建立起坚不可摧的认知护城河。</p>
+      <div class="section-head section-head--left section-head--v2"
+           data-section="05"
+           data-section-en="CASE STUDIES"
+           data-section-meta="18 YEARS × 1000+ BRANDS">
+        <h2 class="section-title" id="metrics-title">用确定的数据，<br /><em>重塑 AI 时代的算法信任资产</em></h2>
+      </div>
+      <p class="section-lead">每天有超过 1 亿人将 AI 作为决策的首选工具。18 年来，我们已帮助全球超千家头部品牌在全新的数字生态中建立起坚不可摧的认知护城河。</p>
+
+      <!-- §07 案例 V2 · 3 大卡 vertical stack + 巨型 glow 数字 + countup -->
+      <div class="metrics-v2__stack reveal-stagger alan-parent">
+
+        <article class="metric-v2 alan-up">
+          <div class="metric-v2__num-wrap">
+            <span class="metric-v2__num" data-countup data-target="300" data-decimals="0" data-suffix="%">0%</span>
+            <span class="metric-v2__num-label">AI 核心搜索场景<br/>曝光量提升</span>
+          </div>
+          <div class="metric-v2__body">
+            <div class="metric-v2__head">
+              <span class="metric-v2__industry">CASE 01 · B2B 智能硬件</span>
+              <h3 class="metric-v2__client">某国内头部打印设备品牌</h3>
+            </div>
+            <div class="metric-v2__rows">
+              <div class="metric-v2__row">
+                <span class="metric-v2__row-label">服务成效</span>
+                <p class="metric-v2__row-text">24 小时内极速完成核心关键词的 AI 大模型露出优化。在各大主流大模型"专业设备推荐"场景下，实现首推率超 80%。</p>
+              </div>
+              <div class="metric-v2__row">
+                <span class="metric-v2__row-label">信任资产</span>
+                <p class="metric-v2__row-text">品牌权威性评分（基于 EEAT 模型）大幅跃升，直接助力官网高意向流量增长 45%，用户决策周期大幅缩短 50%。</p>
+              </div>
+            </div>
+            <blockquote class="metric-v2__quote">
+              过去我们在传统搜索里争夺流量，现在智优康赛帮我们在 AI 的大脑里直接登上了首选推荐。上线短短几周，我们的核心产品曝光量激增，这是划时代的获客方式。
+              <cite class="metric-v2__quote-cite">—— 首席营销官 (CMO)</cite>
+            </blockquote>
+          </div>
+        </article>
+
+        <article class="metric-v2 alan-up">
+          <div class="metric-v2__num-wrap">
+            <span class="metric-v2__num" data-countup data-target="1.1" data-decimals="1" data-suffix="亿+">0亿+</span>
+            <span class="metric-v2__num-label">全场景 AI 深度解析<br/>覆盖曝光</span>
+          </div>
+          <div class="metric-v2__body">
+            <div class="metric-v2__head">
+              <span class="metric-v2__industry">CASE 02 · 快消大健康</span>
+              <h3 class="metric-v2__client">某跨国营养健康巨头</h3>
+            </div>
+            <div class="metric-v2__rows">
+              <div class="metric-v2__row">
+                <span class="metric-v2__row-label">服务成效</span>
+                <p class="metric-v2__row-text">面对复杂的消费者提问与评测对比，构建了全网多模态知识库矩阵。确保企业核心资产被大模型精准理解与高权重收录。</p>
+              </div>
+              <div class="metric-v2__row">
+                <span class="metric-v2__row-label">信任资产</span>
+                <p class="metric-v2__row-text">围绕六大高频交互场景构建坚实的舆情防火墙，核心词推荐 KPI 达成率超 113%，确保品牌在 AI 生成的回答中永远保持积极、正面的第一印象。</p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="metric-v2 alan-up">
+          <div class="metric-v2__num-wrap">
+            <span class="metric-v2__num" data-countup data-target="37.22" data-decimals="2" data-suffix="%">0%</span>
+            <span class="metric-v2__num-label">精准高潜 Leads<br/>线索量激增</span>
+          </div>
+          <div class="metric-v2__body">
+            <div class="metric-v2__head">
+              <span class="metric-v2__industry">CASE 03 · 精密制造与生命科学</span>
+              <h3 class="metric-v2__client">某全球头部仪器品牌</h3>
+            </div>
+            <div class="metric-v2__rows">
+              <div class="metric-v2__row">
+                <span class="metric-v2__row-label">服务成效</span>
+                <p class="metric-v2__row-text">在竞争极其激烈的专业设备行业，通过细颗粒度的意图洞察与高转化提示词布局，精准命中专业采购人员的 AI 查询场景。</p>
+              </div>
+              <div class="metric-v2__row">
+                <span class="metric-v2__row-label">信任资产</span>
+                <p class="metric-v2__row-text">通过高质量学术内容与行业白皮书的权威信源植入，实现点击通过率（CTR）跃升 14.52%。</p>
+              </div>
+            </div>
+            <blockquote class="metric-v2__quote">
+              在使用智优康赛之前，AI 搜索对我们来说完全是一个黑盒。但现在，依托他们的专家智库，AI 已经成为了我们最高效的精准线索增长引擎。
+              <cite class="metric-v2__quote-cite">—— 某世界 500 强企业 · 增长与需求副总裁</cite>
+            </blockquote>
+          </div>
+        </article>
+
       </div>
 
-      <div class="metrics-grid alan-parent">
-        <article class="metric-card alan-up">
-          <div class="metric-number" data-countup data-target="300" data-decimals="0" data-suffix="%">0%</div>
-          <h3 class="metric-label">AI 核心搜索场景曝光量提升</h3>
-          <p class="metric-desc">B2B 智能硬件行业 · 某国内头部打印设备品牌。24 小时内极速完成核心关键词的 AI 大模型露出优化，首推率超 80%。</p>
-        </article>
+      <!-- 旧版翻页结构（保留 hidden 以兼容 JS，避免报错） -->
+      <div class="case-stage" id="caseStage" hidden>
+        <!-- Slides -->
+        <div class="case-slides">
+          <!-- 案例一：B2B 智能硬件 -->
+          <article class="case-slide is-active" data-idx="0">
+            <div class="case-visual">
+              <svg class="case-viz" viewBox="0 0 400 300" fill="none" aria-hidden="true">
+                <defs>
+                  <linearGradient id="caseGrad1" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#2F66FF" stop-opacity="0.8"/>
+                    <stop offset="100%" stop-color="#2F66FF" stop-opacity="0.05"/>
+                  </linearGradient>
+                </defs>
+                <!-- 折线增长图 -->
+                <path d="M 30 250 L 90 220 L 150 180 L 210 120 L 270 80 L 330 50 L 370 30" stroke="#2F66FF" stroke-width="3" stroke-linecap="round" fill="none"/>
+                <path d="M 30 250 L 90 220 L 150 180 L 210 120 L 270 80 L 330 50 L 370 30 L 370 280 L 30 280 Z" fill="url(#caseGrad1)"/>
+                <!-- 节点 -->
+                <circle cx="30" cy="250" r="4" fill="#2F66FF"/>
+                <circle cx="150" cy="180" r="4" fill="#2F66FF"/>
+                <circle cx="270" cy="80" r="6" fill="#FFFFFF" stroke="#2F66FF" stroke-width="3"/>
+                <circle cx="370" cy="30" r="4" fill="#2F66FF"/>
+                <!-- 坐标轴 -->
+                <line x1="20" y1="280" x2="380" y2="280" stroke="rgba(120,180,255,0.2)" stroke-width="1"/>
+                <line x1="20" y1="20" x2="20" y2="280" stroke="rgba(120,180,255,0.2)" stroke-width="1"/>
+                <!-- 标签 -->
+                <text x="270" y="65" fill="#FFFFFF" font-size="13" font-weight="600" text-anchor="middle">300%</text>
+              </svg>
+              <div class="case-industry">B2B 智能硬件</div>
+            </div>
+            <div class="case-detail">
+              <div class="case-tag-row">
+                <span class="case-tag">案例一</span>
+                <span class="case-subtag">某国内头部打印设备品牌</span>
+              </div>
+              <div class="case-metric-line">
+                <span class="case-metric-num" data-countup data-target="300" data-decimals="0" data-suffix="%">0%</span>
+                <span class="case-metric-label">AI 核心搜索场景曝光量提升</span>
+              </div>
+              <p class="case-desc">24 小时内极速完成核心关键词的 AI 大模型露出优化。在各大主流大模型"专业设备推荐"场景下，实现首推率超 80%。品牌权威性评分（基于 EEAT 模型）大幅跃升，直接助力官网高意向流量增长 45%，用户决策周期大幅缩短 50%。</p>
+              <blockquote class="case-quote">
+                "过去我们在传统搜索里争夺流量，现在智优康赛帮我们在 AI 的大脑里直接登上了首选推荐。"
+                <cite class="case-quote-cite">—— 首席营销官（CMO）</cite>
+              </blockquote>
+            </div>
+          </article>
 
-        <article class="metric-card alan-up">
-          <div class="metric-number" data-countup data-target="1.1" data-decimals="1" data-suffix="亿+">0亿+</div>
-          <h3 class="metric-label">全场景 AI 深度解析覆盖曝光</h3>
-          <p class="metric-desc">快消与大健康行业 · 某跨国营养健康巨头。构建全网多模态知识库矩阵，核心词推荐 KPI 达成率超 113%。</p>
-        </article>
+          <!-- 案例二：快消大健康 -->
+          <article class="case-slide" data-idx="1">
+            <div class="case-visual">
+              <svg class="case-viz" viewBox="0 0 400 300" fill="none" aria-hidden="true">
+                <defs>
+                  <radialGradient id="caseGrad2" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stop-color="#2F66FF" stop-opacity="0.6"/>
+                    <stop offset="100%" stop-color="#2F66FF" stop-opacity="0"/>
+                  </radialGradient>
+                </defs>
+                <!-- 同心圆波纹（代表"覆盖") -->
+                <circle cx="200" cy="150" r="120" fill="none" stroke="rgba(120,180,255,0.15)" stroke-width="1"/>
+                <circle cx="200" cy="150" r="90" fill="none" stroke="rgba(120,180,255,0.25)" stroke-width="1"/>
+                <circle cx="200" cy="150" r="60" fill="none" stroke="rgba(120,180,255,0.4)" stroke-width="1.5"/>
+                <circle cx="200" cy="150" r="30" fill="url(#caseGrad2)"/>
+                <!-- 中心节点 -->
+                <circle cx="200" cy="150" r="10" fill="#2F66FF"/>
+                <!-- 周围节点（多平台覆盖示意） -->
+                <circle cx="80" cy="150" r="5" fill="#6FA3FF"/>
+                <circle cx="200" cy="30" r="5" fill="#6FA3FF"/>
+                <circle cx="320" cy="150" r="5" fill="#6FA3FF"/>
+                <circle cx="200" cy="270" r="5" fill="#6FA3FF"/>
+                <circle cx="115" cy="65" r="4" fill="#6FA3FF" opacity="0.7"/>
+                <circle cx="285" cy="65" r="4" fill="#6FA3FF" opacity="0.7"/>
+                <circle cx="285" cy="235" r="4" fill="#6FA3FF" opacity="0.7"/>
+                <circle cx="115" cy="235" r="4" fill="#6FA3FF" opacity="0.7"/>
+                <!-- 连接线 -->
+                <line x1="200" y1="150" x2="80" y2="150" stroke="rgba(120,180,255,0.2)" stroke-width="1"/>
+                <line x1="200" y1="150" x2="200" y2="30" stroke="rgba(120,180,255,0.2)" stroke-width="1"/>
+                <line x1="200" y1="150" x2="320" y2="150" stroke="rgba(120,180,255,0.2)" stroke-width="1"/>
+                <line x1="200" y1="150" x2="200" y2="270" stroke="rgba(120,180,255,0.2)" stroke-width="1"/>
+              </svg>
+              <div class="case-industry">快消大健康</div>
+            </div>
+            <div class="case-detail">
+              <div class="case-tag-row">
+                <span class="case-tag">案例二</span>
+                <span class="case-subtag">某跨国营养健康巨头</span>
+              </div>
+              <div class="case-metric-line">
+                <span class="case-metric-num" data-countup data-target="1.1" data-decimals="1" data-suffix="亿+">0亿+</span>
+                <span class="case-metric-label">全场景 AI 深度解析覆盖曝光</span>
+              </div>
+              <p class="case-desc">面对复杂的消费者提问与评测对比，为其构建了全网多模态知识库矩阵。确保企业核心资产被大模型精准理解与高权重收录。围绕六大高频交互场景构建坚实的舆情防火墙，核心词推荐 KPI 达成率超 113%。</p>
+            </div>
+          </article>
 
-        <article class="metric-card alan-up">
-          <div class="metric-number" data-countup data-target="37.22" data-decimals="2" data-suffix="%">0%</div>
-          <h3 class="metric-label">精准高潜 Leads 线索量激增</h3>
-          <p class="metric-desc">精密制造与生命科学行业 · 某全球头部仪器品牌。通过细颗粒度意图洞察与高转化提示词布局，CTR 跃升 14.52%。</p>
-        </article>
+          <!-- 案例三：精密制造生命科学 -->
+          <article class="case-slide" data-idx="2">
+            <div class="case-visual">
+              <svg class="case-viz" viewBox="0 0 400 300" fill="none" aria-hidden="true">
+                <defs>
+                  <linearGradient id="caseGrad3" x1="0" y1="1" x2="0" y2="0">
+                    <stop offset="0%" stop-color="#2F66FF" stop-opacity="0.15"/>
+                    <stop offset="100%" stop-color="#2F66FF" stop-opacity="0.7"/>
+                  </linearGradient>
+                </defs>
+                <!-- 柱状递增 -->
+                <rect x="40" y="220" width="40" height="60" rx="4" fill="rgba(120,180,255,0.15)"/>
+                <rect x="100" y="180" width="40" height="100" rx="4" fill="rgba(120,180,255,0.3)"/>
+                <rect x="160" y="140" width="40" height="140" rx="4" fill="rgba(120,180,255,0.5)"/>
+                <rect x="220" y="80" width="40" height="200" rx="4" fill="url(#caseGrad3)"/>
+                <rect x="280" y="40" width="40" height="240" rx="4" fill="#2F66FF"/>
+                <!-- 顶部数字标签 -->
+                <text x="300" y="30" fill="#FFFFFF" font-size="14" font-weight="700" text-anchor="middle">37.22%</text>
+                <!-- 趋势线 -->
+                <path d="M 60 220 L 120 180 L 180 140 L 240 80 L 300 40" stroke="#FFFFFF" stroke-width="1.5" stroke-dasharray="3 3" fill="none" opacity="0.6"/>
+              </svg>
+              <div class="case-industry">精密制造 · 生命科学</div>
+            </div>
+            <div class="case-detail">
+              <div class="case-tag-row">
+                <span class="case-tag">案例三</span>
+                <span class="case-subtag">某全球头部仪器品牌</span>
+              </div>
+              <div class="case-metric-line">
+                <span class="case-metric-num" data-countup data-target="37.22" data-decimals="2" data-suffix="%">0%</span>
+                <span class="case-metric-label">精准高潜 Leads 线索量激增</span>
+              </div>
+              <p class="case-desc">在竞争极其激烈的专业设备行业，通过细颗粒度的意图洞察与高转化提示词（Prompt）布局，精准命中专业采购人员的 AI 查询场景。通过高质量学术内容与行业白皮书的权威信源植入，实现点击通过率（CTR）跃升 14.52%。</p>
+              <blockquote class="case-quote">
+                "在使用智优康赛之前，AI 搜索对我们来说完全是一个黑盒。但现在，依托他们的专家智库，AI 已经成为了我们最高效的精准线索增长引擎。"
+                <cite class="case-quote-cite">—— 某世界 500 强企业 · 增长与需求副总裁</cite>
+              </blockquote>
+            </div>
+          </article>
+        </div>
+
+        <!-- 翻页控制 -->
+        <div class="case-controls">
+          <button class="case-arrow case-arrow-prev" aria-label="上一个案例" id="casePrev">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M15 18l-6-6 6-6"/>
+            </svg>
+          </button>
+          <div class="case-counter">
+            <span class="case-counter-current" id="caseCurrent">1</span>
+            <span class="case-counter-divider">/</span>
+            <span class="case-counter-total">3</span>
+          </div>
+          <button class="case-arrow case-arrow-next" aria-label="下一个案例" id="caseNext">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 6l6 6-6 6"/>
+            </svg>
+          </button>
+        </div>
       </div>
     </div>
   </section>
@@ -407,10 +887,13 @@
   <!-- ========== 行业根基与权威认证 ========== -->
   <section class="authority-section" aria-labelledby="authority-title">
     <div class="container">
-      <div class="section-head section-head--left">
-        <h2 class="section-title" id="authority-title">深厚的行业根基与权威认证</h2>
-        <p class="section-lead">智优康赛不仅是国家高新技术企业，更获评为北京市专精特新企业，为客户提供最可靠的硬核技术与交付保障。</p>
+      <div class="section-head section-head--left section-head--v2"
+           data-section="06"
+           data-section-en="CREDENTIALS"
+           data-section-meta="NETCONCEPTS · SINCE 1999">
+        <h2 class="section-title" id="authority-title">深厚的<em>行业根基</em>与权威认证</h2>
       </div>
+      <p class="section-lead">智优康赛不仅是国家高新技术企业，更获评为北京市专精特新企业，为客户提供最可靠的硬核技术与交付保障。</p>
 
       <div class="authority-grid alan-parent">
         <article class="authority-card alan-up">
@@ -447,64 +930,122 @@
   <!-- ========== 客户评价 ========== -->
   <section class="testimonials-section" aria-labelledby="testimonials-title">
     <div class="container">
-      <div class="section-head">
-        <h2 class="section-title" id="testimonials-title">备受全球顶尖营销人员与<br />头部品牌信赖</h2>
+      <div class="section-head section-head--v2"
+           data-section="07"
+           data-section-en="TESTIMONIALS"
+           data-section-meta="13 客户原声 · 8 长评 + 5 短评">
+        <h2 class="section-title" id="testimonials-title">备受全球顶尖营销人员与<br /><em>头部品牌信赖</em></h2>
       </div>
 
-      <!-- 主区：聚光灯轮播 -->
+      <!-- 主区：3 卡聚光灯轮播（中心激活 + 左右淡卡 + 行业头像 + 大水印） -->
       <div class="spotlight" id="spotlight">
-        <div class="spotlight-quote-mark" aria-hidden="true">"</div>
         <div class="spotlight-stage">
-          <article class="spotlight-slide is-active">
+          <article class="spotlight-card is-active" data-idx="0" data-watermark="科技">
+            <div class="spotlight-avatar" aria-hidden="true">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="14" y="14" width="20" height="20" rx="2"/><path d="M18 6v8M30 6v8M18 34v8M30 34v8M6 18h8M6 30h8M34 18h8M34 30h8"/><circle cx="24" cy="24" r="3" fill="currentColor" stroke="none"/></svg>
+            </div>
             <blockquote class="spotlight-quote">智优康赛是我们在 AI 搜索时代最重要的战略合作伙伴。他们不仅帮我们在百度、谷歌保持了第一的排名，更重要的是，在 ChatGPT、文心一言、豆包等所有主流 AI 平台上，我们的品牌都获得了优先推荐。这让我们在行业竞争中占据了绝对的先发优势。</blockquote>
-            <div class="spotlight-author">— 某知名科技公司 · 市场副总裁</div>
-            <div class="spotlight-result">合作成果：AI 搜索流量增长 <strong>320%</strong>，自然获客成本降低 <strong>45%</strong></div>
+            <div class="spotlight-meta">
+              <div class="spotlight-author">某知名科技公司 · 市场副总裁</div>
+              <div class="spotlight-result"><span class="result-label">合作成果</span>AI 搜索流量增长 <strong>320%</strong> · 自然获客成本降低 <strong>45%</strong></div>
+            </div>
           </article>
-          <article class="spotlight-slide">
+
+          <article class="spotlight-card" data-idx="1" data-watermark="上市">
+            <div class="spotlight-avatar" aria-hidden="true">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 42V14l16-8 16 8v28"/><path d="M16 22h4v6h-4zM20 32h4v6h-4zM28 22h4v6h-4zM28 32h4v6h-4z"/><path d="M6 42h36"/></svg>
+            </div>
             <blockquote class="spotlight-quote">作为一家上市公司，我们对数字营销的要求非常高。智优康赛的 AI 驱动 GEO 解决方案彻底改变了我们的获客模式。他们的技术团队非常专业，能够精准把握搜索引擎算法的变化，特别是在大模型时代，他们的前瞻性让我们受益匪浅。</blockquote>
-            <div class="spotlight-author">— 某上市公司 · 数字营销总监</div>
-            <div class="spotlight-result">合作成果：自然搜索收入占比从 <strong>12%</strong> 提升至 <strong>38%</strong>，ROI 达到 <strong>1:8.5</strong></div>
+            <div class="spotlight-meta">
+              <div class="spotlight-author">某上市公司 · 数字营销总监</div>
+              <div class="spotlight-result"><span class="result-label">合作成果</span>自然搜索收入占比从 <strong>12%</strong> 提升至 <strong>38%</strong> · ROI 达 <strong>1:8.5</strong></div>
+            </div>
           </article>
-          <article class="spotlight-slide">
+
+          <article class="spotlight-card" data-idx="2" data-watermark="企业服务">
+            <div class="spotlight-avatar" aria-hidden="true">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="10"/><circle cx="24" cy="24" r="3" fill="currentColor" stroke="none"/><circle cx="8" cy="12" r="3"/><circle cx="8" cy="36" r="3"/><circle cx="40" cy="12" r="3"/><circle cx="40" cy="36" r="3"/><line x1="11" y1="13" x2="16" y2="18"/><line x1="11" y1="35" x2="16" y2="30"/><line x1="37" y1="13" x2="32" y2="18"/><line x1="37" y1="35" x2="32" y2="30"/></svg>
+            </div>
             <blockquote class="spotlight-quote">我们是一家 To B 的企业服务公司，之前尝试过很多获客方式，效果都不理想。直到和智优康赛合作，他们的 AI GEO 技术帮我们精准定位了目标客户。现在我们 70% 的新客户都来自于自然搜索，而且都是高质量的意向客户。</blockquote>
-            <div class="spotlight-author">— 某企业服务公司 · CEO</div>
-            <div class="spotlight-result">合作成果：精准线索量增长 <strong>280%</strong>，销售转化率提升 <strong>60%</strong></div>
+            <div class="spotlight-meta">
+              <div class="spotlight-author">某企业服务公司 · CEO</div>
+              <div class="spotlight-result"><span class="result-label">合作成果</span>精准线索量增长 <strong>280%</strong> · 销售转化率提升 <strong>60%</strong></div>
+            </div>
           </article>
-          <article class="spotlight-slide">
+
+          <article class="spotlight-card" data-idx="3" data-watermark="工业">
+            <div class="spotlight-avatar" aria-hidden="true">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="4"/><path d="M24 6v6M24 36v6M6 24h6M36 24h6M11 11l4 4M33 33l4 4M11 37l4-4M33 15l4-4"/><circle cx="24" cy="24" r="14" stroke-dasharray="2 4"/></svg>
+            </div>
             <blockquote class="spotlight-quote">智优康赛最让我佩服的是他们对 AI 搜索的理解深度。当其他 SEO 公司还在研究关键词排名的时候，他们已经在帮我们布局 AI 回答的内容矩阵了。现在客户在问 AI 任何关于我们行业的问题，第一个推荐的都是我们公司。</blockquote>
-            <div class="spotlight-author">— 某工业自动化公司 · 市场总监</div>
-            <div class="spotlight-result">合作成果：AI 平台咨询量增长 <strong>450%</strong>，品牌知名度提升 <strong>3 倍</strong></div>
+            <div class="spotlight-meta">
+              <div class="spotlight-author">某工业自动化公司 · 市场总监</div>
+              <div class="spotlight-result"><span class="result-label">合作成果</span>AI 平台咨询量增长 <strong>450%</strong> · 品牌知名度提升 <strong>3 倍</strong></div>
+            </div>
           </article>
-          <article class="spotlight-slide">
+
+          <article class="spotlight-card" data-idx="4" data-watermark="电商">
+            <div class="spotlight-avatar" aria-hidden="true">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h6l4 24h24l4-16H16"/><circle cx="20" cy="40" r="3"/><circle cx="36" cy="40" r="3"/></svg>
+            </div>
             <blockquote class="spotlight-quote">我们是一家电商公司，竞争非常激烈。智优康赛的全平台 GEO 优化方案帮我们在百度、淘宝、小红书、抖音等所有平台都获得了很好的排名。特别是他们的 AI 内容生成技术，大大提高了我们的内容产出效率和质量。</blockquote>
-            <div class="spotlight-author">— 某电商品牌 · 创始人</div>
-            <div class="spotlight-result">合作成果：全平台自然流量增长 <strong>520%</strong>，销售额增长 <strong>210%</strong></div>
+            <div class="spotlight-meta">
+              <div class="spotlight-author">某电商品牌 · 创始人</div>
+              <div class="spotlight-result"><span class="result-label">合作成果</span>全平台自然流量增长 <strong>520%</strong> · 销售额增长 <strong>210%</strong></div>
+            </div>
           </article>
-          <article class="spotlight-slide">
+
+          <article class="spotlight-card" data-idx="5" data-watermark="教育">
+            <div class="spotlight-avatar" aria-hidden="true">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 10h14a4 4 0 0 1 4 4v26"/><path d="M42 10H28a4 4 0 0 0-4 4v26"/><path d="M6 10v28h36V10"/><path d="M12 18h6M12 24h6M30 18h6M30 24h6"/></svg>
+            </div>
             <blockquote class="spotlight-quote">智优康赛的服务真的超出了我的预期。他们不仅帮我们提升了搜索排名，更重要的是，他们会从用户的角度出发，优化我们的网站体验和转化路径。现在我们的网站跳出率降低了 40%，转化率提升了 35%。</blockquote>
-            <div class="spotlight-author">— 某教育科技公司 · 运营负责人</div>
-            <div class="spotlight-result">合作成果：自然注册量增长 <strong>360%</strong>，获客成本降低 <strong>50%</strong></div>
+            <div class="spotlight-meta">
+              <div class="spotlight-author">某教育科技公司 · 运营负责人</div>
+              <div class="spotlight-result"><span class="result-label">合作成果</span>自然注册量增长 <strong>360%</strong> · 获客成本降低 <strong>50%</strong></div>
+            </div>
           </article>
-          <article class="spotlight-slide">
+
+          <article class="spotlight-card" data-idx="6" data-watermark="初创">
+            <div class="spotlight-avatar" aria-hidden="true">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M24 6c8 6 12 14 12 22l-6 6h-12l-6-6c0-8 4-16 12-22z"/><circle cx="24" cy="20" r="3"/><path d="M18 36l-4 6M30 36l4 6M24 36v6"/></svg>
+            </div>
             <blockquote class="spotlight-quote">作为一家初创公司，我们没有太多的营销预算。智优康赛的 GEO 服务帮我们用最低的成本获得了最高的回报。在他们的帮助下，我们只用了 6 个月的时间，就从一个默默无闻的小公司变成了行业内的知名品牌。</blockquote>
-            <div class="spotlight-author">— 某初创科技公司 · 创始人</div>
-            <div class="spotlight-result">合作成果：品牌搜索量增长 <strong>1200%</strong>，月均自然获客超过 <strong>500 个</strong></div>
+            <div class="spotlight-meta">
+              <div class="spotlight-author">某初创科技公司 · 创始人</div>
+              <div class="spotlight-result"><span class="result-label">合作成果</span>品牌搜索量增长 <strong>1200%</strong> · 月均自然获客超 <strong>500 个</strong></div>
+            </div>
           </article>
-          <article class="spotlight-slide">
+
+          <article class="spotlight-card" data-idx="7" data-watermark="互联网">
+            <div class="spotlight-avatar" aria-hidden="true">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 32a8 8 0 0 1 0-16 12 12 0 0 1 22-2 7 7 0 0 1 4 13"/><path d="M14 32h26"/><circle cx="14" cy="32" r="3"/><circle cx="40" cy="32" r="3"/></svg>
+            </div>
             <blockquote class="spotlight-quote">智优康赛的团队非常专业和负责。他们会定期给我们发送详细的数据分析报告，告诉我们哪些地方做得好，哪些地方需要改进。他们就像我们自己的市场团队一样，真心实意地为我们的增长着想。</blockquote>
-            <div class="spotlight-author">— 某互联网初创公司 · 市场经理</div>
-            <div class="spotlight-result">合作成果：网站日活从 <strong>300</strong> 增长到 <strong>5000</strong>，用户留存率提升 <strong>45%</strong></div>
+            <div class="spotlight-meta">
+              <div class="spotlight-author">某互联网初创公司 · 市场经理</div>
+              <div class="spotlight-result"><span class="result-label">合作成果</span>网站日活从 <strong>300</strong> 增长到 <strong>5000</strong> · 用户留存率提升 <strong>45%</strong></div>
+            </div>
           </article>
         </div>
-        <div class="spotlight-dots" role="tablist" aria-label="切换客户评价">
-          <button class="spotlight-dot is-active" data-idx="0" aria-label="第 1 条"></button>
-          <button class="spotlight-dot" data-idx="1" aria-label="第 2 条"></button>
-          <button class="spotlight-dot" data-idx="2" aria-label="第 3 条"></button>
-          <button class="spotlight-dot" data-idx="3" aria-label="第 4 条"></button>
-          <button class="spotlight-dot" data-idx="4" aria-label="第 5 条"></button>
-          <button class="spotlight-dot" data-idx="5" aria-label="第 6 条"></button>
-          <button class="spotlight-dot" data-idx="6" aria-label="第 7 条"></button>
-          <button class="spotlight-dot" data-idx="7" aria-label="第 8 条"></button>
+
+        <div class="spotlight-controls">
+          <button class="spotlight-arrow spotlight-arrow-prev" id="spotPrev" aria-label="上一条评价">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <div class="spotlight-dots" role="tablist" aria-label="切换客户评价">
+            <button class="spotlight-dot is-active" data-idx="0" aria-label="第 1 条"></button>
+            <button class="spotlight-dot" data-idx="1" aria-label="第 2 条"></button>
+            <button class="spotlight-dot" data-idx="2" aria-label="第 3 条"></button>
+            <button class="spotlight-dot" data-idx="3" aria-label="第 4 条"></button>
+            <button class="spotlight-dot" data-idx="4" aria-label="第 5 条"></button>
+            <button class="spotlight-dot" data-idx="5" aria-label="第 6 条"></button>
+            <button class="spotlight-dot" data-idx="6" aria-label="第 7 条"></button>
+            <button class="spotlight-dot" data-idx="7" aria-label="第 8 条"></button>
+          </div>
+          <button class="spotlight-arrow spotlight-arrow-next" id="spotNext" aria-label="下一条评价">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+          </button>
         </div>
       </div>
 
@@ -532,13 +1073,22 @@
   <!-- ========== 合作品牌 Logo 墙 ========== -->
   <section class="logos-section" aria-labelledby="logos-title">
     <div class="container">
-      <div class="section-head">
-        <h2 class="section-title" id="logos-title">服务超千家行业头部品牌</h2>
-        <p class="section-lead">智优康赛拥有 <strong style="color:var(--text);">1000+</strong> 客户服务经验，成功帮助各行业头部品牌实现流量突破、商业转化与业务可持续增长。</p>
+      <div class="section-head section-head--v2"
+           data-section="08"
+           data-section-en="CLIENT ROSTER"
+           data-section-meta="1000+ BRANDS · 6 INDUSTRIES">
+        <h2 class="section-title" id="logos-title">服务超千家<em>行业头部品牌</em></h2>
       </div>
+      <p class="section-lead">智优康赛拥有 <strong style="color:var(--text);">1000+</strong> 客户服务经验，成功帮助各行业头部品牌实现流量突破、商业转化与业务可持续增长。</p>
 
-      <!-- Logo 背景墙（8 列上下交替滚动 + 中心 CTA），JS 注入 -->
+      <!-- Logo 背景墙（8 列上下交替滚动 + 流体烟雾 + 中心 CTA），JS 注入 -->
       <div class="logos-marquee" id="logos-marquee" aria-label="合作品牌 Logo">
+        <!-- 流体烟雾底层（钛动 r4 同款） -->
+        <div class="flow-bg" aria-hidden="true">
+          <span class="flow-blob flow-blob-1"></span>
+          <span class="flow-blob flow-blob-2"></span>
+          <span class="flow-blob flow-blob-3"></span>
+        </div>
         <div class="logos-bg-grid" aria-hidden="true">
           <div class="logos-column logos-column-up"></div>
           <div class="logos-column logos-column-down"></div>
@@ -601,7 +1151,10 @@
     <div class="container">
       <div class="contact-grid">
         <div class="contact-intro">
-          <h2 class="section-title" id="contact-title">被 AI 看见，<br />才能被客户选择</h2>
+          <h2 class="section-title contact-title-art" id="contact-title">
+            <span class="contact-title-line"><span class="contact-art-fill">被</span><span class="contact-art-stroke">AI</span><span class="contact-art-fill">看见</span></span>
+            <span class="contact-title-line"><span class="contact-art-fill">才能被</span><span class="contact-art-stroke">客户选择</span></span>
+          </h2>
           <p class="contact-lead">提交您的品牌信息，GEO 专家将为您进行 <strong>1V1 深度扫描</strong>，评估您的品牌在主流 AI 中的推荐指数。</p>
         </div>
 
@@ -714,15 +1267,14 @@
         <div class="footer-brand">
           <img src="images/智优康赛logo.svg" alt="智优康赛 AIconcepts" class="footer-logo" />
           <p class="footer-tag">中国 GEO 第一服务商<br />让每一个优秀的企业都能被世界看见。</p>
-          <p class="footer-meta">国家高新技术企业 · 北京市专精特新企业<br />Since 2008 · 1000+ 客户服务经验</p>
+          <p class="footer-meta">国家高新技术企业 · 北京市专精特新企业<br />成立于 2008 · 1000+ 客户服务经验</p>
         </div>
 
         <div class="footer-col">
           <h4 class="footer-heading">专属服务</h4>
-          <a href="services.html">占有率诊断</a>
-          <a href="services.html">声誉风险管控</a>
-          <a href="services.html">引用源溯源</a>
-          <a href="services.html">全链条 GEO 托管</a>
+          <a href="services.html#stages">4 步交付流程</a>
+          <a href="services.html#manifesto-title">白帽宣言</a>
+          <a href="services.html#contact-form">预约诊断</a>
         </div>
 
         <div class="footer-col">
@@ -738,7 +1290,6 @@
           <a href="about.html">关于我们</a>
           <a href="#contact-form">需求收集</a>
           <a href="about.html">联系我们</a>
-          <a href="about.html">加入我们</a>
         </div>
       </div>
 
@@ -748,6 +1299,13 @@
       </div>
     </div>
   </footer>
+
+  <!-- 回到顶部按钮（滚动超 600px 显示） -->
+  <button class="back-to-top" id="backToTop" aria-label="回到顶部" hidden>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M12 19V5M5 12l7-7 7 7"/>
+    </svg>
+  </button>
 
   <script src="assets/js/index.js"></script>
 </body>

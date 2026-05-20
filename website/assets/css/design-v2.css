@@ -1801,12 +1801,19 @@
 
 /* 全局移动端 overflow 防御 */
 @media (max-width: 768px) {
-  /* 部分 V2 卡片 padding 改小避免溢出 */
+  /* 部分 V2 卡片 padding 改小避免溢出
+     注：.metrics-v2__stack 已经在 .container 里，再叠 gutter 会双重缩窄，移除 */
   .pain-v2__inner,
   .services-v2 .container,
-  .sol-v2 .container,
-  .metrics-v2__stack {
+  .sol-v2 .container {
     padding-inline: var(--gutter);
+  }
+  .metrics-v2__stack {
+    padding-inline: 0;
+  }
+  /* metric 卡内部 padding 在手机端收紧 28→16，给中文 metric 文案让位 */
+  .metric-v2 {
+    padding: 18px 16px;
   }
 
   /* 大字 hero 主标题不溢出 */

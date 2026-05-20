@@ -3682,20 +3682,19 @@ body.preloader-active {
   gap: 0.2em;
 }
 .contact-art-fill {
-  color: var(--text);
+  color: var(--text, #FFFFFF);
 }
+/* AI / 客户选择 等强调字：纯实色亮蓝 + 微光晕，
+   跨浏览器一致（去掉之前 stroke + gradient-clip + text-shadow 三层叠加） */
 .contact-art-stroke {
-  /* 描边效果：仅边框 + 透明填充 */
-  color: transparent;
-  -webkit-text-stroke: 1.5px var(--accent);
-  text-stroke: 1.5px var(--accent);
-  /* 渐变描边升级（仅 Chrome / WebKit 支持） */
-  background: linear-gradient(135deg, #6FA3FF, #2F66FF, #7C5CFF);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  /* fallback: 描边色 */
-  text-shadow: 0 0 1px rgba(120, 180, 255, 0.5);
+  color: #4F8AFF;
+  -webkit-text-fill-color: currentColor;
+  -webkit-text-stroke: 0;
+  background: none;
+  font-weight: 700;
+  text-shadow:
+    0 0 8px rgba(79, 138, 255, 0.35),
+    0 0 18px rgba(47, 102, 255, 0.22);
 }
 
 /* ===========================================

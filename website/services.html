@@ -140,8 +140,8 @@
       <p class="section-lead">从企业营销需求确认到下年度营销规划 —— <strong>8 大业务合作里程碑</strong>，与上方 4 阶段 GEO 交付方法论形成完整闭环。</p>
 
       <div class="coopsnake-wrap reveal" id="coopSnake">
-        <!-- 蛇形连接线（SVG，scroll 触发描线动画） -->
-        <svg class="coopsnake-svg" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+        <!-- 蛇形连接线（SVG · path d 由 JS 根据 icon 实际中心动态生成） -->
+        <svg class="coopsnake-svg" aria-hidden="true">
           <defs>
             <linearGradient id="coopSnakeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%"  stop-color="#4A8BFF"/>
@@ -151,23 +151,12 @@
               <stop offset="100%" stop-color="#5DA3FF"/>
             </linearGradient>
           </defs>
-          <!-- 桌面/平板蛇形路径：上排 LTR → 右侧弯钩下来 → 下排 RTL -->
-          <path class="coopsnake-path coopsnake-path--desktop"
-                d="M 12.5 18 L 87.5 18 C 99 18, 99 82, 87.5 82 L 12.5 82"
+          <path class="coopsnake-path" id="coopSnakePath"
                 fill="none"
                 stroke="url(#coopSnakeGrad)"
                 stroke-width="2"
                 stroke-linecap="round"
-                vector-effect="non-scaling-stroke"
-                pathLength="1"/>
-          <!-- 手机蛇形路径：2 列 × 4 行 蛇形 -->
-          <path class="coopsnake-path coopsnake-path--mobile"
-                d="M 25 12.5 L 75 12.5 C 92 12.5, 92 37.5, 75 37.5 L 25 37.5 C 8 37.5, 8 62.5, 25 62.5 L 75 62.5 C 92 62.5, 92 87.5, 75 87.5 L 25 87.5"
-                fill="none"
-                stroke="url(#coopSnakeGrad)"
-                stroke-width="2"
-                stroke-linecap="round"
-                vector-effect="non-scaling-stroke"
+                stroke-linejoin="round"
                 pathLength="1"/>
         </svg>
 

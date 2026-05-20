@@ -1315,4 +1315,97 @@
       if (window.innerWidth <= MOBILE_BP) enable();
     }, { passive: true });
   })();
+
+  /* ============================================
+     services.html · 合作流程蛇形 SVG 动态对齐
+     测量每个 icon 中心，生成精确的 path d，
+     桌面/手机两种 grid layout 分别处理
+     ============================================ */
+  (function setupCoopSnake() {
+    const wrap = document.getElementById('coopSnake');
+    if (!wrap) return;
+    const svg = wrap.querySelector('.coopsnake-svg');
+    const path = document.getElementById('coopSnakePath');
+    const nodes = wrap.querySelectorAll('.coopsnake__node');
+    if (!svg || !path || nodes.length !== 8) return;
+
+    const MOBILE_BP = 640;
+
+    function buildPath() {
+      const wrapRect = wrap.getBoundingClientRect();
+      const sw = wrapRect.width;
+      const sh = wrapRect.height;
+      if (sw === 0 || sh === 0) return;
+
+      // 同步 SVG viewBox 到 wrap 实际尺寸（user units = px，1:1 映射）
+      svg.setAttribute('viewBox', `0 0 ${sw} ${sh}`);
+      svg.setAttribute('preserveAspectRatio', 'none');
+
+      // 收集 8 个 icon 中心相对 wrap 左上角的坐标
+      const centers = [];
+      nodes.forEach((node) => {
+        const icon = node.querySelector('.coopsnake__icon');
+        if (!icon) return;
+        const r = icon.getBoundingClientRect();
+        centers.push({
+          x: r.left + r.width / 2 - wrapRect.left,
+          y: r.top + r.height / 2 - wrapRect.top
+        });
+      });
+      if (centers.length !== 8) return;
+
+      const isMobile = window.innerWidth <= MOBILE_BP;
+      let d;
+
+      if (isMobile) {
+        // 手机 2×4：1→2 (LTR), 2↘3 弯钩, 3→4 (RTL), 4↙5 弯钩,
+        //          5→6 (LTR), 6↘7 弯钩, 7→8 (RTL)
+        const c = centers;
+        const colGap = Math.abs(c[1].x - c[0].x);
+        const overshoot = Math.max(20, colGap * 0.35);
+        d = [
+          `M ${c[0].x} ${c[0].y}`,
+          `L ${c[1].x} ${c[1].y}`,
+          `C ${c[1].x + overshoot} ${c[1].y}, ${c[2].x + overshoot} ${c[2].y}, ${c[2].x} ${c[2].y}`,
+          `L ${c[3].x} ${c[3].y}`,
+          `C ${c[3].x - overshoot} ${c[3].y}, ${c[4].x - overshoot} ${c[4].y}, ${c[4].x} ${c[4].y}`,
+          `L ${c[5].x} ${c[5].y}`,
+          `C ${c[5].x + overshoot} ${c[5].y}, ${c[6].x + overshoot} ${c[6].y}, ${c[6].x} ${c[6].y}`,
+          `L ${c[7].x} ${c[7].y}`
+        ].join(' ');
+      } else {
+        // 桌面 4×2：1→2→3→4 LTR（top row），4↘5 弯钩，5→6→7→8 RTL（bottom row）
+        // 节点 5 在右下角对应 col 4 row 2，节点 8 在左下角对应 col 1 row 2
+        const c = centers;
+        const colGap = Math.abs(c[1].x - c[0].x);
+        const overshoot = Math.max(40, colGap * 0.4);
+        d = [
+          `M ${c[0].x} ${c[0].y}`,
+          `L ${c[3].x} ${c[3].y}`,
+          `C ${c[3].x + overshoot} ${c[3].y}, ${c[4].x + overshoot} ${c[4].y}, ${c[4].x} ${c[4].y}`,
+          `L ${c[7].x} ${c[7].y}`
+        ].join(' ');
+      }
+      path.setAttribute('d', d);
+    }
+
+    // 首次构建（等字体/图片加载完，layout 稳定）
+    function init() {
+      buildPath();
+      // 双保险：下一帧再算一次（防止 web font 后置加载导致 label 高度变化）
+      requestAnimationFrame(buildPath);
+    }
+    if (document.readyState === 'complete') {
+      init();
+    } else {
+      window.addEventListener('load', init, { once: true });
+    }
+
+    // resize 时重算（防抖）
+    let resizeTimer = null;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(buildPath, 120);
+    }, { passive: true });
+  })();
 })();

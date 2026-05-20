@@ -4049,15 +4049,13 @@
   padding: 30px 20px 10px;
 }
 
-/* SVG 蛇形线 */
+/* SVG 蛇形线（覆盖整个 wrap，path d 由 JS 动态生成） */
 .coopsnake-svg {
   position: absolute;
-  top: 30px;
-  left: 20px;
-  right: 20px;
-  bottom: 10px;
-  width: calc(100% - 40px);
-  height: calc(100% - 40px);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   pointer-events: none;
   z-index: 0;
   overflow: visible;
@@ -4065,11 +4063,9 @@
 .coopsnake-path {
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
-  pathLength: 1;
   filter: drop-shadow(0 0 8px rgba(120, 100, 220, 0.45));
   opacity: 0;
 }
-.coopsnake-path--mobile { display: none; }
 .coopsnake-wrap.is-visible .coopsnake-path {
   opacity: 1;
   animation: coopsnake-draw 1.8s ease-out forwards;
@@ -4205,21 +4201,11 @@
   }
 }
 
-/* ── 手机：切换为 2 × 4 蛇形 + 不同 SVG 路径 ── */
+/* ── 手机：切换为 2 × 4 蛇形（path 仍由 JS 动态生成） ── */
 @media (max-width: 640px) {
   .coopsnake-wrap {
     padding: 24px 12px 10px;
   }
-  .coopsnake-svg {
-    top: 24px;
-    left: 12px;
-    right: 12px;
-    bottom: 10px;
-    width: calc(100% - 24px);
-    height: calc(100% - 34px);
-  }
-  .coopsnake-path--desktop { display: none; }
-  .coopsnake-path--mobile  { display: block; }
 
   .coopsnake {
     grid-template-columns: repeat(2, 1fr);

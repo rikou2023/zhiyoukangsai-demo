@@ -4260,29 +4260,37 @@
 /* ============================================================
    services.html 独家组件 · 拒绝 vs 承诺 对比矩阵 V2
    ============================================================ */
+/* 桌面：两列并排（reject | promise），每列内部纵向列表
+   手机：上下两块（reject 全段 → promise 全段），不再交错 */
 .commitment-v2 {
   margin-top: var(--space-7);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
   background: var(--surface-1);
   border: 1px solid var(--hairline-strong);
   border-radius: var(--radius);
   overflow: hidden;
 }
 
-.commitment-v2__head {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0;
-  border-bottom: 1px solid var(--hairline-strong);
+.commitment-v2__col {
+  display: flex;
+  flex-direction: column;
 }
+.commitment-v2__col--reject {
+  border-right: 1px solid var(--hairline-strong);
+}
+
+/* 列头 */
 .commitment-v2__head-col {
   padding: clamp(20px, 3vw, 32px) clamp(20px, 3vw, 36px);
   display: flex;
   flex-direction: column;
   gap: 8px;
+  border-bottom: 1px solid var(--hairline-strong);
 }
 .commitment-v2__head-col--reject {
   background: var(--surface-2);
-  border-right: 1px solid var(--hairline-strong);
 }
 .commitment-v2__head-col--promise {
   background: var(--primary-soft);
@@ -4311,19 +4319,14 @@
   margin: 0;
 }
 
-.commitment-v2__rows {
+/* 列表 */
+.commitment-v2__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
   display: flex;
   flex-direction: column;
-}
-
-.commitment-v2__row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0;
-  border-bottom: 1px solid var(--hairline);
-}
-.commitment-v2__row:last-child {
-  border-bottom: none;
+  flex: 1;
 }
 
 .commitment-v2__cell {
@@ -4335,10 +4338,14 @@
   font-size: var(--t-body);
   line-height: 1.55;
   position: relative;
+  border-bottom: 1px solid var(--hairline);
   transition: background var(--dur-fast) var(--ease-snap);
 }
+.commitment-v2__list .commitment-v2__cell:last-child {
+  border-bottom: none;
+}
+
 .commitment-v2__cell--reject {
-  border-right: 1px solid var(--hairline-strong);
   color: var(--ink-muted);
 }
 .commitment-v2__cell--reject:hover {
@@ -4347,12 +4354,12 @@
 .commitment-v2__cell--reject::before {
   content: "✕";
   position: absolute;
-  right: 12px;
+  right: 14px;
   top: 50%;
   transform: translateY(-50%);
   font-size: 18px;
   color: var(--signal-error);
-  opacity: 0.4;
+  opacity: 0.55;
   font-weight: 700;
 }
 .commitment-v2__cell--promise {
@@ -4365,7 +4372,7 @@
 .commitment-v2__cell--promise::before {
   content: "✓";
   position: absolute;
-  right: 12px;
+  right: 14px;
   top: 50%;
   transform: translateY(-50%);
   font-size: 18px;
@@ -4373,29 +4380,20 @@
   font-weight: 700;
 }
 
-.commitment-v2__id {
-  font-family: var(--font-mono);
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: var(--ls-wider);
-  color: var(--ink-tertiary);
-  flex-shrink: 0;
-  width: 28px;
-}
-.commitment-v2__cell--promise .commitment-v2__id {
-  color: var(--primary);
-}
-
 .commitment-v2__text {
   flex: 1;
-  padding-right: var(--space-5);
+  padding-right: var(--space-6);
 }
 
+/* 手机：两列堆成上下两块，REJECT 整段 + PROMISE 整段 */
 @media (max-width: 700px) {
-  .commitment-v2__head { grid-template-columns: 1fr; }
-  .commitment-v2__head-col--reject { border-right: none; border-bottom: 1px solid var(--hairline-strong); }
-  .commitment-v2__row { grid-template-columns: 1fr; }
-  .commitment-v2__cell--reject { border-right: none; border-bottom: 1px solid var(--hairline); }
+  .commitment-v2 {
+    grid-template-columns: 1fr;
+  }
+  .commitment-v2__col--reject {
+    border-right: none;
+    border-bottom: 1px solid var(--hairline-strong);
+  }
 }
 
 /* ============================================================

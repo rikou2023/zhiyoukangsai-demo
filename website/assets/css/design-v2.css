@@ -4192,18 +4192,20 @@
   }
 }
 
-/* ──── A. Hero 首屏标题手机端稳定换行 ──── */
-/* 桌面端隐藏可选断行；移动端在 AI 前强制换行，避免「多 1-2 字就乱断行」 */
-.hero-title .hero-br-m { display: none; }
+/* ──── A. Hero 首屏标题 强制一行不换行（桌面/移动都保持单行） ──── */
+.hero-title .title-line-main {
+  white-space: nowrap;
+}
 
-@media (max-width: 640px) {
-  /* 整体收一点字号，AI 放大倍率也收回 */
-  .title-line-main { font-size: clamp(26px, 8.4vw, 36px) !important; }
-  .title-ai { font-size: 1.22em !important; }
-  .hero-title { line-height: 1.22; }
-
-  /* 强制 2 行布局：让您的品牌占领 / AI 第一推荐位 */
-  .hero-title .hero-br-m { display: inline; }
+/* 移动端：字号压到能容纳整句的范围，AI 放大倍率收回 */
+@media (max-width: 768px) {
+  .title-line-main { font-size: clamp(20px, 5.6vw, 28px) !important; }
+  .title-ai        { font-size: 1.18em !important; }
+  .hero-title      { line-height: 1.25; }
+}
+@media (max-width: 380px) {
+  .title-line-main { font-size: clamp(17px, 5.2vw, 22px) !important; }
+  .title-ai        { font-size: 1.12em !important; }
 }
 
 /* ──── G. 客户评价段（spotlight）手机端排版修复 ──── */

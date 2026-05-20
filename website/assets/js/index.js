@@ -740,7 +740,41 @@
     } else {
       start();
     }
+
+    // 鼠标 + 触摸 swipe 切换（左滑 → next，右滑 → prev）
+    attachSwipe(frame, () => { goTo(active - 1); start(); }, () => { goTo(active + 1); start(); });
   })();
+
+  /* ============================================
+     5b. 通用 swipe 工具（鼠标拖动 + 触摸滑动）
+     ============================================ */
+  function attachSwipe(el, onPrev, onNext) {
+    if (!el) return;
+    let sx = null, sy = null, active = false;
+    const TH = 50;
+    el.style.touchAction = 'pan-y';
+    el.style.cursor = 'grab';
+    const down = (e) => {
+      const p = e.touches ? e.touches[0] : e;
+      sx = p.clientX; sy = p.clientY; active = true;
+      el.style.cursor = 'grabbing';
+    };
+    const up = (e) => {
+      if (!active || sx === null) return;
+      const p = e.changedTouches ? e.changedTouches[0] : e;
+      const dx = p.clientX - sx, dy = p.clientY - sy;
+      if (Math.abs(dx) > TH && Math.abs(dx) > Math.abs(dy)) {
+        if (dx < 0) onNext(); else onPrev();
+      }
+      active = false; sx = sy = null;
+      el.style.cursor = 'grab';
+    };
+    el.addEventListener('pointerdown', down, { passive: true });
+    window.addEventListener('pointerup', up, { passive: true });
+    // 触摸事件也接（部分老浏览器 pointer 不全）
+    el.addEventListener('touchstart', down, { passive: true });
+    el.addEventListener('touchend', up, { passive: true });
+  }
 
   /* ============================================
      6. 客户评价段（钛动 r3 风格 3 卡同屏）
@@ -791,6 +825,9 @@
     } else {
       start();
     }
+
+    // 鼠标 + 触摸 swipe 切换
+    attachSwipe(spotlight, () => { goTo(active - 1); start(); }, () => { goTo(active + 1); start(); });
 
     render();
   }

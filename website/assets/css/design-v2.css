@@ -4374,3 +4374,14 @@
 .logos-section .industry-row:nth-child(4)::before { content: "金融与保险" !important; }
 .logos-section .industry-row:nth-child(5)::before { content: "互联网与媒体" !important; }
 .logos-section .industry-row:nth-child(6)::before { content: "电商 · 零售 · 出行" !important; }
+
+/* ──── Q. 痛点段 "客户在问 AI" 的 AI 字明显比中文大 ──── */
+.pain-v2 .title-ai {
+  font-size: 1.4em !important;
+  margin: 0 0.1em !important;
+}
+@media (max-width: 768px) {
+  .pain-v2 .title-ai {
+    font-size: 1.3em !important;
+  }
+}

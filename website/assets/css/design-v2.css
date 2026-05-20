@@ -3767,18 +3767,20 @@
 
 /* ============================================================
    about.html · 4 本出版书籍 V2 编辑陈列
+   桌面：4 列网格 / 平板：2 列 / 手机：无限横向滚动（自动轮播）
    ============================================================ */
 .about-books-v2 {
+  margin-top: var(--space-7);
+}
+.about-books-v2 .about-books-track {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: var(--space-5);
-  margin-top: var(--space-7);
 }
 @media (max-width: 800px) {
-  .about-books-v2 { grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 500px) {
-  .about-books-v2 { grid-template-columns: 1fr; max-width: 320px; margin-left: auto; margin-right: auto; }
+  .about-books-v2 .about-books-track {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 .about-book-v2 {
@@ -3795,6 +3797,54 @@
   max-width: 100%;
   height: auto;
   display: block;
+}
+
+/* ─── 手机端：连续滚动 marquee 自动轮播 ─── */
+@media (max-width: 640px) {
+  .about-books-v2 {
+    overflow: hidden;
+    position: relative;
+    /* 左右两侧渐隐遮罩，让滚动有边界感 */
+    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 6%, #000 94%, transparent 100%);
+            mask-image: linear-gradient(to right, transparent 0, #000 6%, #000 94%, transparent 100%);
+  }
+  .about-books-v2 .about-books-track {
+    display: flex;
+    grid-template-columns: none;
+    flex-wrap: nowrap;
+    gap: 20px;
+    width: max-content;
+    animation: about-books-marquee 22s linear infinite;
+    will-change: transform;
+  }
+  /* track 启用了 marquee 后才暂停 hover/touch */
+  .about-books-v2 .about-books-track.is-marquee-ready:hover,
+  .about-books-v2 .about-books-track.is-marquee-ready:active {
+    animation-play-state: paused;
+  }
+  .about-books-v2 .about-book-v2 {
+    flex: 0 0 auto;
+    width: 200px;
+    max-width: 56vw;
+  }
+  .about-books-v2 .about-book-v2:hover {
+    transform: none;
+  }
+  /* 用户偏好减少动效时，停止自动滚动 */
+  @media (prefers-reduced-motion: reduce) {
+    .about-books-v2 .about-books-track {
+      animation: none;
+    }
+    .about-books-v2 {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+  }
+}
+
+@keyframes about-books-marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
 }
 
 /* ============================================================

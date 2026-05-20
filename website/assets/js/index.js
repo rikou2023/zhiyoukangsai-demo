@@ -1288,4 +1288,31 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   }
+
+  /* ============================================
+     about.html · 出版书籍手机端自动 marquee
+     桌面/平板用网格，手机克隆一份做无缝滚动
+     ============================================ */
+  (function setupBooksMarquee() {
+    const track = document.getElementById('aboutBooksTrack');
+    if (!track) return;
+    const MOBILE_BP = 640;
+    let cloned = false;
+    const enable = () => {
+      if (cloned) return;
+      const items = Array.from(track.children);
+      items.forEach((item) => {
+        const clone = item.cloneNode(true);
+        clone.setAttribute('aria-hidden', 'true');
+        track.appendChild(clone);
+      });
+      track.classList.add('is-marquee-ready');
+      cloned = true;
+    };
+    if (window.innerWidth <= MOBILE_BP) enable();
+    // 用户从桌面缩到手机时也补上克隆（仅一次）
+    window.addEventListener('resize', () => {
+      if (window.innerWidth <= MOBILE_BP) enable();
+    }, { passive: true });
+  })();
 })();
